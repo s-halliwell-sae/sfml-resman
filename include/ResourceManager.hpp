@@ -29,60 +29,68 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include "string"
-#include "BaseResource.hpp"
-
-
+#include <BaseResource.hpp>
+#include <functional>
+#include <string>
+#include <memory>
+#include <map>
+#include <list>
+#include <queue>
 
 namespace rm 
 {
 
+typedef std::shared_ptr<BaseResource> resource_ptr;
 
-
-class ResourceManager;
-
+class ResourceManager
 {
 public:
     ResourceManager();
     virtual ~ResourceManager();
 
+    template<class T>
+    void initResource(std::string path);
+    template<class T>
+    std::shared_ptr<T> loadResource(std::string name, LoadMode mode);
+    template<class T>
+    std::shared_ptr<T> getResource(std::string name);
+    void unloadResource(std::string name, LoadMode mode);
+    void reloadResource(std::string name);
 
-    void InitResource<class T>(std::string path);
-    T LoadResource<class T>(std::string name, LoadMode mode);
-    T getResource<class T>(std::string name);
-    void UnloadResource(std::string name, LoadMode mode);
-    void ReloadResource(std::string name);
+    void initPack(std::string path);
+    void loadPack(std::string path, LoadMode mode);
+    void unloadPack (std::string path, LoadMode mode);
+    void reloadPack(std::string path);
+    void switchPack(std::string path, std::string path);
 
-    void InitPack(std::string path);
-    void LoadPack(std::string path, LoadMode mode);
-    void UnloadPack (std::string path, LoadMode mode);
-    void ReloadPack(std::string path);
-    void SwitchPack(std::string path, std::string path);
+    template<class T>
+    void createErrorResource(std::string path);
+    template<class T>
+    std::shared_ptr<T> getErrorResource();
 
-    void CreateErrorResource<class T>(std::string path);
-    T GetErrorResource<class T>;
-
-	void Init(bool UseNullForErrorRes);
-    void Update();
-    void CleanupUnused();
-    bool IsLoading();
-    size_t GetNumToLoad();
-    list<BaseResource> ListAll();
-    size_t GetRamUse();
-    size_t GenNumResources();
-    void SetLoadCompleteCallback(function callback);
+	void init(bool useNullForErrorRes);
+    void update();
+    void cleanupUnused();
+    bool isLoading();
+    size_t getNumToLoad();
+    std::list<resource_ptr> listAll();
+    size_t getRamUse();
+    size_t genNumResources();
+    void setLoadCompleteCallback(std::function callback);
 
 private:
-    std::map<std::string, BaseResource> resources;
-    std::map<std::string, BaseResource> errorResources;
-    std::queue<BaseResource> loadingQueue;
-	std::queue<BaseResource> unloadQueue;
-	std::queue<BaseResource> reloadQueue;
-	bool UseNullForErrorRes;
-    void LoadFromQueue();
-    void UnloadFromQueue();
-    void ReloadFromQueue();
+    std::map<std::string, resource_ptr> resources;
+    std::map<std::string, resource_ptr> errorResources;
+    std::queue<resource_ptr> loadingQueue;
+	std::queue<resource_ptr> unloadQueue;
+	std::queue<resource_ptr> reloadQueue;
+	bool useNullForErrorRes;
 
-}
+    std::function loadCompleteCallback;
+
+    void loadFromQueue();
+    void unloadFromQueue();
+    void reloadFromQueue();
+};
 
 #endif //RESOURCE_MANAGER_HPP
