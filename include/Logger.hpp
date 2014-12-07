@@ -24,6 +24,7 @@
 
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
+#include <string>
 
 ////////////////////////////////////////////////////////////
 // Headers
@@ -37,14 +38,17 @@ class Logger
 public:
 
     template<typename Arg>
-    void logMessage(const Arg& data);
+    static void logMessage(const Arg& data);
 
     template<typename Arg1, typename... OtherArgs>
-    void logMessage(const Arg1& data, const OtherArgs&... other);
+    static void logMessage(const Arg1& data, const OtherArgs&... other);
+    
+    void setFileLocation(std::string path);
 
 private:
 };
-
+    std::string fileLocation;
+    bool doesPrintOut;
 }
 
 
