@@ -51,23 +51,57 @@ enum class LoadMode
 class ResourceManager
 {
 public:
+
+    //TODO - What the hell does this do again???
     template<class T>
     static void initResource(std::string path);
+
+
+    //ResourceManager loads this single resource and assigns the mode for the queue.
     template<class T>
     static std::shared_ptr<T> loadResource(std::string name, LoadMode mode);
+
+
+    //TODO ... Not understanding exactly what is happening here....
+    //seems that it doesn't return anything except NULL or and error message if not there.
     template<class T>
     static std::shared_ptr<T> getResource(std::string name);
+
+
+    //ResourceManager will unload this single resource and assigns the mode for the queue.
     static void unloadResource(std::string name, LoadMode mode);
+
+
+    //ResourceManager will reload this single resource.
     static void reloadResource(std::string name);
 
+
+    //TODO ????
     static void initPack(std::string path);
+
+
+    //ResourceManager will load this Pack of resources assigning each resource a mode for the queue.
     static void loadPack(std::string path, LoadMode mode);
+
+
+    //ResourceManager will unload this Pack of resources assigning each resource a mode for the queue.
     static void unloadPack (std::string path, LoadMode mode);
+
+
+    //ResourceManager will reload this Pack of resources.
     static void reloadPack(std::string path);
+
+
+    //ResourceManager will switch between these two Packs.
     static void switchPack(std::string path, std::string path);
 
+
+    //User directs the ResourceManager to the error resource for each of the resource types
     template<class T>
     static void createErrorResource(std::string path);
+
+
+    //ResourceManager will return the error resource in the event of failing to find one in "path"
     template<class T>
     static std::shared_ptr<T> getErrorResource();
 
