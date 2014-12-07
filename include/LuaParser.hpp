@@ -35,3 +35,6 @@
 /// Lua Parser that takes in a path name, and returns a list<ResourceData>.
 /// The Parser will 
 ////////////////////////////////////////////////////////////
+
+
+#endif //LUA_PARSER_HPP
