@@ -52,66 +52,86 @@ class ResourceManager
 {
 public:
 
-    //TODO - What the hell does this do again???
+    // Creates a resource stub of type T with the given path but does not load it
     template<class T>
     static void initResource(std::string path);
 
 
-    //ResourceManager loads this single resource and assigns the mode for the queue.
+    // ResourceManager loads this single resource and assigns the mode for the queue.
     template<class T>
     static std::shared_ptr<T> loadResource(std::string name, LoadMode mode);
 
 
-    //TODO ... Not understanding exactly what is happening here....
-    //seems that it doesn't return anything except NULL or and error message if not there.
+    // Returns the resource with the alias name.
+    // If no such resource exists, it returns T's associated error resource
+    // If no error resource exists or useNullForErrorRes is set nullptr is returned instead
     template<class T>
     static std::shared_ptr<T> getResource(std::string name);
 
 
-    //ResourceManager will unload this single resource and assigns the mode for the queue.
+    // ResourceManager will unload this single resource and assigns the mode for the queue.
     static void unloadResource(std::string name, LoadMode mode);
 
 
-    //ResourceManager will reload this single resource.
+    // ResourceManager will reload this single resource.
     static void reloadResource(std::string name);
 
 
-    //TODO ????
+    // Creates resource stubs for each resource specified in the resource pack and all contained resource packs.
+    // Nothing is loaded.
     static void initPack(std::string path);
 
 
-    //ResourceManager will load this Pack of resources assigning each resource a mode for the queue.
+    // ResourceManager will load this Pack of resources assigning each resource a mode for the queue.
     static void loadPack(std::string path, LoadMode mode);
 
 
-    //ResourceManager will unload this Pack of resources assigning each resource a mode for the queue.
+    // ResourceManager will unload this Pack of resources assigning each resource a mode for the queue.
     static void unloadPack (std::string path, LoadMode mode);
 
 
-    //ResourceManager will reload this Pack of resources.
+    // ResourceManager will reload this Pack of resources.
     static void reloadPack(std::string path);
 
 
-    //ResourceManager will switch between these two Packs.
-    static void switchPack(std::string path, std::string path);
+    // ResourceManager will switch between these two Packs.
+    static void switchPack(std::string fromPath, std::string toPath);
 
 
-    //User directs the ResourceManager to the error resource for each of the resource types
+    // User directs the ResourceManager to the error resource for each of the resource types
+    // Loads immediately.
+    // Throws if the file at path either doesn't exist or is of the wrong format
     template<class T>
     static void createErrorResource(std::string path);
 
 
-    //ResourceManager will return the error resource in the event of failing to find one in "path"
+    // Returns the error resource associated with resource type T
+    // Returns nullptr if no resource has been associated with T
     template<class T>
     static std::shared_ptr<T> getErrorResource();
-
-	static void init(bool useNullForErrorRes);
+    
+    // If useNullForErrorRes is set, loadResource and getResource will return nullptr upon fail.
+    // Otherwise loads the default error resources
+    static void init(bool useNullForErrorRes);
     static void update();
+    
+    // Unloads all resources that are owned solely by the ResourceManager
+    // Resource stubs are persistent
     static void cleanupUnused();
+    
+    // Returns true if the loading queue is not empty
     static bool isLoading();
+    
+    // Returns the number of elements in the loading queue
     static size_t getNumToLoad();
+    
+    // Returns a list of all resources managed by the ResourceManager
     static std::list<resource_ptr> listAll();
+    
+    // Returns total memory used by the ResourceManager
     static size_t getRamUse();
+    
+    // Returns the number of resources managed by the ResourceManager
     static size_t genNumResources();
     static void setLoadCompleteCallback(std::function callback);
 
@@ -119,9 +139,9 @@ private:
     static std::map<std::string, resource_ptr> resources;
     static std::map<std::string, resource_ptr> errorResources;
     static std::queue<resource_ptr> loadingQueue;
-	static std::queue<resource_ptr> unloadQueue;
-	static std::queue<resource_ptr> reloadQueue;
-	static bool useNullForErrorRes;
+    static std::queue<resource_ptr> unloadQueue;
+    static std::queue<resource_ptr> reloadQueue;
+    static bool useNullForErrorRes;
 
     static std::function loadCompleteCallback;
 
