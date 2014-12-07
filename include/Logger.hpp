@@ -43,12 +43,13 @@ public:
     template<typename Arg1, typename... OtherArgs>
     static void logMessage(const Arg1& data, const OtherArgs&... other);
     
-    void setFileLocation(std::string path);
+    static void setFileLocation(std::string path);
 
 private:
+    static std::string fileLocation;
+    static bool doesPrintOut;
 };
-    std::string fileLocation;
-    bool doesPrintOut;
+   
 }
 
 
