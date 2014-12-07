@@ -34,8 +34,6 @@ namespace rm
 
 class Logger 
 {
-private:
-
 public:
 
     template<typename Arg>
@@ -43,6 +41,8 @@ public:
 
     template<typename Arg1, typename... OtherArgs>
     void logMessage(const Arg1& data, const OtherArgs&... other);
+
+private:
 };
 
 }

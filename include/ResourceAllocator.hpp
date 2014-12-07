@@ -29,8 +29,25 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
+#include <BaseResource.hpp>
+#include <memory>
+
 namespace rm 
 {
+
+class ResourceAllocatorInterface 
+{
+public:
+    virtual std::shared_ptr<BaseResource> create() = 0;
+};
+
+
+template<class T>
+class ResourceAllocatorImplementation
+{
+public:
+    std::shared_ptr<BaseResource> create() override;
+};
 
 }
 
