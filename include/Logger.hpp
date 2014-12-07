@@ -29,5 +29,23 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
+namespace rm
+{
+
+class Logger 
+{
+private:
+
+public:
+
+    template<typename Arg>
+    void logMessage(const Arg& data);
+
+    template<typename Arg1, typename... OtherArgs>
+    void logMessage(const Arg1& data, const OtherArgs&... other);
+};
+
+}
+
 
 #endif //LOGGER_HPP
