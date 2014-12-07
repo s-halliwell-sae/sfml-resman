@@ -29,8 +29,59 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
+#include "string"
+#include "BaseResource.hpp"
+
+
+
 namespace rm 
 {
+
+
+
+class ResourceManager;
+
+{
+public:
+    ResourceManager();
+    virtual ~ResourceManager();
+
+
+    void InitResource<class T>(std::string path);
+    T LoadResource<class T>(std::string name, LoadMode mode);
+    T getResource<class T>(std::string name);
+    void UnloadResource(std::string name, LoadMode mode);
+    void ReloadResource(std::string name);
+
+    void InitPack(std::string path);
+    void LoadPack(std::string path, LoadMode mode);
+    void UnloadPack (std::string path, LoadMode mode);
+    void ReloadPack(std::string path);
+    void SwitchPack(std::string path, std::string path);
+
+    void CreateErrorResource<class T>(std::string path);
+    T GetErrorResource<class T>;
+
+	void Init(bool UseNullForErrorRes);
+    void Update();
+    void CleanupUnused();
+    bool IsLoading();
+    size_t GetNumToLoad();
+    list<BaseResource> ListAll();
+    size_t GetRamUse();
+    size_t GenNumResources();
+    void SetLoadCompleteCallback(function callback);
+
+private:
+    std::map<std::string, BaseResource> resources;
+    std::map<std::string, BaseResource> errorResources;
+    std::queue<BaseResource> loadingQueue;
+	std::queue<BaseResource> unloadQueue;
+	std::queue<BaseResource> reloadQueue;
+	bool UseNullForErrorRes;
+    void LoadFromQueue();
+    void UnloadFromQueue();
+    void ReloadFromQueue();
 
 }
 
