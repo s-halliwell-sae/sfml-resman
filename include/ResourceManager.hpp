@@ -42,6 +42,12 @@ namespace rm
 
 typedef std::shared_ptr<BaseResource> resource_ptr;
 
+enum class LoadMode
+{
+    Queue,
+    Block,
+};
+
 class ResourceManager
 {
 public:
