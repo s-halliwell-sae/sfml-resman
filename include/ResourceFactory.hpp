@@ -53,7 +53,7 @@ class ResourceFactory
     /// that will define how to load an image
     ///
     ////////////////////////////////////////////////////////////
-    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface> allicatorFunctions;
+    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
     
 	////////////////////////////////////////////////////////////
     /// \brief Looks up the ResouceAllocatorInterface needed to create
