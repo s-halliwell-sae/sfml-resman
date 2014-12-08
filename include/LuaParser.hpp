@@ -65,11 +65,30 @@ private:
 	////////////////////////////////////////////////////////////
     /// Member data
     ////////////////////////////////////////////////////////////
-	static lua_State* 	m_luaState;
+	static lua_State* 	m_luaState;		///< Not sure what this is
 	//not sure what this pointer is?
-}
+};
 
-}
+} // namespace rm
 
 
 #endif //LUA_PARSER_HPP
+
+///////////////////////////////////////////////////////////
+/// \class LuaParser
+/// \ingroup 
+/// rm::LuaParser is the class which handles loading in of useful data
+/// from resource packs. These resource packs are lua tables. Each 
+/// lua table represents one resource pack and each pack is contained 
+/// in it's own file. 
+///
+/// rm::LuaParser takes the topmost resource packs and evaluates it's 
+/// data, it then performs a breadth-first search through the tree structure 
+/// possibly specifed in the resource packs. As the parser finds resources 
+/// in the packs it creates a resource data which contains the relevant data, 
+/// this is then added to a list. Once the parser has discovered all the leafed 
+/// nodes it returns the list of resource datas to rm::ResourceManager.
+///
+/// Note that access to rm::LuaParser is intended to be restricted. Most
+/// of the usage of rm::LuaParser should be handled by rm::ResourceManager.
+////////////////////////////////////////////////////////////
