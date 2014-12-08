@@ -54,55 +54,55 @@ public:
 
     // Creates a resource stub of type T with the given path but does not load it
     template<class T>
-    static void initResource(std::string path);
+    static void initResource(const std::string& path);
 
 
     // ResourceManager loads this single resource and assigns the mode for the queue.
     template<class T>
-    static std::shared_ptr<T> loadResource(std::string name, LoadMode mode);
+    static std::shared_ptr<T> loadResource(const std::string& name, LoadMode mode);
 
 
     // Returns the resource with the alias name.
     // If no such resource exists, it returns T's associated error resource
     // If no error resource exists or useNullForErrorRes is set nullptr is returned instead
     template<class T>
-    static std::shared_ptr<T> getResource(std::string name);
+    static std::shared_ptr<T> getResource(const std::string& name);
 
 
     // ResourceManager will unload this single resource and assigns the mode for the queue.
-    static void unloadResource(std::string name, LoadMode mode);
+    static void unloadResource(const std::string& name, LoadMode mode);
 
 
     // ResourceManager will reload this single resource.
-    static void reloadResource(std::string name);
+    static void reloadResource(const std::string& name);
 
 
     // Creates resource stubs for each resource specified in the resource pack and all contained resource packs.
     // Nothing is loaded.
-    static void initPack(std::string path);
+    static void initPack(const std::string& path);
 
 
     // ResourceManager will load this Pack of resources assigning each resource a mode for the queue.
-    static void loadPack(std::string path, LoadMode mode);
+    static void loadPack(const std::string& path, LoadMode mode);
 
 
     // ResourceManager will unload this Pack of resources assigning each resource a mode for the queue.
-    static void unloadPack (std::string path, LoadMode mode);
+    static void unloadPack (const std::string& path, LoadMode mode);
 
 
     // ResourceManager will reload this Pack of resources.
-    static void reloadPack(std::string path);
+    static void reloadPack(const std::string& path);
 
 
     // ResourceManager will switch between these two Packs.
-    static void switchPack(std::string fromPath, std::string toPath);
+    static void switchPack(const std::string& fromPath, const std::string& toPath);
 
 
     // User directs the ResourceManager to the error resource for each of the resource types
     // Loads immediately.
     // Throws if the file at path either doesn't exist or is of the wrong format
     template<class T>
-    static void createErrorResource(std::string path);
+    static void createErrorResource(const std::string& path);
 
 
     // Returns the error resource associated with resource type T
