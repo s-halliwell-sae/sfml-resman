@@ -29,8 +29,26 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
+#include <map>
+////////////////////////////////////////////////////////////
+/// \breif Resource Factory that serves as the creation location
+///  for all resources
+/// 
+////////////////////////////////////////////////////////////
+
 namespace rm 
 {
+
+class ResourceFactory
+{
+ public:
+ 
+ private:
+    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>;
+	
+    static std::shared_ptr<BaseResource> createResource(std::string& path, std::string& type);
+    static void addType<shared_ptr<BaseResource> resourceType>;
+}
 
 }
 
