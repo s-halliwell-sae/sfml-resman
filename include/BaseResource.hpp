@@ -40,7 +40,7 @@ namespace rm
     /// \brief An abstract resource class 
     /// 
     /// This abstract base class needs to be inherited by a
-    /// ManagedResource class. It contains three pure virtual
+    /// ManagedResource class. It contains four pure virtual
     /// functions that require a specific body of code for each
     /// resource type.
     ///
@@ -119,7 +119,7 @@ namespace rm
         /// \ brief Returns the RAM use by value
         ///
         ///////////////////////////////////////////////////////////
-        size_t getRamUse()const;
+        virtual size_t getRamUse() = 0;
 
         ///////////////////////////////////////////////////////////
         /// \ brief Sets the alias member
