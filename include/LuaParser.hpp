@@ -37,7 +37,7 @@
 
 ////////////////////////////////////////////////////////////
 /// \brief LuaParser that takes in a path name, and returns a list<ResourceData>.
-
+///
 /// The Parser will open the lua table specifying a resource pack, parse its 
 /// contents and leaf resources or continue opening resources packs.
 ///
