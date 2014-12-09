@@ -72,7 +72,8 @@ class ResourceFactory
     /// A new resouce of the specified type.
     ///
     ////////////////////////////////////////////////////////////
-    static void addType<shared_ptr<BaseResource> resourceType>;
+    template <class T>
+    static void addType();
 }
 
 }
