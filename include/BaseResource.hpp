@@ -45,8 +45,8 @@ namespace rm
     /// resource type.
     ///
     ///////////////////////////////////////////////////////////
-	class BaseResource
-	{
+    class BaseResource
+    {
     public:
         ////////////////////////////////////////////////////////////
         /// \brief Default Constructor
@@ -95,19 +95,19 @@ namespace rm
         /// \brief Returns the alias of type string by reference
         ///
         ///////////////////////////////////////////////////////////
-        std::string& getAlias()const;
+        std::string getAlias()const;
 
         ///////////////////////////////////////////////////////////
         /// \ brief Returns the resource type string by reference
         ///
         ///////////////////////////////////////////////////////////
-        std::string& getResourceType()const;
+        std::string getResourceType()const;
 
         ///////////////////////////////////////////////////////////
         /// \ brief Returns the file path string by reference
         ///
         ///////////////////////////////////////////////////////////
-        std::string& getFilePath()const;
+        std::string getFilePath()const;
 
         ///////////////////////////////////////////////////////////
         /// \ brief Returns true if resource is loaded
@@ -128,12 +128,6 @@ namespace rm
         void setAlias();
 
         ///////////////////////////////////////////////////////////
-        /// \ brief Sets the resource type member
-        ///
-        ///////////////////////////////////////////////////////////
-        void setResourceType();
-
-        ///////////////////////////////////////////////////////////
         /// \ brief Sets the file path member
         ///
         ///////////////////////////////////////////////////////////
@@ -144,18 +138,12 @@ namespace rm
         ///
         ///////////////////////////////////////////////////////////
         void setIsLoaded();
-
-        ///////////////////////////////////////////////////////////
-        /// \ brief Sets the ram use member
-        ///
-        ///////////////////////////////////////////////////////////
-        void setRam();
-        
+ 
     private:
         std::string alias, type, filePath;
         bool isLoaded;
         size_t ramUse;
-	};
+    };
 }
 
 
