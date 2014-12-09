@@ -48,7 +48,7 @@ class ResourceFactory
  private:
  
 	////////////////////////////////////////////////////////////
-    /// \brief A Strandard Map to hold all the resouce type  
+    /// \brief A Standard Map to hold all the resource type  
     /// classes that define how they are created
     /// 
     /// Example: It could hold a image ResourceAllicatorInterface
@@ -59,10 +59,10 @@ class ResourceFactory
     
 	////////////////////////////////////////////////////////////
     /// \brief Looks up the ResouceAllocatorInterface needed to create
-    /// The resouce based on the type and calls create on it to make a 
-    /// A new resouce of the specified type
+    /// The resource based on the type and calls create on it to make a 
+    /// A new resource of the specified type
     ///
-    /// \return Shared Pointer of the newly Created Resouce
+    /// \return Shared Pointer of the newly Created Resource
     ///
     ////////////////////////////////////////////////////////////
     static std::shared_ptr<BaseResource> createResource(std::string& path, std::string& type);
@@ -71,7 +71,7 @@ class ResourceFactory
     /// \brief Creates a new ResouceAllocatorInterface based on the passed
 	/// Resource type. Gets the type name from the resouceType class and stores
 	/// The created resourceAllocatorInterface is stored in allicatorFunctions
-    /// A new resouce of the specified type.
+    /// A new resource of the specified type.
     ///
     ////////////////////////////////////////////////////////////
     template <class T>

@@ -43,6 +43,7 @@ namespace rm
     /// 
     /// This class handles an SFML Music resource type, with specific
     /// implementation for loading, unloading and reloading.
+    ///
     ////////////////////////////////////////////////////////////
     
     class ManagedMusic
@@ -53,6 +54,7 @@ namespace rm
         /// \brief Default Constructor
         /// 
         /// Normally called by rm::ResourceFactory
+        ///
         ////////////////////////////////////////////////////////////
         void ManagedMusic();
         
@@ -60,6 +62,7 @@ namespace rm
         /// \brief  Destructor
         /// 
         /// Standard destructor
+        ///
         ////////////////////////////////////////////////////////////
         void ~ManagedMusic();
         
@@ -67,6 +70,7 @@ namespace rm
         /// \brief Loads the SFML Music resource
         /// 
         /// Invoked when rm::ResourceManager::singleton::load() is called
+        ///
         ////////////////////////////////////////////////////////////
         void load();
         
@@ -75,6 +79,7 @@ namespace rm
         /// but doesn't remove the instance of this class from rm::ResourceManager
         /// 
         /// Invoked when rm::ResourceManager::singleton::unload() is called
+        ///
         ////////////////////////////////////////////////////////////
         void unload();
         
@@ -82,11 +87,13 @@ namespace rm
         /// \brief Force reloads the SFML Music resource
         /// 
         /// Invoked when rm::ResourceManager::singleton::reload() is called
+        ///
         ////////////////////////////////////////////////////////////
         void reload();
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance
+        ///
         ////////////////////////////////////////////////////////////
         string& getResourceClassType();
         
@@ -94,11 +101,13 @@ namespace rm
         /// \brief Returns the size of memory 
         /// 
         /// Helper function so that memory allocation can be kept track of
+        ///
         ////////////////////////////////////////////////////////////
         size_t getRamUse();
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Music resource
+        ///
         ////////////////////////////////////////////////////////////
         sf::Music* getMusic();
         
