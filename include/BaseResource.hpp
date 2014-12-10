@@ -54,7 +54,7 @@ namespace rm
         /// Standard constructor 
         ///
         ////////////////////////////////////////////////////////////
-        void BaseResource();
+        BaseResource();
 
         ////////////////////////////////////////////////////////////
         /// \brief  Destructor
@@ -62,7 +62,7 @@ namespace rm
         /// Standard destructor
         ///
         ////////////////////////////////////////////////////////////
-        void ~BaseResource();
+        virtual ~BaseResource();
 
         ///////////////////////////////////////////////////////////
         /// \brief Loads the resource

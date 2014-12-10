@@ -33,7 +33,7 @@
 
 #include <map>
 ////////////////////////////////////////////////////////////
-/// \breif Resource Factory that serves as the creation location
+/// \brief Resource Factory that serves as the creation location
 ///  for all resources
 /// 
 ////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ class ResourceFactory
     /// that will define how to load an image
     ///
     ////////////////////////////////////////////////////////////
-    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
+    static std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
     
 	////////////////////////////////////////////////////////////
     /// \brief Looks up the ResouceAllocatorInterface needed to create
@@ -68,9 +68,9 @@ class ResourceFactory
     static std::shared_ptr<BaseResource> createResource(std::string& path, std::string& type);
 	
 	////////////////////////////////////////////////////////////
-    /// \brief Creates a new ResouceAllocatorInterface based on the passed
+    /// \brief Creates a new ResourceAllocatorInterface based on the passed
 	/// Resource type. Gets the type name from the resouceType class and stores
-	/// The created resourceAllocatorInterface is stored in allicatorFunctions
+	/// The created resourceAllocatorInterface is stored in allocatorFunctions
     /// A new resource of the specified type.
     ///
     ////////////////////////////////////////////////////////////
