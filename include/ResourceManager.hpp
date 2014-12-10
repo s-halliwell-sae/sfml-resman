@@ -53,8 +53,12 @@ enum class LoadMode
 class ResourceManager
 {
 public:
-
-    // Creates a resource stub of type T with the given path but does not load it
+    ////////////////////////////////////////////////////////////
+    /// \brief Creates a resource stub of type T with the given path but does not load it
+    ///
+    /// \param path Path to where the resource is located
+    ///
+    ////////////////////////////////////////////////////////////
     template<class T>
     static void initResource(const std::string& path);
 
@@ -115,6 +119,8 @@ public:
     // If useNullForErrorRes is set, loadResource and getResource will return nullptr upon fail.
     // Otherwise loads the default error resources
     static void init(bool useNullForErrorRes);
+
+    // 
     static void update();
     
     // Unloads all resources that are owned solely by the ResourceManager
