@@ -102,74 +102,185 @@ public:
     ///     whether it should queue it for unloading or unload it immediately
     ///
     ////////////////////////////////////////////////////////////
-
-    // ResourceManager will unload this single resource and assigns the mode for the queue.
     static void unloadResource(const std::string& name, LoadMode mode);
 
 
-    // ResourceManager will reload this single resource.
+    ////////////////////////////////////////////////////////////
+    /// \brief Reloads a resource
+    ///
+    /// \param name The resource's alias
+    ///
+    ////////////////////////////////////////////////////////////
     static void reloadResource(const std::string& name);
 
 
-    // Creates resource stubs for each resource specified in the resource pack and all contained resource packs.
-    // Nothing is loaded.
+    ////////////////////////////////////////////////////////////
+    /// \brief Creates resource stubs for each resource 
+    ///     specified in the resource pack and all contained 
+    ///     resource packs.
+    ///
+    /// \param path The resource packs's path
+    ///
+    /// This doesn't load any resources. It just set's up their
+    ///     stubs.
+    ///
+    ////////////////////////////////////////////////////////////
     static void initPack(const std::string& path);
 
 
-    // ResourceManager will load this Pack of resources assigning each resource a mode for the queue.
+    ////////////////////////////////////////////////////////////
+    /// \brief ResourceManager will load this Pack of resources 
+    ///     assigning each resource a mode for the queue.
+    ///
+    /// \param path The resource packs's path
+    ///
+    /// \param mode Determines the load mode for each resource
+    ///
+    ////////////////////////////////////////////////////////////
     static void loadPack(const std::string& path, LoadMode mode);
 
 
-    // ResourceManager will unload this Pack of resources assigning each resource a mode for the queue.
+    ////////////////////////////////////////////////////////////
+    /// \brief ResourceManager will unload this Pack of resources 
+    ///     assigning each resource a mode for the queue.
+    ///
+    /// \param path The resource packs's path
+    ///
+    /// \param mode Determines the unload mode for each resource
+    ///
+    ////////////////////////////////////////////////////////////
     static void unloadPack (const std::string& path, LoadMode mode);
 
 
-    // ResourceManager will reload this Pack of resources.
+    ////////////////////////////////////////////////////////////
+    /// \brief ResourceManager will reload this Pack of resources.
+    ///
+    /// \param path The resource packs's path
+    ///
+    ////////////////////////////////////////////////////////////
     static void reloadPack(const std::string& path);
 
 
-    // ResourceManager will switch between these two Packs.
+    ////////////////////////////////////////////////////////////
+    /// \brief ResourceManager will switch between these two Packs.
+    ///
+    /// \param fromPath The path of the resource pack already loaded
+    ///
+    /// \param toPath The path of the resource pack to be loaded
+    ///
+    /// Diffs the two resource lists and loads and unloads
+    ///     resources as appropriate, i.e. no unloading a 
+    ///     resource just to load it again.
+    ///
+    ////////////////////////////////////////////////////////////
     static void switchPack(const std::string& fromPath, const std::string& toPath);
 
-
-    // User directs the ResourceManager to the error resource for each of the resource types
-    // Loads immediately.
-    // Throws if the file at path either doesn't exist or is of the wrong format
+    ////////////////////////////////////////////////////////////
+    /// \brief Creates an error resource for type T
+    ///
+    /// \param path The path of the error resource
+    ///
+    /// Loads error resource immediately. Throws if the file at
+    ///     path either doesn't exist or is in the wrong format 
+    ///
+    ////////////////////////////////////////////////////////////
     template<class T>
     static void createErrorResource(const std::string& path);
 
-
-    // Returns the error resource associated with resource type T
-    // Returns nullptr if no resource has been associated with T
+    ////////////////////////////////////////////////////////////
+    /// \brief Gets the error resource for type T
+    ///
+    /// \returns A shared_ptr to the error resource upcasted to
+    ///     type T if it exists. Otherwise, it returns nullptr
+    /// 
+    ////////////////////////////////////////////////////////////
     template<class T>
     static std::shared_ptr<T> getErrorResource();
-    
-    // If useNullForErrorRes is set, loadResource and getResource will return nullptr upon fail.
-    // Otherwise loads the default error resources
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Optionally loads default error resources
+    ///
+    /// \param useNullForErrorRes if true, default error resources
+    ///     aren't loaded and all subsequent erroneus resource  
+    ///     gets and loads will return nullptr. If false, default
+    ///     error resources are loaded and gets and loads return
+    ///     as per normal
+    ///
+    ////////////////////////////////////////////////////////////
     static void init(bool useNullForErrorRes);
 
-    // 
+    ////////////////////////////////////////////////////////////
+    /// \brief Runs through the load, unload, and reload queues
+    ///     and processes one from each
+    ///
+    ////////////////////////////////////////////////////////////
     static void update();
     
-    // Unloads all resources that are owned solely by the ResourceManager
-    // Resource stubs are persistent
+    ////////////////////////////////////////////////////////////
+    /// \brief Unloads all resources owned solely by the 
+    ///     ResourceManager 
+    ///
+    /// ResourceStubs are maintained for the time being.
+    ///
+    ////////////////////////////////////////////////////////////
     static void cleanupUnused();
-    
-    // Returns true if the loading queue is not empty
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Returns true if the loading queue is not empty
+    ///
+    ////////////////////////////////////////////////////////////
     static bool isLoading();
     
-    // Returns the number of elements in the loading queue
+    ////////////////////////////////////////////////////////////
+    /// \brief Returns the number of elements in the loading queue
+    ///
+    /// \returns number of elements in the loading queue
+    ///
+    ////////////////////////////////////////////////////////////
     static size_t getNumToLoad();
     
-    // Returns a list of all resources managed by the ResourceManager
+    ////////////////////////////////////////////////////////////
+    /// \brief Lists all managed resources
+    ///
+    /// \returns a list of all the resources managed by the
+    ///     ResourceManager
+    ///
+    /// This list is all inclusive. Don't rely on all the 
+    ///     resources being loaded
+    ///
+    ////////////////////////////////////////////////////////////
     static std::list<resource_ptr> listAll();
     
-    // Returns total memory used by the ResourceManager
+    ////////////////////////////////////////////////////////////
+    /// \brief Returns total memory used by the ResourceManager
+    ///
+    /// \returns the total memory used by the ResourceManager
+    ///
+    ////////////////////////////////////////////////////////////
     static size_t getRamUse();
     
-    // Returns the number of resources managed by the ResourceManager
-    static size_t genNumResources();
-    static void setLoadCompleteCallback(std::function callback);
+    ////////////////////////////////////////////////////////////
+    /// \brief Gets the total number of resources managed by the
+    ///     ResourceManager
+    ///
+    /// \returns the total number of resources managed by the 
+    ///     ResourceManager
+    ///
+    ////////////////////////////////////////////////////////////
+    static size_t getNumResources();
+
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Sets the load complete callback
+    ///
+    /// \param callback A function pointer, lambda or other 
+    ///     callable object that will be called when all 
+    ///     resources in the loading queue are loaded
+    ///
+    /// \returns the total memory used by the ResourceManager
+    ///
+    ////////////////////////////////////////////////////////////
+    static void setLoadCompleteCallback(std::function<void()> callback);
 
 private:
     static std::map<std::string, resource_ptr> resources;
