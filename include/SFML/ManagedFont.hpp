@@ -54,14 +54,14 @@ namespace rm
         /// 
         /// Normally called by rm::ResourceFactory
         ////////////////////////////////////////////////////////////
-        void ManagedFont();
+        ManagedFont();
         
         ////////////////////////////////////////////////////////////
         /// \brief  Destructor
         /// 
         /// Standard destructor
         ////////////////////////////////////////////////////////////
-        void ~ManagedFont();
+        ~ManagedFont();
         
         ////////////////////////////////////////////////////////////
         /// \brief Loads the SFML Font resource

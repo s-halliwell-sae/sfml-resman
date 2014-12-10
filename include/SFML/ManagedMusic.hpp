@@ -54,14 +54,14 @@ namespace rm
         /// 
         /// Normally called by rm::ResourceFactory
         ////////////////////////////////////////////////////////////
-        void ManagedMusic();
+        ManagedMusic();
         
         ////////////////////////////////////////////////////////////
         /// \brief  Destructor
         /// 
         /// Standard destructor
         ////////////////////////////////////////////////////////////
-        void ~ManagedMusic();
+        ~ManagedMusic();
         
         ////////////////////////////////////////////////////////////
         /// \brief Loads the SFML Music resource
