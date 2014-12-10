@@ -76,7 +76,7 @@ class ResourceFactory
     ///
     ////////////////////////////////////////////////////////////
     std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
-}
+};
 
 }
 
