@@ -29,6 +29,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 ////////////////////////////////////////////////////////////
 // Headers
@@ -50,8 +51,7 @@ public:
     static void setFileLocation(std::string path);
 
 private:
-	// v DAMMIT this should be filestream
-    static std::string fileLocation;
+    static std::fstream file;
     static bool doesPrintOut;
 };
 
