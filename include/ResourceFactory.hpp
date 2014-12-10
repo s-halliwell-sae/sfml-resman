@@ -43,19 +43,7 @@ class ResourceFactory
 {
  public:
  
- private:
- 
-	////////////////////////////////////////////////////////////
-    /// \brief A Strandard Map to hold all the resouce type  
-    /// classes that define how they are created
-    /// 
-    /// Example: It could hold a image ResourceAllicatorInterface
-    /// that will define how to load an image
-    ///
     ////////////////////////////////////////////////////////////
-    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
-    
-	////////////////////////////////////////////////////////////
     /// \brief Looks up the ResouceAllocatorInterface needed to create
     /// The resouce based on the type and calls create on it to make a 
     /// A new resouce of the specified type
@@ -74,6 +62,18 @@ class ResourceFactory
     ////////////////////////////////////////////////////////////
     template <class T>
     static void addType();
+    
+ private:
+ 
+	////////////////////////////////////////////////////////////
+    /// \brief A Strandard Map to hold all the resouce type  
+    /// classes that define how they are created
+    /// 
+    /// Example: It could hold a image ResourceAllicatorInterface
+    /// that will define how to load an image
+    ///
+    ////////////////////////////////////////////////////////////
+    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
 }
 
 }
