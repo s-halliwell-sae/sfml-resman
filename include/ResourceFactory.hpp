@@ -1,26 +1,24 @@
 ////////////////////////////////////////////////////////////
 //
-// The MIT License (MIT)
+// SFML - Simple and Fast Multimedia Library
+// Copyright (C) 2007-2014 Laurent Gomila (laurent.gom@gmail.com)
 //
-// Copyright (c) 2014 stevehalliwell
+// This software is provided 'as-is', without any express or implied warranty.
+// In no event will the authors be held liable for any damages arising from the use of this software.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// Permission is granted to anyone to use this software for any purpose,
+// including commercial applications, and to alter it and redistribute it freely,
+// subject to the following restrictions:
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// 1. The origin of this software must not be misrepresented;
+//    you must not claim that you wrote the original software.
+//    If you use this software in a product, an acknowledgment
+//    in the product documentation would be appreciated but is not required.
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+// 2. Altered source versions must be plainly marked as such,
+//    and must not be misrepresented as being the original software.
+//
+// 3. This notice may not be removed or altered from any source distribution.
 //
 ////////////////////////////////////////////////////////////
 
@@ -33,7 +31,7 @@
 
 #include <map>
 ////////////////////////////////////////////////////////////
-/// \brief Resource Factory that serves as the creation location
+/// \breif Resource Factory that serves as the creation location
 ///  for all resources
 /// 
 ////////////////////////////////////////////////////////////
@@ -45,38 +43,38 @@ class ResourceFactory
 {
  public:
  
- private:
- 
-	////////////////////////////////////////////////////////////
-    /// \brief A Standard Map to hold all the resource type  
-    /// classes that define how they are created
-    /// 
-    /// Example: It could hold a image ResourceAllocatorInterface
-    /// that will define how to load an image
-    ///
     ////////////////////////////////////////////////////////////
-    static std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
-    
-	////////////////////////////////////////////////////////////
     /// \brief Looks up the ResouceAllocatorInterface needed to create
-    /// The resource based on the type and calls create on it to make a 
-    /// A new resource of the specified type
+    /// The resouce based on the type and calls create on it to make a 
+    /// A new resouce of the specified type
     ///
-    /// \return Shared Pointer of the newly Created Resource
+    /// \return Shared Pointer of the newly Created Resouce
     ///
     ////////////////////////////////////////////////////////////
     static std::shared_ptr<BaseResource> createResource(std::string& path, std::string& type);
 	
 	////////////////////////////////////////////////////////////
-    /// \brief Creates a new ResourceAllocatorInterface based on the passed
+    /// \brief Creates a new ResouceAllocatorInterface based on the passed
 	/// Resource type. Gets the type name from the resouceType class and stores
-	/// The created resourceAllocatorInterface is stored in allocatorFunctions
-    /// A new resource of the specified type.
+	/// The created resourceAllocatorInterface is stored in allicatorFunctions
+    /// A new resouce of the specified type.
     ///
     ////////////////////////////////////////////////////////////
     template <class T>
     static void addType();
-};
+    
+ private:
+ 
+	////////////////////////////////////////////////////////////
+    /// \brief A Strandard Map to hold all the resouce type  
+    /// classes that define how they are created
+    /// 
+    /// Example: It could hold a image ResourceAllicatorInterface
+    /// that will define how to load an image
+    ///
+    ////////////////////////////////////////////////////////////
+    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
+}
 
 }
 
