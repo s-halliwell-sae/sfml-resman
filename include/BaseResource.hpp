@@ -102,7 +102,6 @@ namespace rm
         ///
         ///////////////////////////////////////////////////////////
         bool isLoaded()const;
-        size_t getRamUse()const;
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the RAM use
@@ -132,7 +131,6 @@ namespace rm
     private:
         std::string alias, type, filePath;
         bool isLoaded;
-        size_t ramUse;
 	};
 }
 
