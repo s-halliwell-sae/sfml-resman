@@ -56,7 +56,7 @@ namespace rm
         /// Normally called by rm::ResourceFactory
         ///
         ////////////////////////////////////////////////////////////
-        void ManagedTexture();
+        ManagedTexture();
         
         ////////////////////////////////////////////////////////////
         /// \brief  Destructor
@@ -64,7 +64,7 @@ namespace rm
         /// Standard destructor
         ///
         ////////////////////////////////////////////////////////////
-        void ~ManagedTexture();
+        ~ManagedTexture();
         
         ////////////////////////////////////////////////////////////
         /// \brief Loads the SFML Texture resource

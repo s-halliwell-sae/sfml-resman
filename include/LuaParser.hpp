@@ -33,6 +33,7 @@
 
 #include <list>
 
+#include <lua.h>
 #include <ResourceData.hpp>
 
 ////////////////////////////////////////////////////////////
@@ -71,7 +72,7 @@ private:
 	////////////////////////////////////////////////////////////
     /// Member data
     ////////////////////////////////////////////////////////////
-	static lua_State* 	m_luaState;		///< Not sure what this is
+	static lua_State* 	m_luaState;		///< Point of reference for lua.h
 };
 
 } // namespace rm
