@@ -113,8 +113,10 @@ namespace rm
         ///////////////////////////////////////////////////////////
         /// \brief Sets the alias member
         ///
+        /// \param newalias The new Alias
+        ///
         ///////////////////////////////////////////////////////////
-        void setAlias();
+        void setAlias(const std::string& newalias);
 
         ///////////////////////////////////////////////////////////
         /// \brief Sets the file path member
