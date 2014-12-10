@@ -54,14 +54,14 @@ namespace rm
         /// 
         /// Normally called by rm::ResourceFactory
         ////////////////////////////////////////////////////////////
-        void ManagedMusic();
+        ManagedMusic();
         
         ////////////////////////////////////////////////////////////
         /// \brief  Destructor
         /// 
         /// Standard destructor
         ////////////////////////////////////////////////////////////
-        void ~ManagedMusic();
+        ~ManagedMusic();
         
         ////////////////////////////////////////////////////////////
         /// \brief Loads the SFML Music resource
@@ -88,7 +88,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance
         ////////////////////////////////////////////////////////////
-        string& getResourceClassType();
+        static string getResourceClassType();
         
         ///////////////////////////////////////////////////////////
         /// \brief Returns the size of memory 
