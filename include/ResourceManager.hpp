@@ -315,4 +315,8 @@ private:
     static void reloadFromQueue();
 };
 
+#include <ResourceManager.inl>
+
+} // rm
+
 #endif //RESOURCE_MANAGER_HPP
