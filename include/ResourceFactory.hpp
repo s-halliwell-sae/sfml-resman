@@ -51,7 +51,7 @@ class ResourceFactory
     /// \brief A Standard Map to hold all the resource type  
     /// classes that define how they are created
     /// 
-    /// Example: It could hold a image ResourceAllicatorInterface
+    /// Example: It could hold a image ResourceAllocatorInterface
     /// that will define how to load an image
     ///
     ////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ class ResourceFactory
     ////////////////////////////////////////////////////////////
     template <class T>
     static void addType();
-}
+};
 
 }
 

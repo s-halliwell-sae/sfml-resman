@@ -36,6 +36,12 @@
 
 namespace rm 
 {
+////////////////////////////////////////////////////////////
+/// \brief ResourceAllocatorInterface and 
+///     ResourceAllocatorImplementation are helper classes 
+///     that allow the ResourceFactory to create
+///     specific resources without static type information
+////////////////////////////////////////////////////////////
 
 class ResourceAllocatorInterface 
 {
@@ -45,9 +51,14 @@ public:
 
 
 template<class T>
-class ResourceAllocatorImplementation
+class ResourceAllocatorImplementation : public ResourceAllocatorInterface
 {
 public:
+    ////////////////////////////////////////////////////////////
+    /// \brief Creates a new resource of type T
+    ///
+    /// \returns A downcasted pointer to a new resource T
+    ////////////////////////////////////////////////////////////
     std::shared_ptr<BaseResource> create() override;
 };
 

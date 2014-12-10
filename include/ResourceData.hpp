@@ -34,36 +34,36 @@
 namespace rm 
 {
     ////////////////////////////////////////////////////////////
-    /// \breif A struct that is used in the creation of a base resource. 
+    /// \brief A struct that is used in the creation of a base resource. 
     /// This struct should only be create or used when a base resource is needed.
     ///
     ////////////////////////////////////////////////////////////
     struct ResourceData
     {
         ///////////////////////////////////////////////////////////
-        /// \breif Defines Whether the struct is a collection of resources (pack)
+        /// \brief Defines whether the struct is a collection of resources (pack)
         ///
         ///////////////////////////////////////////////////////////
         bool inResourcePack; 
 
         ///////////////////////////////////////////////////////////
-        /// \breif Contains the file location of the resource or pack
+        /// \brief Contains the file location of the resource or pack
         ///
         ///////////////////////////////////////////////////////////
         std::string path;
         
         ///////////////////////////////////////////////////////////
-        /// \breif Contains the Unique Alias of the Resource or Pack
+        /// \brief Contains the Unique Alias of the Resource or Pack
         ///
         ///////////////////////////////////////////////////////////
         std::string alias;
         
         ///////////////////////////////////////////////////////////
-        /// \breif Defines the Type of resource as specified by the User.
+        /// \brief Defines the Type of resource as specified by the User.
         ///
         ///////////////////////////////////////////////////////////
         std::string type;
-    }
+    };
 
 }
 
