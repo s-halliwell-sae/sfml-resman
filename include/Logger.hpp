@@ -26,6 +26,8 @@
 
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
+
+#include <iostream>
 #include <string>
 
 ////////////////////////////////////////////////////////////
@@ -48,9 +50,12 @@ public:
     static void setFileLocation(std::string path);
 
 private:
+	// v DAMMIT this should be filestream
     static std::string fileLocation;
     static bool doesPrintOut;
 };
+
+#include <Logger.inl>
    
 }
 

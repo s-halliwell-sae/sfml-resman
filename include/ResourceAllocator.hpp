@@ -62,6 +62,8 @@ public:
     std::shared_ptr<BaseResource> create() override;
 };
 
+#include <ResourceAllocator.inl>
+
 }
 
 #endif //RESOURCE_ALLOCATOR_HPP
