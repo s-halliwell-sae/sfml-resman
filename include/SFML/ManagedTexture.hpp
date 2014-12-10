@@ -95,7 +95,7 @@ namespace rm
         /// \brief Returns the resource type of this instance
         ///
         ////////////////////////////////////////////////////////////
-        string& getResourceClassType();
+        static string getResourceClassType();
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns the size of memory 
