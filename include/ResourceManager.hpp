@@ -61,17 +61,47 @@ public:
     static void initResource(const std::string& path);
 
 
-    // ResourceManager loads this single resource and assigns the mode for the queue.
+    ////////////////////////////////////////////////////////////
+    /// \brief ResourceManager loads this single resource and 
+    ///     assigns the mode for the queue.
+    ///
+    /// \param name Either a path to where the resource is located or 
+    ///     the resource's alias
+    ///
+    /// \param mode If the resource hasn't been loaded yet, mode determines
+    ///     whether it should queue it for loading or load it immediately
+    ///
+    /// \returns A shared_ptr to the resource, upcasted to type T
+    ///
+    ////////////////////////////////////////////////////////////
     template<class T>
     static std::shared_ptr<T> loadResource(const std::string& name, LoadMode mode);
 
-
-    // Returns the resource with the alias name.
-    // If no such resource exists, it returns T's associated error resource
-    // If no error resource exists or useNullForErrorRes is set nullptr is returned instead
+    ////////////////////////////////////////////////////////////
+    /// \brief Returns a resource if it exists
+    ///
+    /// \param name The resource's alias
+    ///
+    /// \returns A shared_ptr to the resource if it exists, 
+    ///     upcasted to type T. If it doesn't exist, it returns
+    ///     the error resource associated with type T. If either
+    ///     the error resource doesn't exist or useNullForErrorRes
+    ///     is set, then it returns nullptr
+    ///
+    ////////////////////////////////////////////////////////////
     template<class T>
     static std::shared_ptr<T> getResource(const std::string& name);
 
+    ////////////////////////////////////////////////////////////
+    /// \brief ResourceManager unloads this single resource and 
+    ///     assigns the mode for the queue.
+    ///
+    /// \param name The resource's alias
+    ///
+    /// \param mode If the resource hasn't been unloaded yet, mode determines
+    ///     whether it should queue it for unloading or unload it immediately
+    ///
+    ////////////////////////////////////////////////////////////
 
     // ResourceManager will unload this single resource and assigns the mode for the queue.
     static void unloadResource(const std::string& name, LoadMode mode);
