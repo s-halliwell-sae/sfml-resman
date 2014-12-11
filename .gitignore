@@ -30,3 +30,4 @@
 # Ignore this
 __prototype/
 log.txt
+makefile

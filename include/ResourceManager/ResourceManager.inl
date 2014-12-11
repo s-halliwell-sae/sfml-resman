@@ -53,29 +53,29 @@ void ResourceManager::initResource(const std::string& path)
 template<class T>
 std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMode mode)
 {
-    //Check if exists in resource map
-    if (resources.find(name) == resources.end())
-    {
-        //Check load mode
-        //if the resource is to be loaded immediately
-        if (mode == LoadMode.Block)
-        {
-            resources[name]->load;
-            // Set isLoaded if load returns true
-            // bail if false
-            return ResourcePtr<resources[name]>;
-        }
-        //else add it to the load queue
-        {
-            loadingQueue.push(ResourcePtr<resources[name]>);
-            return ResourcePtr<resources[name]>;
-        }
-    }
+    // //Check if exists in resource map
+    // if (resources.find(name) == resources.end())
+    // {
+    //     //Check load mode
+    //     //if the resource is to be loaded immediately
+    //     if (mode == LoadMode.Block)
+    //     {
+    //         resources[name]->load;
+    //         // Set isLoaded if load returns true
+    //         // bail if false
+    //         return ResourcePtr<resources[name]>;
+    //     }
+    //     //else add it to the load queue
+    //     {
+    //         loadingQueue.push(ResourcePtr<resources[name]>);
+    //         return ResourcePtr<resources[name]>;
+    //     }
+    // }
     return nullptr;
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getResource(const std::string& name) const
+std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
 {
     return nullptr;
 }
@@ -92,10 +92,13 @@ void ResourceManager::createErrorResource(const std::string& path)
     ResourcePtr res;
 
     // Check if error resource exists
-    if(errorResources.find() == errorResources.end())
+    if(errorResources.find(path) == errorResources.end())
     {
         // If not, create one
         res = ResourceFactory::createResource(path, T::getResourceClassType());
+
+        // and add it to the error resource lookup
+        errorResources[path] = res;
     }
     else
     {
@@ -128,7 +131,7 @@ void ResourceManager::createErrorResource(const std::string& path)
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getErrorResource() const
+std::shared_ptr<T> ResourceManager::getErrorResource()
 {
     return nullptr;
 }
