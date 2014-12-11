@@ -40,26 +40,30 @@ ManagedFont::ManagedFont()
 {
 }
 
-// Release m_font ptr
 ManagedFont::~ManagedFont()
 {
-    delete m_font;
-    m_font = nullptr;
 }
 
 // Load resuorce from file path
 bool ManagedFont::load()
 {
-    return (!m_font.loadFromFile(filepath));
+    return !m_font.loadFromFile(filepath);
 }
 
 // Release m_font ptr
 bool ManagedFont::unload()
 {
-    delete m_font;
-    m_font = nullptr;
-    isResourceLoaded = false;
-    return true
+    //check if loaded
+    if (isResourceLoaded)
+    {
+        // free up m_font ptr
+        delete m_font;
+        m_font = nullptr;
+        return true
+    }
+
+    // resource not loaded
+    return false;
 }
 
 // Load from file path
@@ -71,15 +75,16 @@ bool ManagedFont::reload()
 ////////////////////////////////////////////////////////////
 /// Getters
 ////////////////////////////////////////////////////////////
-static std::string ManagedFont::getResourceClassType()const
+static std::string ManagedFont::getResourceClassType()
 {
-    // not sure how to go about this
+    throw("Not implemented");
+    // destinguish type
 }
 
 
 size_t ManagedFont::getMemUsage()const
 {
-    // not sure how to go about this
+    throw("Not implemented");
 }
 
 
