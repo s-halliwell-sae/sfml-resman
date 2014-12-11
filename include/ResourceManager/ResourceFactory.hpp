@@ -54,7 +54,7 @@ class ResourceFactory
     /// \return Shared Pointer of the newly Created Resouce
     ///
     ////////////////////////////////////////////////////////////
-    static std::shared_ptr<BaseResource> createResource(std::string& path, std::string& type);
+    static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type);
 	
 	////////////////////////////////////////////////////////////
     /// \brief Creates a new ResouceCreatorInterface based on the passed

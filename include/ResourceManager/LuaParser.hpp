@@ -70,7 +70,7 @@ private:
     /// 
     /// \param data	
     ////////////////////////////////////////////////////////////
-    static ResourceDataList leafPack(ResourceData& data);
+    static ResourceDataList leafPack(const ResourceData& data);
 	//I'm not sure how this function functions as the parameter and return types are weird
 	
 	////////////////////////////////////////////////////////////
