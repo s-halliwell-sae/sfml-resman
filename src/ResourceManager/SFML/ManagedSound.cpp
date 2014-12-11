@@ -60,34 +60,21 @@ bool ManagedSound::unload()
    {
         delete m_sound;
         m_sound = nullptr;
-        return true;
    }
-   return false;
+   return true;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedSound::reload()
 {
-    //To reload the resource must already be loaded
-    if(isResourceLoaded)
-    {
-        //If so, reload the resource
-        return load();
-    }
-    //Else reloading fails
-    return false;
+    // Reload from file path
+    return load();
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedSound::getResourceClassType()
 {
     return "sound";
-}
-
-////////////////////////////////////////////////////////////
-size_t ManagedSound::getMemUsage()const
-{
-    throw("Not implemented");
 }
 
 ////////////////////////////////////////////////////////////

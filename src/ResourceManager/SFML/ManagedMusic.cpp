@@ -59,34 +59,21 @@ bool ManagedMusic::unload()
     {
         delete m_music;
         m_music = nullptr;
-        return true;
     }
-   return false;
+   return true;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedMusic::reload()
 {
-    //To reload the resource must already be loaded
-    if(isResourceLoaded)
-    {
-        //If so, reload the resource
-        return load();
-    }
-    //Else reloading fails
-    return false;
+    // Reload from file path
+    return load();
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedMusic::getResourceClassType()
 {
     return "music";
-}
-
-////////////////////////////////////////////////////////////
-size_t ManagedMusic::getMemUsage()const
-{
-    throw("Not implemented");
 }
 
 ////////////////////////////////////////////////////////////

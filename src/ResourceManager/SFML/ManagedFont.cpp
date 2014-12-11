@@ -58,34 +58,21 @@ bool ManagedFont::unload()
     {
         delete m_font;
         m_font = nullptr;
-        return true;
      }
-     return false;
+     return true;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedFont::reload()
 {
-    //To reload the resource must already be loaded
-    if(isResourceLoaded)
-    {
-        //If so, reload the resource
-        return load();
-    }
-    //Else reloading fails
-    return false;
+    // Reload from file path
+    return load();
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedFont::getResourceClassType()
 {
     return "font";
-}
-
-////////////////////////////////////////////////////////////
-size_t ManagedFont::getMemUsage() const
-{
-    throw("Not implemented");
 }
 
 ////////////////////////////////////////////////////////////

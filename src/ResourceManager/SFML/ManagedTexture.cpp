@@ -59,34 +59,21 @@ bool ManagedTexture::unload()
    {
         delete m_texture;
         m_texture = nullptr;
-        return true;
    }
-   return false;
+   return true;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::reload()
 {
-    //To reload the resource must already be loaded
-    if(isResourceLoaded)
-    {
-        //If so, reload the resource
-        return load();
-    }
-    //Else reloading fails
-    return false;
+    // Reload from file path
+    return load();
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedTexture::getResourceClassType()
 {
     return "texture";
-}
-
-////////////////////////////////////////////////////////////
-size_t ManagedTexture::getMemUsage() const
-{
-    throw("Not implemented");
 }
 
 ////////////////////////////////////////////////////////////

@@ -99,14 +99,6 @@ namespace rm
         static std::string getResourceClassType();
         
         ////////////////////////////////////////////////////////////
-        /// \brief Returns the size of memory 
-        /// 
-        /// Helper function so that memory allocation can be kept track of
-        ///
-        ////////////////////////////////////////////////////////////
-        size_t getMemUsage() const override;
-        
-        ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Texture resource
         ///
         ////////////////////////////////////////////////////////////
