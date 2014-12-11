@@ -30,7 +30,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <ResourceManager/ResourceAllocator.hpp>
+#include <ResourceManager/ResourceCreator.hpp>
 #include <map>
 
 ////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ class ResourceFactory
  public:
  
     ////////////////////////////////////////////////////////////
-    /// \brief Looks up the ResouceAllocatorInterface needed to create
+    /// \brief Looks up the ResouceCreatorInterface needed to create
     /// The resource based on the type and calls create on it to make a 
     /// A new resource of the specified type
     ///
@@ -57,10 +57,9 @@ class ResourceFactory
     static std::shared_ptr<BaseResource> createResource(std::string& path, std::string& type);
 	
 	////////////////////////////////////////////////////////////
-    /// \brief Creates a new ResouceAllocatorInterface based on the passed
+    /// \brief Creates a new ResouceCreatorInterface based on the passed
 	/// resource type. Gets the type name from the resourceType class and stores
-	/// The created resourceAllocatorInterface is stored in allicatorFunctions
-    /// A new resource of the specified type.
+	/// The created resourceCreatorInterface is stored in creators
     ///
     ////////////////////////////////////////////////////////////
     template <class T>
@@ -72,11 +71,11 @@ class ResourceFactory
     /// \brief A Strandard Map to hold all the resource type  
     /// classes that define how they are created
     /// 
-    /// Example: It could hold a image ResourceAllicatorInterface
-    /// that will define how to load an image
+    /// Example: It could hold a image ResourceCreatorInterface
+    /// that will define how to create an image
     ///
     ////////////////////////////////////////////////////////////
-    std::map<std::string, std::shared_ptr<ResourceAllocatorInterface>> allocatorFunctions;
+    std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
 };
 
 }
