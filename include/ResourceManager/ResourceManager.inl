@@ -73,7 +73,7 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
+std::shared_ptr<T> ResourceManager::getResource(const std::string& name) const
 {
     return nullptr;
 }
@@ -91,7 +91,7 @@ void ResourceManager::createErrorResource(const std::string& path)
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getErrorResource()
+std::shared_ptr<T> ResourceManager::getErrorResource() const
 {
     return nullptr;
 }

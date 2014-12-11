@@ -105,27 +105,27 @@ void ResourceManager::cleanupUnused()
 
 }
 
-bool ResourceManager::isLoading()
+bool ResourceManager::isLoading() const
 {
     return getNumToLoad() > 0;
 }
 
-size_t ResourceManager::getNumToLoad()
+size_t ResourceManager::getNumToLoad() const
 {
     return loadingQueue.size();
 }
 
-ResourceList ResourceManager::listAll()
+ResourceList ResourceManager::listAll() const
+{
+    return ResourceList();
+}
+
+size_t ResourceManager::getMemUsage() const
 {
 
 }
 
-size_t ResourceManager::getMemUsage()
-{
-
-}
-
-size_t ResourceManager::getNumResources()
+size_t ResourceManager::getNumResources() const
 {
     return resources.size();
 }
