@@ -104,10 +104,10 @@ namespace rm
         bool isLoaded()const;
 
         ///////////////////////////////////////////////////////////
-        /// \brief Returns the RAM use
+        /// \brief Returns the memory usage
         ///
         ///////////////////////////////////////////////////////////
-        virtual size_t getRamUse() = 0;
+        virtual size_t getMemUsage() = 0;
 
         ///////////////////////////////////////////////////////////
         /// \brief Sets the alias member
