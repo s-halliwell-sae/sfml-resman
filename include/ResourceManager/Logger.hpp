@@ -42,12 +42,37 @@ class Logger
 {
 public:
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Prints a single value of unknown type to both the
+    ///     console and to a log file if it exists
+    /// 
+    /// \param data The data to print. data must be compatible 
+    ///     with std streams
+    ///
+    ////////////////////////////////////////////////////////////
     template<typename Arg>
     static void logMessage(const Arg& data);
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Prints multiple values of unknown types to both the
+    ///     console and to a log file if it exists
+    /// 
+    /// \param data The data to print. data must be compatible 
+    ///     with std streams
+    ///
+    /// \param other The remaining data to print.
+    ///
+    ////////////////////////////////////////////////////////////
     template<typename Arg1, typename... OtherArgs>
     static void logMessage(const Arg1& data, const OtherArgs&... other);
-    
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Sets the location of the file that the logger prints 
+    ///     to
+    /// 
+    /// \param path The path of the file
+    ///
+    ////////////////////////////////////////////////////////////    
     static void setFileLocation(const std::string& path);
 
 private:
