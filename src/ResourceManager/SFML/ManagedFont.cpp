@@ -44,20 +44,24 @@ ManagedFont::~ManagedFont()
 {
 }
 
-// Load resuorce from file path
+////////////////////////////////////////////////////////////
 bool ManagedFont::load()
 {
-    return !m_font.loadFromFile(filepath);
+    //Attempt to load from file and return success or failure
+    return m_font.loadFromFile(filepath);
 }
 
-// Release m_font ptr
+////////////////////////////////////////////////////////////
 bool ManagedFont::unload()
 {
-    // free up m_font ptr
-    delete m_font;
-    m_font = nullptr;
-    isResourceLoaded = false;
-    return true
+    // Release m_font resource and null ptr
+    if(isResourceLoaded)
+    {
+        delete m_font;
+        m_font = nullptr;
+        return true;
+     }
+     return false;
 }
 
 // Load from file path
@@ -66,9 +70,6 @@ bool ManagedFont::reload()
     return load();
 }
 
-////////////////////////////////////////////////////////////
-/// Getters
-////////////////////////////////////////////////////////////
 static std::string ManagedFont::getResourceClassType()
 {
     throw("Not implemented");
@@ -87,4 +88,4 @@ sf::Texture* const ManagedFont::getFont()
     return m_font;
 }
 
-} // rm
+} // namespace rm

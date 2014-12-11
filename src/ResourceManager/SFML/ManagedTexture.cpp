@@ -43,37 +43,33 @@ ManagedTexture::~ManagedTexture()
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::load()
 {
-    //If texture not loaded
-    if(!isResourceLoaded)
-    {
-        //Try and load the texture from file using sf::Texture.loadFromFile()
-        if(!m_texture.loadFromFile(filepath))
-        {
-            //Texture failed to load, log the failure, notify the user
-            isResourceLoaded = false;
-            
-        }
-        else
-        {
-            //Texture loaded successfully, log the success
-            isResourceLoaded = true;
-        }
-    }
-
-    return false;
+    //Attempt to load from file and return success or failure
+    return m_texture.loadFromFile(filePath);
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::unload()
 {
-    throw("Not implemented");
-    return false;
+    // Release m_font resource and null ptr
+   if(isResourceLoaded)
+   {
+    delete m_texture;
+    m_texture = null;
+    return true;
+   }
+   return false;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::reload()
 {
-    throw("Not implemented");
+    //To reload the resource must already be loaded
+    if(isResourceLoaded)
+    {
+        //If so, reload the resource
+        return load();
+    }
+    //Else reloading fails
     return false;
 }
 
@@ -95,4 +91,4 @@ sf::Texture* ManagedTexture::getTexture()
     return m_texture;
 }
 
-}
+} // namespace rm
