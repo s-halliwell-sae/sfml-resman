@@ -40,7 +40,7 @@ std::queue<ResourcePtr> ResourceManager::unloadQueue = {};
 std::queue<ResourcePtr> ResourceManager::reloadQueue = {};
 bool ResourceManager::useNullForErrorRes = true;
 
-std::function ResourceManager::loadCompleteCallback = nullptr;
+LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
 
 ////////////////////////////////////////////////////////////
@@ -114,7 +114,7 @@ size_t ResourceManager::getNumResources(){
     return resources.size();
 }
 
-void ResourceManager::setLoadCompleteCallback(std::function<void()> callback){
+void ResourceManager::setLoadCompleteCallback(LoadCompleteCallback callback){
     loadCompleteCallback = callback;
 }
 

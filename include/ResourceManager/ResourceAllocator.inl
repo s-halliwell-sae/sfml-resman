@@ -30,7 +30,7 @@
 ////////////////////////////////////////////////////////////
 
 template<class T>
-std::shared_ptr<BaseResource> ResourceAllocatorImplementation::create(){
+std::shared_ptr<BaseResource> ResourceAllocatorImplementation<T>::create(){
 	// Create a new T
 	// Will get downcasted implicitly upon return
 	return new T;

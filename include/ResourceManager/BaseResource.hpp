@@ -49,8 +49,8 @@ namespace rm
 	class BaseResource
 	{
     public:
-        void BaseResource();
-        void ~BaseResource();
+        BaseResource();
+        virtual ~BaseResource();
 
         ///////////////////////////////////////////////////////////
         /// \brief Loads the resource from the file path
@@ -83,25 +83,25 @@ namespace rm
         /// \brief Returns the alias of type string
         ///
         ///////////////////////////////////////////////////////////
-        std::string getAlias()const;
+        std::string getAlias() const;
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the resource type string
         ///
         ///////////////////////////////////////////////////////////
-        std::string getResourceType()const;
+        std::string getResourceType() const;
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the file path string
         ///
         ///////////////////////////////////////////////////////////
-        std::string getFilePath()const;
+        std::string getFilePath() const;
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns true if resource is loaded
         ///
         ///////////////////////////////////////////////////////////
-        bool isLoaded()const;
+        bool isLoaded() const;
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the RAM use

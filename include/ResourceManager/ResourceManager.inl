@@ -24,42 +24,44 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager/ResourceFactory.hpp>
-
 template<class T>
-void initResource(const std::string& path){
+void ResourceManager::initResource(const std::string& path){
     // Check to make sure, resource isn't already initialised.
-    if(resources.find(path) == resources.end()) {
+    if(resources.find(path) == resources.end()) 
+    {
         // If it exists already, return
         return;
     }
 
     // Create resource stub
     auto resourcestub = ResourceFactory::createResource(path, T::getResourceClassType());
-    if(resourcestub){
+    if(resourcestub)
+    {
         resourcestub->setAlias(path);
         resources[path] = resourcestub;        
-    }else{
+    }
+    else
+    {
         Logger::logMessage("Init resource failed for ", path); 
     }
 }
 
 template<class T>
-std::shared_ptr<T> loadResource(const std::string& name, LoadMode mode){
+std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMode mode){
     return nullptr;
 }
 
 template<class T>
-std::shared_ptr<T> getResource(const std::string& name){
+std::shared_ptr<T> ResourceManager::getResource(const std::string& name){
     return nullptr;
 }
 
 template<class T>
-void createErrorResource(const std::string& path){
+void ResourceManager::createErrorResource(const std::string& path){
 
 }
 
 template<class T>
-std::shared_ptr<T> getErrorResource(){
+std::shared_ptr<T> ResourceManager::getErrorResource(){
     return nullptr;
 }

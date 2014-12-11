@@ -31,7 +31,9 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
+#include <ResourceManager/ResourceFactory.hpp>
 #include <ResourceManager/BaseResource.hpp>
+#include <ResourceManager/Logger.hpp>
 #include <functional>
 #include <string>
 #include <memory>
@@ -43,6 +45,7 @@ namespace rm
 {
 
 typedef std::shared_ptr<BaseResource> ResourcePtr;
+typedef std::function<void ()> LoadCompleteCallback;
 
 enum class LoadMode
 {
@@ -281,7 +284,7 @@ public:
     ///     arguments and returns nothing
     ///
     ////////////////////////////////////////////////////////////
-    static void setLoadCompleteCallback(std::function<void()> callback);
+    static void setLoadCompleteCallback(LoadCompleteCallback callback);
 
 private:
     static std::map<std::string, ResourcePtr> resources;
@@ -291,7 +294,7 @@ private:
     static std::queue<ResourcePtr> reloadQueue;
     static bool useNullForErrorRes;
 
-    static std::function loadCompleteCallback;
+    static LoadCompleteCallback loadCompleteCallback;
 
     ////////////////////////////////////////////////////////////
     /// \brief Loads a single item from the loadingQueue and 

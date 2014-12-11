@@ -48,7 +48,7 @@ public:
     template<typename Arg1, typename... OtherArgs>
     static void logMessage(const Arg1& data, const OtherArgs&... other);
     
-    static void setFileLocation(std::string path);
+    static void setFileLocation(const std::string& path);
 
 private:
     static std::fstream file;

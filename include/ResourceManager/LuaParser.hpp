@@ -31,8 +31,9 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <list>
 #include <ResourceManager/ResourceData.hpp>
+#include <string>
+#include <list>
 
 extern "C" {
     #include <lua.h>
@@ -57,7 +58,7 @@ public:
     /// 
     /// \param path	File path from which to load the resource pack
     ////////////////////////////////////////////////////////////
-    static list<ResourceData> parsePack(string& path);
+    static std::list<ResourceData> parsePack(const std::string& path);
 	
 private:
 
@@ -66,7 +67,7 @@ private:
     /// 
     /// \param data	
     ////////////////////////////////////////////////////////////
-    static list<ResourceData> leafPack(ResourceData data)
+    static std::list<ResourceData> leafPack(ResourceData& data);
 	//I'm not sure how this function functions as the parameter and return types are weird
 	
 	////////////////////////////////////////////////////////////
