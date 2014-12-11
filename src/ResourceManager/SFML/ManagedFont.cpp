@@ -40,8 +40,11 @@ ManagedFont::ManagedFont()
 {
 }
 
+// Release m_font ptr
 ManagedFont::~ManagedFont()
 {
+    delete m_font;
+    m_font = nullptr;
 }
 
 // Load resuorce from file path
@@ -53,17 +56,10 @@ bool ManagedFont::load()
 // Release m_font ptr
 bool ManagedFont::unload()
 {
-    //check if loaded
-    if (isResourceLoaded)
-    {
-        // free up m_font ptr
-        delete m_font;
-        m_font = nullptr;
-        return true
-    }
-
-    // resource not loaded
-    return false;
+    delete m_font;
+    m_font = nullptr;
+    isResourceLoaded = false;
+    return true
 }
 
 // Load from file path
@@ -77,12 +73,13 @@ bool ManagedFont::reload()
 ////////////////////////////////////////////////////////////
 static std::string ManagedFont::getResourceClassType()const
 {
-    // destinguish type
+    // not sure how to go about this
 }
 
 
 size_t ManagedFont::getMemUsage()const
 {
+    // not sure how to go about this
 }
 
 
