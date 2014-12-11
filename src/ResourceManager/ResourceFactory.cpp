@@ -25,6 +25,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceFactory.hpp>
+#include <ResourceMananger/BaseResource.hpp>
 #include <ResourceManager/ResourceCreator.hpp>
 
 namespace rm
@@ -33,6 +34,8 @@ namespace rm
     /// Initialise member variables
     ////////////////////////////////////////////////////////////
 
+    std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
+  
     ////////////////////////////////////////////////////////////
     /// Function definitions
     ////////////////////////////////////////////////////////////
@@ -52,7 +55,7 @@ namespace rm
 
     static void addType()
     {
-
+        throw("Not implemented");
     }
 
 
