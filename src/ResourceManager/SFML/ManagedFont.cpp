@@ -47,7 +47,7 @@ ManagedFont::~ManagedFont()
 // Load resuorce from file path
 bool ManagedFont::load()
 {
-    return (!m_font.loadFromFile(filepath));
+    return !m_font.loadFromFile(filepath);
 }
 
 // Release m_font ptr
@@ -75,14 +75,16 @@ bool ManagedFont::reload()
 ////////////////////////////////////////////////////////////
 /// Getters
 ////////////////////////////////////////////////////////////
-static std::string ManagedFont::getResourceClassType()const
+static std::string ManagedFont::getResourceClassType()
 {
+    throw("Not implemented");
     // destinguish type
 }
 
 
 size_t ManagedFont::getMemUsage()const
 {
+    throw("Not implemented");
 }
 
 

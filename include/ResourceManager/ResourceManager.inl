@@ -71,12 +71,14 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
     //         return ResourcePtr<resources[name]>;
     //     }
     // }
+    throw("Not implemented");
     return nullptr;
 }
 
 template<class T>
 std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
 {
+    throw("Not implemented");
     return nullptr;
 }
 
@@ -133,5 +135,6 @@ void ResourceManager::createErrorResource(const std::string& path)
 template<class T>
 std::shared_ptr<T> ResourceManager::getErrorResource()
 {
+    throw("Not implemented");
     return nullptr;
 }

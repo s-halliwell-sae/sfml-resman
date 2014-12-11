@@ -49,36 +49,43 @@ LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
+    throw("Not implemented");
     // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::reloadResource(const std::string& name)
 {
+    throw("Not implemented");
     // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::initPack(const std::string& path)
 {
+    throw("Not implemented");
 
 }
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
+    throw("Not implemented");
 
 }
 
 void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 {
+    throw("Not implemented");
 
 }
 
 void ResourceManager::reloadPack(const std::string& path)
 {
+    throw("Not implemented");
 
 }
 
 void ResourceManager::switchPack(const std::string& fromPath, const std::string& toPath)
 {
+    throw("Not implemented");
 
 }
 
@@ -102,6 +109,7 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
+    throw("Not implemented");
     // Must appropriately set isLoaded in resource
 }
 
@@ -117,11 +125,13 @@ size_t ResourceManager::getNumToLoad()
 
 ResourceList ResourceManager::listAll()
 {
+    throw("Not implemented");
     return ResourceList();
 }
 
 size_t ResourceManager::getMemUsage()
 {
+    throw("Not implemented");
 
 }
 
@@ -137,16 +147,24 @@ void ResourceManager::setLoadCompleteCallback(LoadCompleteCallback callback)
 
 void ResourceManager::loadFromQueue()
 {
+    throw("Not implemented");
     // Must appropriately set isLoaded in resource
+
+    // bail if queue empty
+    // load
+    // pop
+    // if queue empty call loadCompleteCallback
 }
 
 void ResourceManager::unloadFromQueue()
 {
+    throw("Not implemented");
     // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::reloadFromQueue()
 {
+    throw("Not implemented");
     
 }
 

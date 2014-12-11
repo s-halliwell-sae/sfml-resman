@@ -39,7 +39,7 @@ namespace rm
     ////////////////////////////////////////////////////////////
     struct ResourceData
     {
-        bool inResourcePack; //Defines Whether the struct is a Data pack
+        bool isResourcePack; //Defines Whether the struct is a Data pack
         
         ////////////////////////////////////////////////////////////
         /// 

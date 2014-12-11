@@ -66,29 +66,33 @@ bool ManagedTexture::load()
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::unload()
 {
+    throw("Not implemented");
     return false;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::reload()
 {
+    throw("Not implemented");
     return false;
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedTexture::getResourceClassType()
 {
+    throw("Not implemented");
 }
 
 ////////////////////////////////////////////////////////////
 size_t ManagedTexture::getMemUsage() const
 {
+    throw("Not implemented");
 }
 
 ////////////////////////////////////////////////////////////
 sf::Texture* ManagedTexture::getTexture()
 {
-    return m_texture ? 
+    return m_texture;
 }
 
 }
