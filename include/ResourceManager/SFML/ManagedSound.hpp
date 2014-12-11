@@ -45,7 +45,7 @@ namespace rm
     /// implementation for loading, unloading and reloading.
     ////////////////////////////////////////////////////////////
     
-    class ManagedSound
+    class ManagedSound : BaseResource
     {
     public:
         
@@ -88,7 +88,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance
         ////////////////////////////////////////////////////////////
-        static string getResourceClassType();
+        static std::string getResourceClassType();
         
         ///////////////////////////////////////////////////////////
         /// \brief Returns the size of memory 
