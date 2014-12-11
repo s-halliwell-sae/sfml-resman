@@ -32,61 +32,68 @@
 namespace rm
 {
 
-    ////////////////////////////////////////////////////////////
-    /// Function definitions
-    ////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+ManagedSound::ManagedSound() :
+m_sound (nullptr)
+{
 
-    ManagedSound::ManagedSound()
-    {
-    }
+}
 
-    // Release m_sound ptr
-    ManagedSound::~ManagedSound()
-    {
+////////////////////////////////////////////////////////////
+ManagedSound::~ManagedSound()
+{
+    unload();
+}
+
+////////////////////////////////////////////////////////////
+bool ManagedSound::load()
+{
+    //Attempt to load from file and return success or failure
+    return m_sound.loadFromFile(filepath);
+}
+
+////////////////////////////////////////////////////////////
+bool ManagedSound::unload()
+{
+   // Release m_sound resource and null ptr
+   if(isResourceLoaded)
+   {
         delete m_sound;
         m_sound = nullptr;
-    }
+        return true;
+   }
+   return false;
+}
 
-    // Load resource from file path
-    bool ManagedSound::load()
+////////////////////////////////////////////////////////////
+bool ManagedSound::reload()
+{
+    //To reload the resource must already be loaded
+    if(isResourceLoaded)
     {
-        return m_sound.loadFromFile(filepath);
-    }
-
-    // Release m_sound ptr
-    bool ManagedSound::unload()
-    {
-        delete m_sound;
-        m_sound = nullptr;
-        isResourceLoaded = false;
-        return true
-    }
-
-    // Load from file path
-    bool ManagedSound::reload()
-    {
+        //If so, reload the resource
         return load();
     }
+    //Else reloading fails
+    return false;
+}
 
-    ////////////////////////////////////////////////////////////
-    /// Getters
-    ////////////////////////////////////////////////////////////
-    static std::string ManagedSound::getResourceClassType()
-    {
-        throw("Not implemented");
-        // destinguish type
-    }
+////////////////////////////////////////////////////////////
+static std::string ManagedSound::getResourceClassType()
+{
+    return "sound";
+}
 
+////////////////////////////////////////////////////////////
+size_t ManagedSound::getMemUsage()const
+{
+    throw("Not implemented");
+}
 
-    size_t ManagedSound::getMemUsage()const
-    {
-        throw("Not implemented");
-    }
+////////////////////////////////////////////////////////////
+sf::SoundBuffer* ManagedFont::getSound() const
+{
+    return m_sound;
+}
 
-
-    sf::SoundBuffer* const ManagedFont::getSound()
-    {
-        return m_Sound;
-    }
-
-} // rm
+} // namespace rm

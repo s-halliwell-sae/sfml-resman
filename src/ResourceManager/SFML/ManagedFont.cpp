@@ -32,16 +32,15 @@
 namespace rm
 {
 ////////////////////////////////////////////////////////////
-ManagedFont::ManagedFont()
+ManagedFont::ManagedFont() :
+m_font (nullptr)
 {
 }
 
 ////////////////////////////////////////////////////////////
 ManagedFont::~ManagedFont()
 {
-    // Release m_font ptr
-    delete m_font;
-    m_font = nullptr;
+    unload();
 }
 
 ////////////////////////////////////////////////////////////
@@ -67,14 +66,32 @@ bool ManagedFont::unload()
 ////////////////////////////////////////////////////////////
 bool ManagedFont::reload()
 {
-    // Load from file path
-    return load();
+    //To reload the resource must already be loaded
+    if(isResourceLoaded)
+    {
+        //If so, reload the resource
+        return load();
+    }
+    //Else reloading fails
+    return false;
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedFont::getResourceClassType()
 {
+    return "font";
+}
+
+////////////////////////////////////////////////////////////
+size_t ManagedFont::getMemUsage() const
+{
     throw("Not implemented");
+}
+
+////////////////////////////////////////////////////////////
+sf::Font* ManagedFont::getFont() const
+{
+    return m_font;
 }
 
 } // namespace rm

@@ -32,47 +32,55 @@
 namespace rm
 {
 ////////////////////////////////////////////////////////////
-ManagedMusic::ManagedMusic()
+ManagedMusic::ManagedMusic() :
+m_music (nullptr)
 {
+
 }
 
 ////////////////////////////////////////////////////////////
 ManagedMusic::~ManagedMusic()
 {
-    // Release m_music ptr
-    delete m_music;
-    m_music = nullptr;
+    unload();
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedMusic::load()
 {
     // Stream resource from file path
-    return music.openFromFile(filePath);
+    return m_music.openFromFile(filePath);
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedMusic::unload()
 {
-    // Release m_music ptr
-    delete m_music;
-    m_music = nullptr;
-    isResourceLoaded= false;
-    return true
+    // Release m_music resource and null ptr
+     if(isResourceLoaded)
+    {
+        delete m_music;
+        m_music = nullptr;
+        return true;
+    }
+   return false;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedMusic::reload()
 {
-    // Load from file path
-    return load();
+    //To reload the resource must already be loaded
+    if(isResourceLoaded)
+    {
+        //If so, reload the resource
+        return load();
+    }
+    //Else reloading fails
+    return false;
 }
 
 ////////////////////////////////////////////////////////////
 static std::string ManagedMusic::getResourceClassType()
 {
-    throw("Not implemented");
-    // destinguish type
+    return "music";
 }
 
 ////////////////////////////////////////////////////////////
@@ -82,7 +90,7 @@ size_t ManagedMusic::getMemUsage()const
 }
 
 ////////////////////////////////////////////////////////////
-sf::Music* const ManagedMusic::getMusic()
+sf::Music* ManagedMusic::getMusic() const
 {
     return m_music;
 }

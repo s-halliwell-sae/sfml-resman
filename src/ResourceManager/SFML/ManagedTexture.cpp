@@ -27,18 +27,21 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <ManagedTexture.cpp>
+#include <ManagedTexture.hpp>
 
 namespace rm
 {
 ////////////////////////////////////////////////////////////
-ManagedTexture::ManagedTexture()
+ManagedTexture::ManagedTexture() :
+m_texture   (nullptr)
 {
+
 }
 
 ////////////////////////////////////////////////////////////
 ManagedTexture::~ManagedTexture() 
 {
+    unload();
 }
 
 ////////////////////////////////////////////////////////////
@@ -51,12 +54,12 @@ bool ManagedTexture::load()
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::unload()
 {
-    // Release m_font resource and null ptr
+    // Release m_texture resource and null ptr
    if(isResourceLoaded)
    {
-    delete m_texture;
-    m_texture = null;
-    return true;
+        delete m_texture;
+        m_texture = nullptr;
+        return true;
    }
    return false;
 }
@@ -77,7 +80,7 @@ bool ManagedTexture::reload()
 ////////////////////////////////////////////////////////////
 static std::string ManagedTexture::getResourceClassType()
 {
-    throw("Not implemented");
+    return "texture";
 }
 
 ////////////////////////////////////////////////////////////
@@ -87,7 +90,7 @@ size_t ManagedTexture::getMemUsage() const
 }
 
 ////////////////////////////////////////////////////////////
-sf::Texture* ManagedTexture::getTexture()
+sf::Texture* ManagedTexture::getTexture() const
 {
     return m_texture;
 }
