@@ -68,7 +68,7 @@ namespace rm
         /// 
         /// Invoked when rm::ResourceManager::singleton::load() is called
         ////////////////////////////////////////////////////////////
-        bool load();
+        bool load() override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Unloads the SFML Sound resource, 
@@ -76,14 +76,14 @@ namespace rm
         /// 
         /// Invoked when rm::ResourceManager::singleton::unload() is called
         ////////////////////////////////////////////////////////////
-        bool unload();
+        bool unload() override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Force reloads the SFML Sound resource
         /// 
         /// Invoked when rm::ResourceManager::singleton::reload() is called
         ////////////////////////////////////////////////////////////
-        bool reload();
+        bool reload() override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance
@@ -95,7 +95,7 @@ namespace rm
         /// 
         /// Helper function so that memory allocation can be kept track of
         ////////////////////////////////////////////////////////////
-        size_t getMemUsage();
+        size_t getMemUsage() const override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Sound resource

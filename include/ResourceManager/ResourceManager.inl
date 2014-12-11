@@ -61,6 +61,8 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
         if (mode == LoadMode.Block)
         {
             resources[name]->load;
+            // Set isLoaded if load returns true
+            // bail if false
             return ResourcePtr<resources[name]>;
         }
         //else add it to the load queue
@@ -73,7 +75,7 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
+std::shared_ptr<T> ResourceManager::getResource(const std::string& name) const
 {
     return nullptr;
 }
@@ -91,7 +93,7 @@ void ResourceManager::createErrorResource(const std::string& path)
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getErrorResource()
+std::shared_ptr<T> ResourceManager::getErrorResource() const
 {
     return nullptr;
 }

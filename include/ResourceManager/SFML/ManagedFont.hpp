@@ -68,7 +68,7 @@ namespace rm
         /// 
         /// Invoked when rm::ResourceManager::singleton::load() is called
         ////////////////////////////////////////////////////////////
-        bool load();
+        bool load() override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Unloads the SFML Font resource, 
@@ -76,31 +76,31 @@ namespace rm
         /// 
         /// Invoked when rm::ResourceManager::singleton::unload() is called
         ////////////////////////////////////////////////////////////
-        bool unload();
+        bool unload() override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Force reloads the SFML Font resource
         /// 
         /// Invoked when rm::ResourceManager::singleton::reload() is called
         ////////////////////////////////////////////////////////////
-        bool reload();
+        bool reload() override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance
         ////////////////////////////////////////////////////////////
-        static std::string getResourceClassType()const;
+        static std::string getResourceClassType();
         
         ///////////////////////////////////////////////////////////
         /// \brief Returns the size of memory 
         /// 
         /// Helper function so that memory allocation can be kept track of
         ////////////////////////////////////////////////////////////
-        size_t getMemUsage()const;
+        size_t getMemUsage() const override;
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Font resource
         ////////////////////////////////////////////////////////////
-        sf::Font* const getFont();
+        sf::Font* getFont();
         
     private:
     

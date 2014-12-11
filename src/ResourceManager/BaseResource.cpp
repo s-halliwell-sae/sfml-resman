@@ -44,28 +44,29 @@ BaseResource::~BaseResource()
 ////////////////////////////////////////////////////////////
 /// Getters
 ////////////////////////////////////////////////////////////
-std::string BaseResource::getAlias()const
+std::string BaseResource::getAlias() const
 {
     return alias;
 }
 
-std::string BaseResource::getResourceType()const
+std::string BaseResource::getResourceType() const
 {
     return type;
 }
 
-std::string BaseResource::getFilePath()const
+std::string BaseResource::getFilePath() const
 {
     return filePath;
+}
+
+bool BaseResource::isLoaded() const
+{
+    return isResourceLoaded;
 }
 
 ////////////////////////////////////////////////////////////
 /// Setters
 ////////////////////////////////////////////////////////////
-bool BaseResource::isLoaded()const
-{
-    return isResourceLoaded;
-}
 
 void BaseResource::setAlias(const std::string& newAlias)
 {

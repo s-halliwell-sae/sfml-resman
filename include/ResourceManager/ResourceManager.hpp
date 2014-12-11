@@ -98,7 +98,7 @@ public:
     ///
     ////////////////////////////////////////////////////////////
     template<class T>
-    static std::shared_ptr<T> getResource(const std::string& name);
+    static std::shared_ptr<T> getResource(const std::string& name) const;
 
     ////////////////////////////////////////////////////////////
     /// \brief ResourceManager unloads this single resource and 
@@ -214,7 +214,7 @@ public:
     /// 
     ////////////////////////////////////////////////////////////
     template<class T>
-    static std::shared_ptr<T> getErrorResource();
+    static std::shared_ptr<T> getErrorResource() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Optionally loads default error resources
@@ -248,7 +248,7 @@ public:
     /// \brief Returns true if the loading queue is not empty
     ///
     ////////////////////////////////////////////////////////////
-    static bool isLoading();
+    static bool isLoading() const;
     
     ////////////////////////////////////////////////////////////
     /// \brief Returns the number of elements in the loading queue
@@ -256,7 +256,7 @@ public:
     /// \returns number of elements in the loading queue
     ///
     ////////////////////////////////////////////////////////////
-    static size_t getNumToLoad();
+    static size_t getNumToLoad() const;
     
     ////////////////////////////////////////////////////////////
     /// \brief Lists all managed resources
@@ -268,7 +268,7 @@ public:
     ///     resources being loaded
     ///
     ////////////////////////////////////////////////////////////
-    static ResourceList listAll();
+    static ResourceList listAll() const;
     
     ////////////////////////////////////////////////////////////
     /// \brief Returns total memory used by the ResourceManager
@@ -276,7 +276,7 @@ public:
     /// \returns the total memory used by the ResourceManager
     ///
     ////////////////////////////////////////////////////////////
-    static size_t getMemUsage();
+    static size_t getMemUsage() const;
     
     ////////////////////////////////////////////////////////////
     /// \brief Gets the total number of resources managed by the
@@ -286,7 +286,7 @@ public:
     ///     ResourceManager
     ///
     ////////////////////////////////////////////////////////////
-    static size_t getNumResources();
+    static size_t getNumResources() const;
 
 
     ////////////////////////////////////////////////////////////
