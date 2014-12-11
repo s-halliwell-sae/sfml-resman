@@ -121,14 +121,13 @@ namespace rm
         /// \brief Sets the file path member
         ///
         ///////////////////////////////////////////////////////////
-        void setFilePath();
+        void setFilePath(const std::string& newFilePath);
 
         ///////////////////////////////////////////////////////////
         /// \brief Sets the isLoaded member
         ///
         ///////////////////////////////////////////////////////////
-        void setIsLoaded();
-        void setRam();
+        void setIsLoaded(bool isLoaded);
         
     private:
         std::string alias, type, filePath;
