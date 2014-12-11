@@ -35,8 +35,11 @@ void ResourceManager::initResource(const std::string& path){
 
     // Create resource stub
     auto resourcestub = ResourceFactory::createResource(path, T::getResourceClassType());
+
+    // Check validity
     if(resourcestub)
     {
+        // Set it's alias and add it to the resource lookup
         resourcestub->setAlias(path);
         resources[path] = resourcestub;        
     }
