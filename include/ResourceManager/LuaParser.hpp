@@ -50,6 +50,8 @@ extern "C" {
 namespace rm 
 {
 
+typedef std::list<ResourceData> ResourceDataList;
+
 class LuaParser {
 public:
 
@@ -58,7 +60,7 @@ public:
     /// 
     /// \param path	File path from which to load the resource pack
     ////////////////////////////////////////////////////////////
-    static std::list<ResourceData> parsePack(const std::string& path);
+    static ResourceDataList parsePack(const std::string& path);
 	
 private:
 
@@ -67,7 +69,7 @@ private:
     /// 
     /// \param data	
     ////////////////////////////////////////////////////////////
-    static std::list<ResourceData> leafPack(ResourceData& data);
+    static ResourceDataList leafPack(ResourceData& data);
 	//I'm not sure how this function functions as the parameter and return types are weird
 	
 	////////////////////////////////////////////////////////////

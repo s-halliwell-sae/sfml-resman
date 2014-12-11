@@ -28,7 +28,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <BaseResource.hpp>
+#include <ResourceManager/BaseResource.hpp>
 
 
 class BaseResource

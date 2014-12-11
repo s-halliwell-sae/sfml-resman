@@ -33,11 +33,11 @@ namespace rm
 ////////////////////////////////////////////////////////////
 /// Initialise static members
 ////////////////////////////////////////////////////////////
-std::map<std::string, ResourcePtr> ResourceManager::resources = {};
-std::map<std::string, ResourcePtr> ResourceManager::errorResources = {};
-std::queue<ResourcePtr> ResourceManager::loadingQueue = {};
-std::queue<ResourcePtr> ResourceManager::unloadQueue = {};
-std::queue<ResourcePtr> ResourceManager::reloadQueue = {};
+ResourceLookup ResourceManager::resources = {};
+ResourceLookup ResourceManager::errorResources = {};
+ResourceQueue ResourceManager::loadingQueue = {};
+ResourceQueue ResourceManager::unloadQueue = {};
+ResourceQueue ResourceManager::reloadQueue = {};
 bool ResourceManager::useNullForErrorRes = true;
 
 LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
@@ -102,7 +102,7 @@ size_t ResourceManager::getNumToLoad(){
     return loadingQueue.size();
 }
 
-std::list<ResourcePtr> ResourceManager::listAll(){
+ResourceList ResourceManager::listAll(){
 
 }
 

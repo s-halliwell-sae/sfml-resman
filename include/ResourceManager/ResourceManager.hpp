@@ -46,6 +46,9 @@ namespace rm
 
 typedef std::shared_ptr<BaseResource> ResourcePtr;
 typedef std::function<void ()> LoadCompleteCallback;
+typedef std::map<std::string, ResourcePtr> ResourceLookup;
+typedef std::queue<ResourcePtr> ResourceQueue;
+typedef std::list<ResourcePtr> ResourceList;
 
 enum class LoadMode
 {
@@ -254,7 +257,7 @@ public:
     ///     resources being loaded
     ///
     ////////////////////////////////////////////////////////////
-    static std::list<ResourcePtr> listAll();
+    static ResourceList listAll();
     
     ////////////////////////////////////////////////////////////
     /// \brief Returns total memory used by the ResourceManager
@@ -287,11 +290,11 @@ public:
     static void setLoadCompleteCallback(LoadCompleteCallback callback);
 
 private:
-    static std::map<std::string, ResourcePtr> resources;
-    static std::map<std::string, ResourcePtr> errorResources;
-    static std::queue<ResourcePtr> loadingQueue;
-    static std::queue<ResourcePtr> unloadQueue;
-    static std::queue<ResourcePtr> reloadQueue;
+    static ResourceLookup resources;
+    static ResourceLookup errorResources;
+    static ResourceQueue loadingQueue;
+    static ResourceQueue unloadQueue;
+    static ResourceQueue reloadQueue;
     static bool useNullForErrorRes;
 
     static LoadCompleteCallback loadCompleteCallback;
