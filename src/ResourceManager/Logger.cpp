@@ -29,11 +29,43 @@
 namespace rm
 {
 
+////////////////////////////////////////////////////////////
+/// Initialise static members
+////////////////////////////////////////////////////////////
 std::fstream Logger::file; 
 bool Logger::doesPrintOut = true; 
 
+////////////////////////////////////////////////////////////
+/// Function definitions
+////////////////////////////////////////////////////////////
 void Logger::setFileLocation(const std::string& path)
 {
+    /////////////////////////////////////////
+    // The following is a hack.
+    // It's necessary because gcc won't support
+    //      move semantics for streams until
+    //      version 5
+    /////////////////////////////////////////
 
+    // Attempt to open new log file
+    std::fstream tmpFile(path, std::fstream::out);
+
+    // Bail if file open failed
+    if(!tmpFile)
+    {
+        logMessage("Logger couldn't set file location to ", path);
+        return;
+    }
+    tmpFile.close();
+
+    // On success, check if a log file is already open and close it
+    if(file)
+    {
+        file.close();
+    }
+
+    // Set new log file
+    file.open(path, std::fstream::out);
 }
+
 }

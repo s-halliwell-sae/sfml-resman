@@ -26,8 +26,13 @@
 
 template<typename Arg>
 void Logger::logMessage(const Arg& data){
-    // This is where the filestream check and output would go
+    // Check filestream and write to it if valid
+    if(file)
+    {
+        file << data << std::endl;
+    }
 
+    // Bail if doesPrintOut is set to false
     if(!doesPrintOut) return;
 
     // Print data and end line because either this is
@@ -38,8 +43,13 @@ void Logger::logMessage(const Arg& data){
 
 template<typename Arg1, typename... OtherArgs>
 void Logger::logMessage(const Arg1& data, const OtherArgs&... other){
-    // This is where the filestream check and output would go
+    // Check filestream and write to it if valid
+    if(file)
+    {
+        file << data;
+    }
 
+    // Bail if doesPrintOut is set to false
     if(!doesPrintOut) return;
 
     // Print data but don't end line as this isn't the 
