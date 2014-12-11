@@ -53,17 +53,11 @@ bool ManagedFont::load()
 // Release m_font ptr
 bool ManagedFont::unload()
 {
-    //check if loaded
-    if (isResourceLoaded)
-    {
-        // free up m_font ptr
-        delete m_font;
-        m_font = nullptr;
-        return true
-    }
-
-    // resource not loaded
-    return false;
+    // free up m_font ptr
+    delete m_font;
+    m_font = nullptr;
+    isResourceLoaded = false;
+    return true
 }
 
 // Load from file path

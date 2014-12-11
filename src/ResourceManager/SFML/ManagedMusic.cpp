@@ -23,3 +23,72 @@
 // SOFTWARE.
 //
 ////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
+#include <ManagedMusic.hpp>
+
+namespace rm
+{
+
+    ////////////////////////////////////////////////////////////
+    /// Function definitions
+    ////////////////////////////////////////////////////////////
+
+    ManagedFont::ManagedMusic()
+    {
+    }
+
+    // Release m_music ptr
+    ManagedFont::~ManagedMusic()
+    {
+        delete m_music;
+        m_music = nullptr;
+    }
+
+    // Load resuorce from file path
+    bool ManagedMusic::load()
+    {
+        return !music.openFromFile(filePath);
+    }
+
+    // Release m_music ptr
+    bool ManagedMusic::unload()
+    {
+        // free up m_music ptr
+        delete m_music;
+        m_music = nullptr;
+        isResourceLoaded= false;
+        return true
+
+    }
+
+    // Load from file path
+    bool ManagedMusic::reload()
+    {
+        return load();
+    }
+
+    ////////////////////////////////////////////////////////////
+    /// Getters
+    ////////////////////////////////////////////////////////////
+    static std::string ManagedMusic::getResourceClassType()
+    {
+        throw("Not implemented");
+        // destinguish type
+    }
+
+
+    size_t ManagedMusic::getMemUsage()const
+    {
+        throw("Not implemented");
+    }
+
+
+    sf::Texture* const ManagedMusic::getMusic()
+    {
+        return m_music;
+    }
+
+} // rm
