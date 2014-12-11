@@ -46,7 +46,7 @@ namespace rm
     ///
     ////////////////////////////////////////////////////////////
     
-    class ManagedTexture
+    class ManagedTexture : BaseResource
     {
     public:
         
