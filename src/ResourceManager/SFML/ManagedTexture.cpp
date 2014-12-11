@@ -43,6 +43,22 @@ ManagedTexture::~ManagedTexture()
 ////////////////////////////////////////////////////////////
 void ManagedTexture::load()
 {
+    //If texture not loaded
+    if(!isResourceLoaded)
+    {
+        //Try and load the texture from file using sf::Texture.loadFromFile()
+        if(!m_texture.loadFromFile(filepath))
+        {
+            //Texture failed to load, log the failure, notify the user
+            isResourceLoaded = false;
+            
+        }
+        else
+        {
+            //Texture loaded successfully, log the success
+            isResourceLoaded = true;
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////
@@ -66,8 +82,9 @@ size_t ManagedTexture::getRamUse()
 }
 
 ////////////////////////////////////////////////////////////
-void ManagedTexture::load()
+sf::Texture* ManagedTexture::getTexture()
 {
+    return m_texture ? 
 }
 
 }

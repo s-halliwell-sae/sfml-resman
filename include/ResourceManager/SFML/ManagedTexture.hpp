@@ -34,6 +34,7 @@
 #include <SFML/Graphic/Texture.hpp>
 
 #include <BaseResource.hpp>
+#include <Logger.hpp>
 
 
 namespace rm
