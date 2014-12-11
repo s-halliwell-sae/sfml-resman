@@ -24,64 +24,63 @@
 //
 ////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////
-// Headers
-////////////////////////////////////////////////////////////
-
 #include <ResourceManager/BaseResource.hpp>
 
-
-class BaseResource
+namespace rm
 {
-public:
-    void BaseResource()
-    {
-    }
 
-    void ~BaseResource()
-    {
-    }
+////////////////////////////////////////////////////////////
+/// Function definitions
+////////////////////////////////////////////////////////////
 
-    // getters
+void BaseResource()
+{
+}
 
-    std::string BaseResource::getAlias()const
-    {
-        return alias;
-    }
+void ~BaseResource()
+{
+}
 
-    std::string BaseResource::getResourceType()const
-    {
-        return type;
-    }
+////////////////////////////////////////////////////////////
+/// Getters
+////////////////////////////////////////////////////////////
+std::string BaseResource::getAlias()const
+{
+    return alias;
+}
 
-    std::string BaseResource::getFilePath()const
-    {
-        return filePath;
-    }
+std::string BaseResource::getResourceType()const
+{
+    return type;
+}
 
-    // setters
+std::string BaseResource::getFilePath()const
+{
+    return filePath;
+}
 
-    bool BaseResource::isLoaded()const
-    {
-        return isResourceLoaded;
-    }
+////////////////////////////////////////////////////////////
+/// Setters
+////////////////////////////////////////////////////////////
+bool BaseResource::isLoaded()const
+{
+    return isResourceLoaded;
+}
 
-    void BaseResource::setAlias(const std::string& newAlias)
-    {
-        alias = newAlias;
-    }
+void BaseResource::setAlias(const std::string& newAlias)
+{
+    alias = newAlias;
+}
 
-    void BaseResource::setFilePath(const std::string& newFilePath)
-    {
-        filePath = new filePath;
-    }
+void BaseResource::setFilePath(const std::string& newFilePath)
+{
+    filePath = new filePath;
+}
 
-    void BaseResource::setIsLoaded(bool isLoaded)
-    {
-        isResourceLoaded = isLoaded;
-    }
+void BaseResource::setIsLoaded(bool isLoaded)
+{
+    isResourceLoaded = isLoaded;
+}
 
-private:
-    std::string alias, type, filePath;
-    bool isResourceLoaded;
-};
+} // rm
+
