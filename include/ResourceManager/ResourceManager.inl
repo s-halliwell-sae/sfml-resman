@@ -51,6 +51,22 @@ void ResourceManager::initResource(const std::string& path){
 
 template<class T>
 std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMode mode){
+    //Check if exists in resource map
+    if (resources.find(name) == resources.end())
+    {
+        //Check load mode
+        //if the resource is to be loaded imediately
+        if (mode == LoadMode.Block)
+        {
+            resources[name]->load;
+            return ResourcePtr<resources[name]>;
+        }
+        //else add it to the load queue
+        {
+            loadingQueue.push(ResourcePtr<resources[name]>);
+            return ResourcePtr<resources[name]>;
+        }
+    }
     return nullptr;
 }
 
