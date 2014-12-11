@@ -33,11 +33,11 @@ namespace rm
 /// Function definitions
 ////////////////////////////////////////////////////////////
 
-void BaseResource()
+BaseResource::BaseResource()
 {
 }
 
-void ~BaseResource()
+BaseResource::~BaseResource()
 {
 }
 
