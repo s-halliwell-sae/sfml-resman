@@ -23,3 +23,72 @@
 // SOFTWARE.
 //
 ////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
+#include <ManagedFont.hpp>
+
+namespace rm
+{
+
+////////////////////////////////////////////////////////////
+/// Function definitions
+////////////////////////////////////////////////////////////
+
+ManagedFont::ManagedFont()
+{
+}
+
+ManagedFont::~ManagedFont()
+{
+}
+
+// Load resuorce from file path
+bool ManagedFont::load()
+{
+    return (!m_font.loadFromFile(filepath));
+}
+
+// Release m_font ptr
+bool ManagedFont::unload()
+{
+    //check if loaded
+    if (isResourceLoaded)
+    {
+        // free up m_font ptr
+        delete m_font;
+        m_font = nullptr;
+        return true
+    }
+
+    // resource not loaded
+    return false;
+}
+
+// Load from file path
+bool ManagedFont::reload()
+{
+    return load();
+}
+
+////////////////////////////////////////////////////////////
+/// Getters
+////////////////////////////////////////////////////////////
+static std::string ManagedFont::getResourceClassType()const
+{
+    // destinguish type
+}
+
+
+size_t ManagedFont::getMemUsage()const
+{
+}
+
+
+sf::Texture* const ManagedFont::getFont()
+{
+    return m_font;
+}
+
+} // rm
