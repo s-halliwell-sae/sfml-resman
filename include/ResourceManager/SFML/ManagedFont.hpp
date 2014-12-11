@@ -88,19 +88,19 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance
         ////////////////////////////////////////////////////////////
-        static std::string getResourceClassType();
+        static std::string getResourceClassType()const;
         
         ///////////////////////////////////////////////////////////
         /// \brief Returns the size of memory 
         /// 
         /// Helper function so that memory allocation can be kept track of
         ////////////////////////////////////////////////////////////
-        size_t getMemUsage();
+        size_t getMemUsage()const;
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Font resource
         ////////////////////////////////////////////////////////////
-        sf::Font* getFont();
+        sf::Font* const getFont();
         
     private:
     
