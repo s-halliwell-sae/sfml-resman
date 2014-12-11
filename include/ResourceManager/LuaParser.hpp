@@ -32,7 +32,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <list>
-#include <ResourceData.hpp>
+#include <ResourceManager/ResourceData.hpp>
 
 extern "C" {
     #include <lua.h>
