@@ -115,7 +115,7 @@ namespace rm
         /// \brief Returns the memory usage
         ///
         ///////////////////////////////////////////////////////////
-        virtual size_t getMemUsage() = 0;
+        virtual size_t getMemUsage() const = 0;
 
         ///////////////////////////////////////////////////////////
         /// \brief Sets the alias member

@@ -104,7 +104,7 @@ namespace rm
         /// Helper function so that memory allocation can be kept track of
         ///
         ////////////////////////////////////////////////////////////
-        size_t getMemUsage();
+        size_t getMemUsage() const;
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Texture resource

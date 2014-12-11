@@ -61,6 +61,8 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
         if (mode == LoadMode.Block)
         {
             resources[name]->load;
+            // Set isLoaded if load returns true
+            // bail if false
             return ResourcePtr<resources[name]>;
         }
         //else add it to the load queue

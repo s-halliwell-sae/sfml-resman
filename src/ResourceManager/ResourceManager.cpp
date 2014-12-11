@@ -49,12 +49,12 @@ LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
-
+    // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::reloadResource(const std::string& name)
 {
-
+    // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::initPack(const std::string& path)
@@ -102,7 +102,7 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
-
+    // Must appropriately set isLoaded in resource
 }
 
 bool ResourceManager::isLoading() const
@@ -137,12 +137,12 @@ void ResourceManager::setLoadCompleteCallback(LoadCompleteCallback callback)
 
 void ResourceManager::loadFromQueue()
 {
-    
+    // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::unloadFromQueue()
 {
-    
+    // Must appropriately set isLoaded in resource
 }
 
 void ResourceManager::reloadFromQueue()
