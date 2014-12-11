@@ -27,7 +27,7 @@
 template<class T>
 void ResourceManager::initResource(const std::string& path){
     // Check to make sure, resource isn't already initialised.
-    if(resources.find(path) == resources.end()) 
+    if(resources.find(path) != resources.end()) 
     {
         // If it exists already, return
         return;
