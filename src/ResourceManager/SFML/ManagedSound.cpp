@@ -23,3 +23,70 @@
 // SOFTWARE.
 //
 ////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
+#include <ManagedSound.hpp>
+
+namespace rm
+{
+
+    ////////////////////////////////////////////////////////////
+    /// Function definitions
+    ////////////////////////////////////////////////////////////
+
+    ManagedSound::ManagedSound()
+    {
+    }
+
+    // Release m_sound ptr
+    ManagedSound::~ManagedSound()
+    {
+        delete m_sound;
+        m_sound = nullptr;
+    }
+
+    // Load resource from file path
+    bool ManagedSound::load()
+    {
+        return m_sound.loadFromFile(filepath);
+    }
+
+    // Release m_sound ptr
+    bool ManagedSound::unload()
+    {
+        delete m_sound;
+        m_sound = nullptr;
+        isResourceLoaded = false;
+        return true
+    }
+
+    // Load from file path
+    bool ManagedSound::reload()
+    {
+        return load();
+    }
+
+    ////////////////////////////////////////////////////////////
+    /// Getters
+    ////////////////////////////////////////////////////////////
+    static std::string ManagedSound::getResourceClassType()
+    {
+        throw("Not implemented");
+        // destinguish type
+    }
+
+
+    size_t ManagedSound::getMemUsage()const
+    {
+        throw("Not implemented");
+    }
+
+
+    sf::SoundBuffer* const ManagedFont::getSound()
+    {
+        return m_Sound;
+    }
+
+} // rm

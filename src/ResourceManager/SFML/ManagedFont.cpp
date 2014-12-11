@@ -31,17 +31,17 @@
 
 namespace rm
 {
-
 ////////////////////////////////////////////////////////////
-/// Function definitions
-////////////////////////////////////////////////////////////
-
 ManagedFont::ManagedFont()
 {
 }
 
+////////////////////////////////////////////////////////////
 ManagedFont::~ManagedFont()
 {
+    // Release m_font ptr
+    delete m_font;
+    m_font = nullptr;
 }
 
 ////////////////////////////////////////////////////////////
@@ -64,28 +64,17 @@ bool ManagedFont::unload()
      return false;
 }
 
-// Load from file path
+////////////////////////////////////////////////////////////
 bool ManagedFont::reload()
 {
+    // Load from file path
     return load();
 }
 
+////////////////////////////////////////////////////////////
 static std::string ManagedFont::getResourceClassType()
 {
     throw("Not implemented");
-    // destinguish type
-}
-
-
-size_t ManagedFont::getMemUsage()const
-{
-    throw("Not implemented");
-}
-
-
-sf::Texture* const ManagedFont::getFont()
-{
-    return m_font;
 }
 
 } // namespace rm

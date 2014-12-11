@@ -31,64 +31,60 @@
 
 namespace rm
 {
+////////////////////////////////////////////////////////////
+ManagedMusic::ManagedMusic()
+{
+}
 
-    ////////////////////////////////////////////////////////////
-    /// Function definitions
-    ////////////////////////////////////////////////////////////
-
-    ManagedFont::ManagedMusic()
-    {
-    }
-
+////////////////////////////////////////////////////////////
+ManagedMusic::~ManagedMusic()
+{
     // Release m_music ptr
-    ManagedFont::~ManagedMusic()
-    {
-        delete m_music;
-        m_music = nullptr;
-    }
+    delete m_music;
+    m_music = nullptr;
+}
 
-    // Load resuorce from file path
-    bool ManagedMusic::load()
-    {
-        return !music.openFromFile(filePath);
-    }
+////////////////////////////////////////////////////////////
+bool ManagedMusic::load()
+{
+    // Stream resource from file path
+    return music.openFromFile(filePath);
+}
 
+////////////////////////////////////////////////////////////
+bool ManagedMusic::unload()
+{
     // Release m_music ptr
-    bool ManagedMusic::unload()
-    {
-        // free up m_music ptr
-        delete m_music;
-        m_music = nullptr;
-        isResourceLoaded= false;
-        return true
+    delete m_music;
+    m_music = nullptr;
+    isResourceLoaded= false;
+    return true
+}
 
-    }
-
+////////////////////////////////////////////////////////////
+bool ManagedMusic::reload()
+{
     // Load from file path
-    bool ManagedMusic::reload()
-    {
-        return load();
-    }
+    return load();
+}
 
-    ////////////////////////////////////////////////////////////
-    /// Getters
-    ////////////////////////////////////////////////////////////
-    static std::string ManagedMusic::getResourceClassType()
-    {
-        throw("Not implemented");
-        // destinguish type
-    }
+////////////////////////////////////////////////////////////
+static std::string ManagedMusic::getResourceClassType()
+{
+    throw("Not implemented");
+    // destinguish type
+}
 
+////////////////////////////////////////////////////////////
+size_t ManagedMusic::getMemUsage()const
+{
+    throw("Not implemented");
+}
 
-    size_t ManagedMusic::getMemUsage()const
-    {
-        throw("Not implemented");
-    }
+////////////////////////////////////////////////////////////
+sf::Music* const ManagedMusic::getMusic()
+{
+    return m_music;
+}
 
-
-    sf::Texture* const ManagedMusic::getMusic()
-    {
-        return m_music;
-    }
-
-} // rm
+} // namespace rm

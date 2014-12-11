@@ -64,8 +64,10 @@ namespace rm
         ~ManagedMusic();
         
         ////////////////////////////////////////////////////////////
-        /// \brief Loads the SFML Music resource
+        /// \brief Loads the SFML Music resource, The music resource
+        ///  is streamed from the file path
         /// 
+        ///
         /// Invoked when rm::ResourceManager::singleton::load() is called
         ////////////////////////////////////////////////////////////
         bool load() override;
