@@ -24,40 +24,46 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
-
-#include <iostream>
-#include <string>
-#include <fstream>
+#ifndef RESOURCE_ALLOCATOR_HPP
+#define RESOURCE_ALLOCATOR_HPP
 
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
 
-namespace rm
-{
+#include <ResourceManager/BaseResource.hpp>
+#include <memory>
 
-class Logger 
+namespace rm 
+{
+////////////////////////////////////////////////////////////
+/// \brief ResourceAllocatorInterface and 
+///     ResourceAllocatorImplementation are helper classes 
+///     that allow the ResourceFactory to create
+///     specific resources without static type information
+////////////////////////////////////////////////////////////
+
+class ResourceAllocatorInterface 
 {
 public:
-
-    template<typename Arg>
-    static void logMessage(const Arg& data);
-
-    template<typename Arg1, typename... OtherArgs>
-    static void logMessage(const Arg1& data, const OtherArgs&... other);
-    
-    static void setFileLocation(std::string path);
-
-private:
-    static std::fstream file;
-    static bool doesPrintOut;
+    virtual std::shared_ptr<BaseResource> create() = 0;
 };
 
-#include <Logger.inl>
-   
+
+template<class T>
+class ResourceAllocatorImplementation : public ResourceAllocatorInterface
+{
+public:
+    ////////////////////////////////////////////////////////////
+    /// \brief Creates a new resource of type T
+    ///
+    /// \returns A downcasted pointer to a new resource T
+    ////////////////////////////////////////////////////////////
+    std::shared_ptr<BaseResource> create() override;
+};
+
+#include <ResourceManager/ResourceAllocator.inl>
+
 }
 
-
-#endif //LOGGER_HPP
+#endif //RESOURCE_ALLOCATOR_HPP

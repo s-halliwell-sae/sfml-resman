@@ -24,46 +24,42 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef RESOURCE_ALLOCATOR_HPP
-#define RESOURCE_ALLOCATOR_HPP
-
-////////////////////////////////////////////////////////////
-// Headers
-////////////////////////////////////////////////////////////
-
-#include <BaseResource.hpp>
-#include <memory>
-
-namespace rm 
-{
-////////////////////////////////////////////////////////////
-/// \brief ResourceAllocatorInterface and 
-///     ResourceAllocatorImplementation are helper classes 
-///     that allow the ResourceFactory to create
-///     specific resources without static type information
-////////////////////////////////////////////////////////////
-
-class ResourceAllocatorInterface 
-{
-public:
-    virtual std::shared_ptr<BaseResource> create() = 0;
-};
-
+#include <ResourceManager/ResourceFactory.hpp>
 
 template<class T>
-class ResourceAllocatorImplementation : public ResourceAllocatorInterface
-{
-public:
-    ////////////////////////////////////////////////////////////
-    /// \brief Creates a new resource of type T
-    ///
-    /// \returns A downcasted pointer to a new resource T
-    ////////////////////////////////////////////////////////////
-    std::shared_ptr<BaseResource> create() override;
-};
+void initResource(const std::string& path){
+    // Check to make sure, resource isn't already initialised.
+    if(resources.find(path) == resources.end()) {
+        // If it exists already, return
+        return;
+    }
 
-#include <ResourceAllocator.inl>
+    // Create resource stub
+    auto resourcestub = ResourceFactory::createResource(path, T::getResourceClassType());
+    if(resourcestub){
+        resourcestub->setAlias(path);
+        resources[path] = resourcestub;        
+    }else{
+        Logger::logMessage("Init resource failed for ", path); 
+    }
+}
+
+template<class T>
+std::shared_ptr<T> loadResource(const std::string& name, LoadMode mode){
+    return nullptr;
+}
+
+template<class T>
+std::shared_ptr<T> getResource(const std::string& name){
+    return nullptr;
+}
+
+template<class T>
+void createErrorResource(const std::string& path){
 
 }
 
-#endif //RESOURCE_ALLOCATOR_HPP
+template<class T>
+std::shared_ptr<T> getErrorResource(){
+    return nullptr;
+}

@@ -24,31 +24,40 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef RESOURCE_DATA_HPP
-#define RESOURCE_DATA_HPP
+#ifndef LOGGER_HPP
+#define LOGGER_HPP
+
+#include <iostream>
+#include <string>
+#include <fstream>
 
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
 
-namespace rm 
+namespace rm
 {
-    ////////////////////////////////////////////////////////////
-    /// 
-    ////////////////////////////////////////////////////////////
-    struct ResourceData
-    {
-        bool inResourcePack; //Defines Whether the struct is a Data pack
-        
-        ////////////////////////////////////////////////////////////
-        /// 
-        ////////////////////////////////////////////////////////////
-        std::string path;
-        std::string alias;
-        std::string type;
-    }
 
+class Logger 
+{
+public:
+
+    template<typename Arg>
+    static void logMessage(const Arg& data);
+
+    template<typename Arg1, typename... OtherArgs>
+    static void logMessage(const Arg1& data, const OtherArgs&... other);
+    
+    static void setFileLocation(std::string path);
+
+private:
+    static std::fstream file;
+    static bool doesPrintOut;
+};
+
+#include <ResourceManager/Logger.inl>
+   
 }
 
 
-#endif //RESOURCE_DATA_HPP
+#endif //LOGGER_HPP

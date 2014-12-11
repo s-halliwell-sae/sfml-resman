@@ -24,8 +24,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager.hpp>
-#include <LuaParser.hpp>
+#include <ResourceManager/ResourceManager.hpp>
+#include <ResourceManager/LuaParser.hpp>
 
 namespace rm
 {
@@ -33,11 +33,11 @@ namespace rm
 ////////////////////////////////////////////////////////////
 /// Initialise static members
 ////////////////////////////////////////////////////////////
-std::map<std::string, resource_ptr> ResourceManager::resources = {};
-std::map<std::string, resource_ptr> ResourceManager::errorResources = {};
-std::queue<resource_ptr> ResourceManager::loadingQueue = {};
-std::queue<resource_ptr> ResourceManager::unloadQueue = {};
-std::queue<resource_ptr> ResourceManager::reloadQueue = {};
+std::map<std::string, ResourcePtr> ResourceManager::resources = {};
+std::map<std::string, ResourcePtr> ResourceManager::errorResources = {};
+std::queue<ResourcePtr> ResourceManager::loadingQueue = {};
+std::queue<ResourcePtr> ResourceManager::unloadQueue = {};
+std::queue<ResourcePtr> ResourceManager::reloadQueue = {};
 bool ResourceManager::useNullForErrorRes = true;
 
 std::function ResourceManager::loadCompleteCallback = nullptr;
@@ -102,7 +102,7 @@ size_t ResourceManager::getNumToLoad(){
     return loadingQueue.size();
 }
 
-std::list<resource_ptr> ResourceManager::listAll(){
+std::list<ResourcePtr> ResourceManager::listAll(){
 
 }
 

@@ -31,7 +31,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <BaseResource.hpp>
+#include <ResourceManager/BaseResource.hpp>
 #include <functional>
 #include <string>
 #include <memory>
@@ -42,7 +42,7 @@
 namespace rm 
 {
 
-typedef std::shared_ptr<BaseResource> resource_ptr;
+typedef std::shared_ptr<BaseResource> ResourcePtr;
 
 enum class LoadMode
 {
@@ -251,7 +251,7 @@ public:
     ///     resources being loaded
     ///
     ////////////////////////////////////////////////////////////
-    static std::list<resource_ptr> listAll();
+    static std::list<ResourcePtr> listAll();
     
     ////////////////////////////////////////////////////////////
     /// \brief Returns total memory used by the ResourceManager
@@ -284,11 +284,11 @@ public:
     static void setLoadCompleteCallback(std::function<void()> callback);
 
 private:
-    static std::map<std::string, resource_ptr> resources;
-    static std::map<std::string, resource_ptr> errorResources;
-    static std::queue<resource_ptr> loadingQueue;
-    static std::queue<resource_ptr> unloadQueue;
-    static std::queue<resource_ptr> reloadQueue;
+    static std::map<std::string, ResourcePtr> resources;
+    static std::map<std::string, ResourcePtr> errorResources;
+    static std::queue<ResourcePtr> loadingQueue;
+    static std::queue<ResourcePtr> unloadQueue;
+    static std::queue<ResourcePtr> reloadQueue;
     static bool useNullForErrorRes;
 
     static std::function loadCompleteCallback;
@@ -315,7 +315,7 @@ private:
     static void reloadFromQueue();
 };
 
-#include <ResourceManager.inl>
+#include <ResourceManager/ResourceManager.inl>
 
 } // rm
 

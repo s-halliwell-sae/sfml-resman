@@ -24,42 +24,31 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <ResourceFactory.hpp>
+#ifndef RESOURCE_DATA_HPP
+#define RESOURCE_DATA_HPP
 
-template<class T>
-void initResource(const std::string& path){
-    // Check to make sure, resource isn't already initialised.
-    if(resources.find(path) == resources.end()) {
-        // If it exists already, return
-        return;
-    }
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
 
-    // Create resource stub
-    auto resourcestub = ResourceFactory::createResource(path, T::getResourceClassType());
-    if(resourcestub){
-        resourcestub->setAlias(path);
-        resources[path] = resourcestub;        
-    }else{
-        Logger::logMessage("Init resource failed for ", path);
-    }
-}
-
-template<class T>
-std::shared_ptr<T> loadResource(const std::string& name, LoadMode mode){
-    return nullptr;
-}
-
-template<class T>
-std::shared_ptr<T> getResource(const std::string& name){
-    return nullptr;
-}
-
-template<class T>
-void createErrorResource(const std::string& path){
+namespace rm 
+{
+    ////////////////////////////////////////////////////////////
+    /// 
+    ////////////////////////////////////////////////////////////
+    struct ResourceData
+    {
+        bool inResourcePack; //Defines Whether the struct is a Data pack
+        
+        ////////////////////////////////////////////////////////////
+        /// 
+        ////////////////////////////////////////////////////////////
+        std::string path;
+        std::string alias;
+        std::string type;
+    };
 
 }
 
-template<class T>
-std::shared_ptr<T> getErrorResource(){
-    return nullptr;
-}
+
+#endif //RESOURCE_DATA_HPP
