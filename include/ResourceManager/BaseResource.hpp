@@ -132,7 +132,7 @@ namespace rm
         
     private:
         std::string alias, type, filePath;
-        bool isLoaded;
+        bool isResourceLoaded;
 	};
 }
 
