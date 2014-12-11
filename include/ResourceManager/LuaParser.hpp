@@ -52,7 +52,8 @@ namespace rm
 
 typedef std::list<ResourceData> ResourceDataList;
 
-class LuaParser {
+class LuaParser 
+{
 public:
 
     ////////////////////////////////////////////////////////////

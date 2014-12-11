@@ -47,87 +47,107 @@ LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 /// Function definitions
 ////////////////////////////////////////////////////////////
 
-void ResourceManager::unloadResource(const std::string& name, LoadMode mode){
+void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
+{
 
 }
 
-void ResourceManager::reloadResource(const std::string& name){
+void ResourceManager::reloadResource(const std::string& name)
+{
 
 }
 
-void ResourceManager::initPack(const std::string& path){
+void ResourceManager::initPack(const std::string& path)
+{
 
 }
 
-void ResourceManager::loadPack(const std::string& path, LoadMode mode){
+void ResourceManager::loadPack(const std::string& path, LoadMode mode)
+{
 
 }
 
-void ResourceManager::unloadPack(const std::string& path, LoadMode mode){
+void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
+{
 
 }
 
-void ResourceManager::reloadPack(const std::string& path){
+void ResourceManager::reloadPack(const std::string& path)
+{
 
 }
 
-void ResourceManager::switchPack(const std::string& fromPath, const std::string& toPath){
+void ResourceManager::switchPack(const std::string& fromPath, const std::string& toPath)
+{
 
 }
 
-void ResourceManager::init(bool _useNullForErrorRes){
+void ResourceManager::init(bool _useNullForErrorRes)
+{
     useNullForErrorRes = _useNullForErrorRes;
 
-    if(!useNullForErrorRes){
+    if(!useNullForErrorRes)
+    {
         // Init default resources
         // but we don't have any yet
     }
 }
 
-void ResourceManager::update(){
+void ResourceManager::update()
+{
     loadFromQueue();
     unloadFromQueue();
     reloadFromQueue();
 }
 
-void ResourceManager::cleanupUnused(){
+void ResourceManager::cleanupUnused()
+{
 
 }
 
-bool ResourceManager::isLoading(){
+bool ResourceManager::isLoading()
+{
     return getNumToLoad() > 0;
 }
 
-size_t ResourceManager::getNumToLoad(){
+size_t ResourceManager::getNumToLoad()
+{
     return loadingQueue.size();
 }
 
-ResourceList ResourceManager::listAll(){
+ResourceList ResourceManager::listAll()
+{
 
 }
 
-size_t ResourceManager::getMemUsage(){
+size_t ResourceManager::getMemUsage()
+{
 
 }
 
-size_t ResourceManager::getNumResources(){
+size_t ResourceManager::getNumResources()
+{
     return resources.size();
 }
 
-void ResourceManager::setLoadCompleteCallback(LoadCompleteCallback callback){
+void ResourceManager::setLoadCompleteCallback(LoadCompleteCallback callback)
+{
     loadCompleteCallback = callback;
 }
 
-void ResourceManager::loadFromQueue(){
+void ResourceManager::loadFromQueue()
+{
     
 }
 
-void ResourceManager::unloadFromQueue(){
+void ResourceManager::unloadFromQueue()
+{
     
 }
 
-void ResourceManager::reloadFromQueue(){
+void ResourceManager::reloadFromQueue()
+{
     
 }
 
-}
+} // rm

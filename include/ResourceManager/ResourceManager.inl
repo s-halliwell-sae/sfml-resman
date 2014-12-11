@@ -25,7 +25,8 @@
 ////////////////////////////////////////////////////////////
 
 template<class T>
-void ResourceManager::initResource(const std::string& path){
+void ResourceManager::initResource(const std::string& path)
+{
     // Check to make sure, resource isn't already initialised.
     if(resources.find(path) != resources.end()) 
     {
@@ -50,12 +51,13 @@ void ResourceManager::initResource(const std::string& path){
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMode mode){
+std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMode mode)
+{
     //Check if exists in resource map
     if (resources.find(name) == resources.end())
     {
         //Check load mode
-        //if the resource is to be loaded imediately
+        //if the resource is to be loaded immediately
         if (mode == LoadMode.Block)
         {
             resources[name]->load;
@@ -71,16 +73,25 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getResource(const std::string& name){
+std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
+{
     return nullptr;
 }
 
 template<class T>
-void ResourceManager::createErrorResource(const std::string& path){
+void ResourceManager::addResourceType()
+{
+    ResourceFactory::addType<T>();
+}
+
+template<class T>
+void ResourceManager::createErrorResource(const std::string& path)
+{
 
 }
 
 template<class T>
-std::shared_ptr<T> ResourceManager::getErrorResource(){
+std::shared_ptr<T> ResourceManager::getErrorResource()
+{
     return nullptr;
 }

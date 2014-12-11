@@ -25,7 +25,8 @@
 ////////////////////////////////////////////////////////////
 
 template<typename Arg>
-void Logger::logMessage(const Arg& data){
+void Logger::logMessage(const Arg& data)
+{
     // Check filestream and write to it if valid
     if(file)
     {
@@ -42,7 +43,8 @@ void Logger::logMessage(const Arg& data){
 }
 
 template<typename Arg1, typename... OtherArgs>
-void Logger::logMessage(const Arg1& data, const OtherArgs&... other){
+void Logger::logMessage(const Arg1& data, const OtherArgs&... other)
+{
     // Check filestream and write to it if valid
     if(file)
     {

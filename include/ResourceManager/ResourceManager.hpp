@@ -184,6 +184,17 @@ public:
     static void switchPack(const std::string& fromPath, const std::string& toPath);
 
     ////////////////////////////////////////////////////////////
+    /// \brief Sets up the factory so that it can create instances
+    ///     of type T without needing type information at compile
+    ///     time
+    /// 
+    /// Is essentially an alias for ResourceFactor::addType
+    ///
+    ////////////////////////////////////////////////////////////
+    template<class T>
+    static void addResourceType();
+
+    ////////////////////////////////////////////////////////////
     /// \brief Creates an error resource for type T
     ///
     /// \param path The path of the error resource
