@@ -106,7 +106,7 @@ std::list<ResourcePtr> ResourceManager::listAll(){
 
 }
 
-size_t ResourceManager::getRamUse(){
+size_t ResourceManager::getMemUsage(){
 
 }
 

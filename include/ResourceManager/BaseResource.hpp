@@ -104,10 +104,10 @@ namespace rm
         bool isLoaded() const;
 
         ///////////////////////////////////////////////////////////
-        /// \brief Returns the RAM use
+        /// \brief Returns the memory usage
         ///
         ///////////////////////////////////////////////////////////
-        virtual size_t getRamUse() = 0;
+        virtual size_t getMemUsage() = 0;
 
         ///////////////////////////////////////////////////////////
         /// \brief Sets the alias member
@@ -121,14 +121,13 @@ namespace rm
         /// \brief Sets the file path member
         ///
         ///////////////////////////////////////////////////////////
-        void setFilePath();
+        void setFilePath(const std::string& newFilePath);
 
         ///////////////////////////////////////////////////////////
         /// \brief Sets the isLoaded member
         ///
         ///////////////////////////////////////////////////////////
-        void setIsLoaded();
-        void setRam();
+        void setIsLoaded(bool isLoaded);
         
     private:
         std::string alias, type, filePath;

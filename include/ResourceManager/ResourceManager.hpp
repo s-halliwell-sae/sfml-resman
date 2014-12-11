@@ -262,7 +262,7 @@ public:
     /// \returns the total memory used by the ResourceManager
     ///
     ////////////////////////////////////////////////////////////
-    static size_t getRamUse();
+    static size_t getMemUsage();
     
     ////////////////////////////////////////////////////////////
     /// \brief Gets the total number of resources managed by the

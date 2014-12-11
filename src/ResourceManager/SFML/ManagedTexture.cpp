@@ -61,7 +61,7 @@ static std::string ManagedTexture::getResourceClassType()
 }
 
 ////////////////////////////////////////////////////////////
-size_t ManagedTexture::getRamUse()
+size_t ManagedTexture::getMemUsage()
 {
 }
 

@@ -95,7 +95,7 @@ namespace rm
         /// 
         /// Helper function so that memory allocation can be kept track of
         ////////////////////////////////////////////////////////////
-        size_t getRamUse();
+        size_t getMemUsage();
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the actual Font resource
