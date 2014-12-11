@@ -41,7 +41,7 @@ ManagedTexture::~ManagedTexture()
 }
 
 ////////////////////////////////////////////////////////////
-void ManagedTexture::load()
+bool ManagedTexture::load()
 {
     //If texture not loaded
     if(!isResourceLoaded)
@@ -59,16 +59,20 @@ void ManagedTexture::load()
             isResourceLoaded = true;
         }
     }
+
+    return false;
 }
 
 ////////////////////////////////////////////////////////////
-void ManagedTexture::unload()
+bool ManagedTexture::unload()
 {
+    return false;
 }
 
 ////////////////////////////////////////////////////////////
-void ManagedTexture::reload()
+bool ManagedTexture::reload()
 {
+    return false;
 }
 
 ////////////////////////////////////////////////////////////

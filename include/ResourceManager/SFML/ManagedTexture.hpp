@@ -73,7 +73,7 @@ namespace rm
         /// Invoked when rm::ResourceManager::singleton::load() is called
         ///
         ////////////////////////////////////////////////////////////
-        void load();
+        bool load();
         
         ////////////////////////////////////////////////////////////
         /// \brief Unloads the SFML Texture resource, 
@@ -82,7 +82,7 @@ namespace rm
         /// Invoked when rm::ResourceManager::singleton::unload() is called
         ///
         ////////////////////////////////////////////////////////////
-        void unload();
+        bool unload();
         
         ////////////////////////////////////////////////////////////
         /// \brief Force reloads the SFML Texture resource
@@ -90,7 +90,7 @@ namespace rm
         /// Invoked when rm::ResourceManager::singleton::reload() is called
         ///
         ////////////////////////////////////////////////////////////
-        void reload();
+        bool reload();
         
         ////////////////////////////////////////////////////////////
         /// \brief Returns the resource type of this instance

@@ -55,29 +55,37 @@ namespace rm
         ///////////////////////////////////////////////////////////
         /// \brief Loads the resource from the file path
         ///
+        /// \returns Whether or not the resource loaded successfully
+        ///
         /// pure virtual function that has a specific load
         /// function body for each resource type.
         ///
         ///////////////////////////////////////////////////////////
-        virtual void load() = 0;
+        virtual bool load() = 0;
 
         ///////////////////////////////////////////////////////////
         /// \brief unloads the resource
+        ///
+        /// \returns Whether or not the resource unloaded 
+        ///     successfully
         ///
         /// a pure virtual function that has a specific unload
         /// function body for each resource type.
         ///
         ///////////////////////////////////////////////////////////
-        virtual void unload() = 0;
+        virtual bool unload() = 0;
 
         ///////////////////////////////////////////////////////////
         /// \brief Reloads the resource from the file path
+        ///
+        /// \returns Whether or not the resource reloaded 
+        ///     successfully
         ///
         /// a pure virtual function that has a specific reload 
         /// function body for each resource type.
         ///
         ///////////////////////////////////////////////////////////
-        virtual void reload() = 0;
+        virtual bool reload() = 0;
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the alias of type string
