@@ -36,27 +36,26 @@ namespace rm
     /// Function definitions
     ////////////////////////////////////////////////////////////
 
-    ManagedFont::ManagedMusic()
+    ManagedMusic::ManagedMusic()
     {
     }
 
     // Release m_music ptr
-    ManagedFont::~ManagedMusic()
+    ManagedMusic::~ManagedMusic()
     {
         delete m_music;
         m_music = nullptr;
     }
 
-    // Load resuorce from file path
+    // Stream resource from file path
     bool ManagedMusic::load()
     {
-        return !music.openFromFile(filePath);
+        return music.openFromFile(filePath);
     }
 
     // Release m_music ptr
     bool ManagedMusic::unload()
     {
-        // free up m_music ptr
         delete m_music;
         m_music = nullptr;
         isResourceLoaded= false;
@@ -86,7 +85,7 @@ namespace rm
     }
 
 
-    sf::Texture* const ManagedMusic::getMusic()
+    sf::Music* const ManagedMusic::getMusic()
     {
         return m_music;
     }

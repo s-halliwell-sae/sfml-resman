@@ -32,59 +32,61 @@
 namespace rm
 {
 
-////////////////////////////////////////////////////////////
-/// Function definitions
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    /// Function definitions
+    ////////////////////////////////////////////////////////////
 
-ManagedFont::ManagedFont()
-{
-}
+    ManagedFont::ManagedFont()
+    {
+    }
 
-ManagedFont::~ManagedFont()
-{
-}
+    // Release m_font ptr
+    ManagedFont::~ManagedFont()
+    {
+        delete m_font;
+        m_font = nullptr;
+    }
 
-// Load resuorce from file path
-bool ManagedFont::load()
-{
-    return !m_font.loadFromFile(filepath);
-}
+    // Load resuorce from file path
+    bool ManagedFont::load()
+    {
+        return m_font.loadFromFile(filepath);
+    }
 
-// Release m_font ptr
-bool ManagedFont::unload()
-{
-    // free up m_font ptr
-    delete m_font;
-    m_font = nullptr;
-    isResourceLoaded = false;
-    return true
-}
+    // Release m_font ptr
+    bool ManagedFont::unload()
+    {
+        delete m_font;
+        m_font = nullptr;
+        isResourceLoaded = false;
+        return true
+    }
 
-// Load from file path
-bool ManagedFont::reload()
-{
-    return load();
-}
+    // Load from file path
+    bool ManagedFont::reload()
+    {
+        return load();
+    }
 
-////////////////////////////////////////////////////////////
-/// Getters
-////////////////////////////////////////////////////////////
-static std::string ManagedFont::getResourceClassType()
-{
-    throw("Not implemented");
-    // destinguish type
-}
-
-
-size_t ManagedFont::getMemUsage()const
-{
-    throw("Not implemented");
-}
+    ////////////////////////////////////////////////////////////
+    /// Getters
+    ////////////////////////////////////////////////////////////
+    static std::string ManagedFont::getResourceClassType()
+    {
+        throw("Not implemented");
+        // destinguish type
+    }
 
 
-sf::Texture* const ManagedFont::getFont()
-{
-    return m_font;
-}
+    size_t ManagedFont::getMemUsage()const
+    {
+        throw("Not implemented");
+    }
+
+
+    sf::Texture* const ManagedFont::getFont()
+    {
+        return m_font;
+    }
 
 } // rm

@@ -107,7 +107,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// Member data
         ////////////////////////////////////////////////////////////
-        const sf::Sound*    m_sound;    ///< Reference to the sound resource
+        const sf::SoundBuffer*    m_sound;    ///< Reference to the sound resource
     };
 
 } // namespace rm
