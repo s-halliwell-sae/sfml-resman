@@ -39,12 +39,21 @@ namespace rm
 
     BaseResource::ResourceFactory()
     {
-
     }
 
     BaseResource::~ResourceFactory()
     {
+    }
+
+    static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type)
+    {
+        throw("Not implemented");
+    }
+
+    static void addType()
+    {
 
     }
+
 
 } //rm
