@@ -56,6 +56,58 @@ enum class LoadMode
 
 
 
+
+////////////////////////////////////////////////////////////
+/// \brief ResourceManager loads this single resource and 
+///     assigns the mode for the queue.
+///
+/// \param name Either a path to where the resource is located or 
+///     the resource's alias
+///
+/// \param mode If the resource hasn't been loaded yet, mode determines
+///     whether it should queue it for loading or load it immediately
+///
+/// \returns A shared_ptr to the resource, upcasted to type T
+///
+////////////////////////////////////////////////////////////
+std::shared_ptr<BaseResource>  ResourceManager::loadResource(const std::string& name, LoadMode mode)
+{
+    // Checking if resource exists in resources
+    if (resources.find(name) != resources.end())
+    {
+        // Assigns a new pointer to the key for the resource 
+        ResourcePtr pointer = resources.find(name)->second;
+
+        // Checking if the resource is not loaded
+        if (pointer->isLoaded == false)
+        {
+           // If the resource has to be loaded immediately
+           if (mode == LoadMode::Block)
+           {
+               // Change the status of the BaseResource 
+               pointer->setIsLoaded(true);
+               // Unload the BaseResource
+               pointer->load;
+           }
+           else
+           {
+               // Change the status of the BaseResource 
+               pointer->setIsLoaded(true);
+               // Send to unloadQueue list
+               loadingQueue.push(pointer);
+            }
+        }
+        return;
+    }
+
+
+    throw("Not implemented");
+
+    return;
+}
+
+
+
 /////////////////////////////////////////////////////////////
 /// \brief ResourceManager unloads this single resource and 
 ///     assigns the mode for the queue.
@@ -92,6 +144,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
            // Send to unloadQueue list
            unloadQueue.push(pointer);
        }
+       return;
     }
     
    
@@ -174,7 +227,7 @@ void ResourceManager::initPack(const std::string& path)
 		if(!exists)
 		{
 			ResourcePtr res = ResourceFactory::createResource(list[iter]->path, list[iter]->type);
-			res->SetAlias(list[iter]->alias);
+			res->setAlias(list[iter]->alias);
 			resources.insert({list[iter]->alias, res});
 			
 			//return success?
@@ -185,6 +238,17 @@ void ResourceManager::initPack(const std::string& path)
 		}
 	}
 }
+
+
+////////////////////////////////////////////////////////////
+/// \brief ResourceManager will load this Pack of resources 
+///     assigning each resource a mode for the queue.
+///
+/// \param path The resource packs's path
+///
+/// \param mode Determines the load mode for each resource
+///
+////////////////////////////////////////////////////////////
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
