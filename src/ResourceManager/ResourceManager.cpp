@@ -93,10 +93,83 @@ void ResourceManager::reloadResource(const std::string& name)
     // Must appropriately set isLoaded in resource
 }
 
+void ResourceManager::initResource(const std::string& path)
+{
+	//How do you check if a string is a valid file path? Does this even need to be checked?
+	/*
+	if(path is not a valid filepath)
+	{
+		return error?
+	}
+	*/
+	
+	bool exists = false;
+	
+	//Check if resource with file path already exists.
+	for(ResourceLookup::iterator iter = resources.begin(); iter != resources.end(); iter++)
+	{
+		if(resources[iter].second->getFilePath() == path)
+		{
+			exists = true;
+		}
+	}
+	
+	//If it does not already exist then create and add to resources.
+	if(!exists)
+	{
+		ResourcePtr res = ResourceFactory::createResource(path, /*type?*/);
+		resources.insert({path, res});
+		
+		//return success?
+	}
+	else
+	{
+		//return error (already exists)?
+	}
+}
+
 void ResourceManager::initPack(const std::string& path)
 {
-    throw("Not implemented");
-
+    //How do you check if a string is a valid file path? Does this even need to be checked?
+	/*
+	if(path is not a valid filepath)
+	{
+		return error?
+	}
+	*/
+	
+	//Get a list of data from the resource pack lua table
+	ResourceDataList list = LuaParser::parsePack(path);
+	
+	//iterate through the list and create a new resource if one does not already exist.	
+	for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
+	{
+		//is this supposed to call initResource()? It seems like initResource() will not set an alias as it only takes a path, whereas this function can set the alias and type returned from the luaparser.
+		//initResource(list[iter].path);
+		
+		//If it does not call initResource()
+		bool exists = false;
+		for(ResourceLookup::iterator iter = resources.begin(); iter != resources.end(); iter++)
+		{
+			if(resources[iter].second->getFilePath() == path)
+			{
+				exists = true;
+			}
+		}
+		
+		if(!exists)
+		{
+			ResourcePtr res = ResourceFactory::createResource(resources[iter].path, resources[iter].type);
+			res->SetAlias(resources[iter].alias);
+			resources.insert({path, res});
+			
+			//return success?
+		}
+		else
+		{
+			//return error (already exists)?
+		}
+	}
 }
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
