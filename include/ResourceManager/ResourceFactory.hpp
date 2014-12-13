@@ -51,6 +51,9 @@ class ResourceFactory
     /// The resource based on the type and calls create on it to make a 
     /// A new resource of the specified type
     ///
+    /// \parma string to path location of the file and string for file
+    /// Type to determine how it is loaded
+    ///
     /// \return Shared Pointer of the newly Created Resouce
     ///
     ////////////////////////////////////////////////////////////

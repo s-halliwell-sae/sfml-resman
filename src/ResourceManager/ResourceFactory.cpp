@@ -50,13 +50,50 @@ namespace rm
 
     static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type)
     {
-        throw("Not implemented");
+        std::shared_ptr resource = creators.find(type)->second->create();
+        resource->setFilePath(path);
+        return resource;
     }
 
     static void addType()
     {
-        throw("Not implemented");
+		std::shared_ptr<ResourceCreatorImplementation> resourceImplementation = new ResourceCreatorImplementation(T);
+		creator[T::getResouceClassType()] = (ResourceCreatorInterface)resourceImplementation;
+        //throw("Not implemented");
     }
-
-
 } //rm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
