@@ -25,8 +25,9 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceManager.hpp>
+#include <ResourceManager/BaseResource.hpp>
 #include <ResourceManager/LuaParser.hpp>
-
+#include <string>
 namespace rm
 {
 
@@ -43,6 +44,12 @@ bool ResourceManager::useNullForErrorRes = true;
 LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
 
+
+enum class LoadMode
+{
+    Queue,
+    Block,
+};
 ////////////////////////////////////////////////////////////
 /// Function definitions
 ////////////////////////////////////////////////////////////
@@ -66,14 +73,15 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
     {
         if(name == resources.name)
         {
-            if(mode == Block)
+            if(mode == LoadMode::Block)
             {
                 //unload
+                BaseResource::unload(&name);
             }
             else
             {
                 //send to unload queue list
-                
+                unloadQueue.push(&name);
             }
         }
     }
