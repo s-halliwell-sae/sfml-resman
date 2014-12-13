@@ -252,8 +252,46 @@ void ResourceManager::initPack(const std::string& path)
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
-    throw("Not implemented");
+    // Create a list from the parsePack
+    ResourceDataList list = LuaParser::parsePack(path);
 
+    // Iterate through the list
+    for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
+    {
+        // Assign the alias to a throw-away string
+        std::string name = var->alias;
+
+        // Checking if resource exists in resources
+        if (resources.find(name) != resources.end())
+        {
+            // Assigns a new pointer to the key for the resource 
+            ResourcePtr pointer = resources.find(name)->second;
+
+            // Checking if the resource is not loaded
+            if (pointer->isLoaded == false)
+            {
+                // If the resource has to be loaded immediately
+                if (mode == LoadMode::Block)
+                {
+                    // Change the status of the BaseResource 
+                    pointer->setIsLoaded(true);
+                    // Unload the BaseResource
+                    pointer->load;
+                }
+                else
+                {
+                    // Change the status of the BaseResource 
+                    pointer->setIsLoaded(true);
+                    // Send to unloadQueue list
+                    loadingQueue.push(pointer);
+                }
+            }
+        }
+       
+    }
+
+    throw("Not implemented");
+    return;
 }
 
 void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
@@ -351,6 +389,12 @@ void ResourceManager::loadFromQueue()
 
 void ResourceManager::unloadFromQueue()
 {
+
+    /////////////////////////////////////////////
+    // I thought Steve said that we could not remove anything from the queue..
+    /////////////////////////////////////////////
+
+
     throw("Not implemented");
     // Must appropriately set isLoaded in resource
 }
