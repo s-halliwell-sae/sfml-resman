@@ -25,7 +25,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceFactory.hpp>
-#include <ResourceMananger/BaseResource.hpp>
+#include <ResourceManager/BaseResource.hpp>
 #include <ResourceManager/ResourceCreator.hpp>
 
 namespace rm
