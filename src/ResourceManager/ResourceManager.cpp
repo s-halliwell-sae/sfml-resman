@@ -28,6 +28,7 @@
 #include <ResourceManager/BaseResource.hpp>
 #include <ResourceManager/LuaParser.hpp>
 #include <string>
+#include<vector>
 namespace rm
 {
 
@@ -58,16 +59,7 @@ enum class LoadMode
 
 
 
-/////////////////////////////////////////////////////////////
-/// \brief ResourceManager unloads this single resource and 
-///     assigns the mode for the queue.
-///
-/// \param name The resource's alias
-///
-/// \param mode If the resource hasn't been unloaded yet, mode determines
-///     whether it should queue it for unloading or unload it immediately
-///
-////////////////////////////////////////////////////////////
+
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
     // Setting a new Resource pointer to append to &name if found
@@ -157,15 +149,7 @@ void ResourceManager::initPack(const std::string& path)
 }
 
 
-////////////////////////////////////////////////////////////
-/// \brief ResourceManager will load this Pack of resources 
-///     assigning each resource a mode for the queue.
-///
-/// \param path The resource packs's path
-///
-/// \param mode Determines the load mode for each resource
-///
-////////////////////////////////////////////////////////////
+
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
@@ -197,8 +181,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
                 }
                 else
                 {
-                    // Change the status of the BaseResource 
-                    pointer->setIsLoaded(true);
+ 
                     // Send to unloadQueue list
                     loadingQueue.push(pointer);
                 }
@@ -241,9 +224,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
                 }
                 else
                 {
-                    // Change the status of the BaseResource 
-                    pointer->setIsLoaded(false);
-                    // Send to unloadQueue list
+                   // Send to unloadQueue list
                     unloadQueue.push(pointer);
                 }
             }
@@ -264,6 +245,71 @@ void ResourceManager::reloadPack(const std::string& path)
 
 void ResourceManager::switchPack(const std::string& fromPath, const std::string& toPath)
 {
+    // Create a list from the parsePack for the current pack
+    ResourceDataList from = LuaParser::parsePack(fromPath);
+
+    // Create a list from the parsePack for the future Pack
+    ResourceDataList tolist = LuaParser::parsePack(toPath);
+
+    // Create a string vector to hold the common resources
+    std::vector<std::string> common;
+
+    // Load the future pack
+    for (ResourceDataList::iterator var = tolist.begin; var != tolist.end; ++var)
+    {
+        // Assign the alias to a throw-away string
+        std::string name = var->alias;
+
+        // Checking if resource exists in resources
+        if (resources.find(name) != resources.end())
+        {
+            // Assigns a new pointer to the key for the resource 
+            ResourcePtr pointer = resources.find(name)->second;
+
+            // Checking if the resource is not loaded
+            if (pointer->isLoaded == false)
+            {
+                // Change the status of the BaseResource 
+                pointer->setIsLoaded(true);
+                // Send to unloadQueue list
+                loadingQueue.push(pointer);
+            }
+            else
+            {
+                // Add the name to the vector
+                common.push_back(name);
+            }
+        }
+    }
+
+    // Iterate through the old Pack and remove the Resources that are not common to the pack and the vector
+    for (ResourceDataList::iterator var = from.begin; var != from.end; ++var)
+    {
+        // Assign the alias to a throw-away string
+        std::string name = var->alias;
+
+        // Checking if resource is common to the string vector
+        if (resources.find(name) != resources.end())
+        {
+
+            if (std::find(common.begin(), common.end(), resources.find(name) != common.end))
+            {
+                // The two entries are common - do nothing
+            }
+            else
+            {
+                // The two entries do not match - unload the old entry
+
+                // Assigns a new pointer to the key for the resource 
+                ResourcePtr pointer = resources.find(name)->second;
+                 
+                // Send to unloadQueue list
+                loadingQueue.push(pointer);
+            }
+               
+        }
+    }
+
     throw("Not implemented");
 
 }
