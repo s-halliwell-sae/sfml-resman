@@ -57,56 +57,6 @@ enum class LoadMode
 
 
 
-////////////////////////////////////////////////////////////
-/// \brief ResourceManager loads this single resource and 
-///     assigns the mode for the queue.
-///
-/// \param name Either a path to where the resource is located or 
-///     the resource's alias
-///
-/// \param mode If the resource hasn't been loaded yet, mode determines
-///     whether it should queue it for loading or load it immediately
-///
-/// \returns A shared_ptr to the resource, upcasted to type T
-///
-////////////////////////////////////////////////////////////
-std::shared_ptr<BaseResource>  ResourceManager::loadResource(const std::string& name, LoadMode mode)
-{
-    // Checking if resource exists in resources
-    if (resources.find(name) != resources.end())
-    {
-        // Assigns a new pointer to the key for the resource 
-        ResourcePtr pointer = resources.find(name)->second;
-
-        // Checking if the resource is not loaded
-        if (pointer->isLoaded == false)
-        {
-           // If the resource has to be loaded immediately
-           if (mode == LoadMode::Block)
-           {
-               // Change the status of the BaseResource 
-               pointer->setIsLoaded(true);
-               // Unload the BaseResource
-               pointer->load;
-           }
-           else
-           {
-               // Change the status of the BaseResource 
-               pointer->setIsLoaded(true);
-               // Send to unloadQueue list
-               loadingQueue.push(pointer);
-            }
-        }
-        return;
-    }
-
-
-    throw("Not implemented");
-
-    return;
-}
-
-
 
 /////////////////////////////////////////////////////////////
 /// \brief ResourceManager unloads this single resource and 
@@ -160,40 +110,7 @@ void ResourceManager::reloadResource(const std::string& name)
     // Must appropriately set isLoaded in resource
 }
 
-void ResourceManager::initResource(const std::string& path)
-{
-	//How do you check if a string is a valid file path? Does this even need to be checked?
-	/*
-	if(path is not a valid filepath)
-	{
-		return error?
-	}
-	*/
-	
-	bool exists = false;
-	
-	//Check if resource with file path already exists.
-	for(ResourceLookup::iterator iter = resources.begin(); iter != resources.end(); iter++)
-	{
-		if(resources[iter].second->getFilePath() == path)
-		{
-			exists = true;
-		}
-	}
-	
-	//If it does not already exist then create and add to resources.
-	if(!exists)
-	{
-		ResourcePtr res = ResourceFactory::createResource(path, /*type?*/);
-		resources.insert({path, res});
-		
-		//return success?
-	}
-	else
-	{
-		//return error (already exists)?
-	}
-}
+
 
 void ResourceManager::initPack(const std::string& path)
 {
@@ -218,7 +135,7 @@ void ResourceManager::initPack(const std::string& path)
 		bool exists = false;
 		for(ResourceLookup::iterator iter2 = resources.begin(); iter2 != resources.end(); iter2++)
 		{
-			if(resources[iter2].second->getFilePath() == path)
+			if(iter2->second->getFilePath() == path)
 			{
 				exists = true;
 			}
@@ -226,9 +143,9 @@ void ResourceManager::initPack(const std::string& path)
 		
 		if(!exists)
 		{
-			ResourcePtr res = ResourceFactory::createResource(list[iter]->path, list[iter]->type);
-			res->setAlias(list[iter]->alias);
-			resources.insert({list[iter]->alias, res});
+			ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
+			res->setAlias(iter->alias);
+			resources.insert({iter->alias, res});
 			
 			//return success?
 		}
