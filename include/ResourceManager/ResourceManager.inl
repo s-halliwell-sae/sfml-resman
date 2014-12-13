@@ -53,31 +53,34 @@ void ResourceManager::initResource(const std::string& path)
 template<class T>
 std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMode mode)
 {
+    ResourcePtr res = nullptr;
+
     //Check if exists in resource map
     if (resources.find(name) != resources.end())
     {
-               ResourcePtr res = resources[name];
-    //     //Check load mode
-    //     //if the resource is to be loaded immediately
-    //     if (mode == LoadMode.Block)
-    //     {
-    //         res->load();
-    //         // Set isLoaded if load returns true
-    //         // bail if false
-    //         return std::static_pointer_cast<T>(res);
-    //     }
-    //     //else add it to the load queue
-    //     {
-    //         loadingQueue.push(res);
-    //         return res;
-    //     }
-    // }
+		// Set resource
+        res = resources[name];
+    }
     else 
     {
-            ResourcePtr res = Res
+		// Create new resource
+        res = ResourceFactory::createResource(name, T::getResourceClassType());
     }
-    throw("Not implemented");
-    return nullptr;
+
+    //Check load mode
+    //if the resource is to be loaded immediately
+    if (mode == LoadMode::Block)
+    {
+        res->load();
+        // Set isLoaded if load returns true
+        // bail if false
+    }
+    else  //add it to the load queue
+    {
+        loadingQueue.push(res);
+    }
+
+    return std::static_pointer_cast<T>(res);
 }
 
 template<class T>

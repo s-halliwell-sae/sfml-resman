@@ -25,8 +25,10 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceFactory.hpp>
-#include <ResourceMananger/BaseResource.hpp>
+#include <ResourceManager/BaseResource.hpp>
 #include <ResourceManager/ResourceCreator.hpp>
+
+#include <ResourceManager/ResourceManager.hpp>
 
 namespace rm
 {
@@ -40,17 +42,17 @@ namespace rm
     /// Function definitions
     ////////////////////////////////////////////////////////////
 
-    BaseResource::ResourceFactory()
+    BaseResource::BaseResource()
     {
     }
 
-    BaseResource::~ResourceFactory()
+	BaseResource::~BaseResource()
     {
     }
 
     static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type)
     {
-        std::shared_ptr resource = creators.find(type)->second->create();
+		std::shared_ptr<BaseResource> resource = creators.find(type)->second->create();
         resource->setFilePath(path);
         return resource;
     }
