@@ -47,10 +47,44 @@ LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 /// Function definitions
 ////////////////////////////////////////////////////////////
 
+
+
+/////////////////////////////////////////////////////////////
+/// \brief ResourceManager unloads this single resource and 
+///     assigns the mode for the queue.
+///
+/// \param name The resource's alias
+///
+/// \param mode If the resource hasn't been unloaded yet, mode determines
+///     whether it should queue it for unloading or unload it immediately
+///
+////////////////////////////////////////////////////////////
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
+    // see if resource exists in resources
+    for (int i = 0; i < resources.size; ++i)
+    {
+        if(name == resources.name)
+        {
+            if(mode == Block)
+            {
+                //unload
+            }
+            else
+            {
+                //send to unload queue list
+                
+            }
+        }
+    }
+    // if not return
+    // is so, check mode//if queue, send to queue
+    //else unload now
+
     throw("Not implemented");
     // Must appropriately set isLoaded in resource
+    return;
+   
 }
 
 void ResourceManager::reloadResource(const std::string& name)
