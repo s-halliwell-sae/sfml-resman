@@ -68,23 +68,32 @@ enum class LoadMode
 ////////////////////////////////////////////////////////////
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
-    // see if resource exists in resources
-    for (int i = 0; i < resources.size; ++i)
-    {
-        if(name == resources.name)
-        {
-            if(mode == LoadMode::Block)
-            {
-                //unload
-                BaseResource::unload(&name);
-            }
-            else
-            {
-                //send to unload queue list
-                unloadQueue.push(&name);
-            }
-        }
+    // Setting a new Resource pointer to append to &name if found
+    ResourcePtr pointer;
+
+    // Checking if resource exists in resources
+   if (resources.find(name) != resources.end())
+   {
+       // Assigns a new pointer to the key for the resource 
+       pointer = resources.find(name)->second;
+
+       // If the resource has to be removed immediately
+       if(mode == LoadMode::Block)
+       {
+           // Change the status of the BaseResource 
+           pointer->isLoaded = false;
+           // Unload the BaseResource
+           pointer->unload;
+       }
+       else
+       {
+           // Change the status of the BaseResource 
+           pointer->isLoaded = false;
+           // Send to unloadQueue list
+           unloadQueue.push(pointer);
+       }
     }
+    
     // if not return
     // is so, check mode//if queue, send to queue
     //else unload now
