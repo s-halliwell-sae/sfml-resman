@@ -296,7 +296,46 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 
 void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 {
+    // Create a list from the parsePack
+    ResourceDataList list = LuaParser::parsePack(path);
+
+    // Iterate through the list
+    for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
+    {
+        // Assign the alias to a throw-away string
+        std::string name = var->alias;
+
+        // Checking if resource exists in resources
+        if (resources.find(name) != resources.end())
+        {
+            // Assigns a new pointer to the key for the resource 
+            ResourcePtr pointer = resources.find(name)->second;
+
+            // Checking if the resource is loaded
+            if (pointer->isLoaded == true)
+            {
+                // If the resource has to be unloaded immediately
+                if (mode == LoadMode::Block)
+                {
+                    // Change the status of the BaseResource 
+                    pointer->setIsLoaded(false);
+                    // Unload the BaseResource
+                    pointer->unload;
+                }
+                else
+                {
+                    // Change the status of the BaseResource 
+                    pointer->setIsLoaded(false);
+                    // Send to unloadQueue list
+                    unloadQueue.push(pointer);
+                }
+            }
+        }
+
+    }
+
     throw("Not implemented");
+    return;
 
 }
 
