@@ -151,8 +151,16 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
-    throw("Not implemented");
-    // Must appropriately set isLoaded in resource
+   for(ResourcePtr r : resources)
+   {
+      if(r.unique()) 
+      {
+          r->setIsLoaded(false);
+          r->unload();
+      }
+   }
+}
+
 }
 
 bool ResourceManager::isLoading()
