@@ -332,11 +332,15 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
+   // run for each resource
    for(ResourcePtr r : resources)
    {
+      // if the resource pointer is unique
       if(r.unique()) 
       {
+          // Change resource status to false
           r->setIsLoaded(false);
+          // unload resource
           r->unload();
       }
    }
