@@ -81,25 +81,22 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
        if(mode == LoadMode::Block)
        {
            // Change the status of the BaseResource 
-           pointer->isLoaded = false;
+           pointer->setIsLoaded(false);
            // Unload the BaseResource
            pointer->unload;
        }
        else
        {
            // Change the status of the BaseResource 
-           pointer->isLoaded = false;
+           pointer->setIsLoaded(false);
            // Send to unloadQueue list
            unloadQueue.push(pointer);
        }
     }
     
-    // if not return
-    // is so, check mode//if queue, send to queue
-    //else unload now
-
+   
     throw("Not implemented");
-    // Must appropriately set isLoaded in resource
+   
     return;
    
 }
