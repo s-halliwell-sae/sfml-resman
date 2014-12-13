@@ -157,9 +157,9 @@ void ResourceManager::initPack(const std::string& path)
 		
 		//If it does not call initResource()
 		bool exists = false;
-		for(ResourceLookup::iterator iter = resources.begin(); iter != resources.end(); iter++)
+		for(ResourceLookup::iterator iter2 = resources.begin(); iter2 != resources.end(); iter2++)
 		{
-			if(resources[iter].second->getFilePath() == path)
+			if(resources[iter2].second->getFilePath() == path)
 			{
 				exists = true;
 			}
@@ -167,9 +167,9 @@ void ResourceManager::initPack(const std::string& path)
 		
 		if(!exists)
 		{
-			ResourcePtr res = ResourceFactory::createResource(resources[iter].path, resources[iter].type);
-			res->SetAlias(resources[iter].alias);
-			resources.insert({path, res});
+			ResourcePtr res = ResourceFactory::createResource(list[iter]->path, list[iter]->type);
+			res->SetAlias(list[iter]->alias);
+			resources.insert({list[iter]->alias, res});
 			
 			//return success?
 		}
