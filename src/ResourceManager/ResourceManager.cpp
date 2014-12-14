@@ -55,11 +55,6 @@ enum class LoadMode
 /// Function definitions
 ////////////////////////////////////////////////////////////
 
-
-
-
-
-
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
     // Setting a new Resource pointer to append to &name if found
@@ -98,8 +93,28 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 
 void ResourceManager::reloadResource(const std::string& name)
 {
-    throw("Not implemented");
+    ResourcePtr res = nullptr;
+
+    // Check if resource exists in resource map
+    if (resources.find(name) != resources.end())
+    {
+		// Set resource pointer
+        res = resources[name];
+    }
+    else 
+    {
+        Logger::logMessage("Reload resource warning: Resource not already loaded");
+        
+        // Create new resource anyway
+        //loadingQueue.push(res);
+        // Not quire sure how to handle this/if we're allowing them to load anyway
+    }
+    
+    // Send to reloadQueue
+    reloadQueue.push(res);
+   
     // Must appropriately set isLoaded in resource
+    // Should it even change the state of isLoaded, since it will be loaded until it hits the queue?
 }
 
 
@@ -147,9 +162,6 @@ void ResourceManager::initPack(const std::string& path)
         }
     }
 }
-
-
-
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
@@ -239,8 +251,34 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 
 void ResourceManager::reloadPack(const std::string& path)
 {
-    throw("Not implemented");
 
+    // Create a list from the parsePack
+    ResourceDataList list = LuaParser::parsePack(path);
+
+    // Iterate through the list
+    for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
+    {
+        // Assign the alias to a throw away string
+        std::string name = var->alias;
+
+        // Checking if resource exists in resource map
+        if (resources.find(name) != resources.end())
+        {
+            // Assigns a new pointer to the key for the resource 
+            ResourcePtr res = resources.find(name)->second;
+
+            // Send to reloadQueue
+            reloadQueue.push(res);
+        }
+        else
+        {
+            Logger::logMessage("Reload resource warning: Resource not already loaded");
+            
+            // Create new resource anyway
+            //loadingQueue.push(res);
+            // Not quire sure how to handle this/if we're allowing them to load anyway
+        }
+    }
 }
 
 void ResourceManager::switchPack(const std::string& fromPath, const std::string& toPath)
