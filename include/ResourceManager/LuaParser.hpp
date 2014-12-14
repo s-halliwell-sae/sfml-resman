@@ -47,6 +47,7 @@ extern "C" {
 /// \brief LuaParser that takes in a path name, and returns a list<ResourceData>.
 /// The Parser will open the lua table specifying a resource pack, parse its
 /// contents and leaf resources or continue opening resources packs.
+///
 ////////////////////////////////////////////////////////////
 
 namespace rm
@@ -59,32 +60,33 @@ class LuaParser
 public:
 
     ////////////////////////////////////////////////////////////
-    /// \brief Parse resource pack from file and return a list of resource data that needs to be loaded
+    /// \brief Parse resource pack from file and return resource data list
     ///
     /// \param path	File path from which to load the resource pack
+    ///
     ////////////////////////////////////////////////////////////
     static ResourceDataList parsePack(const std::string& path);
 
 private:
 
     ////////////////////////////////////////////////////////////
-    /// \brief
+    /// \brief Parse individual resource pack from file and return resource data list
     ///
-    /// \param data
+    /// \param path	File path from which to load the individual resource pack
+    ///
     ////////////////////////////////////////////////////////////
     static ResourceDataList leafPack(const std::string& path);
 
     ////////////////////////////////////////////////////////////
-    /// \brief
+    /// \brief Parse current individual resource pack leaf and return resource data
     ///
-    /// \param data
     ////////////////////////////////////////////////////////////
     static ResourceData parseLeaf();
 
 	////////////////////////////////////////////////////////////
     /// Member data
     ////////////////////////////////////////////////////////////
-	static lua_State* m_luaState; ///< Reference to lua
+	static lua_State* m_luaState; // Reference to Lua state
 };
 
 } // namespace rm

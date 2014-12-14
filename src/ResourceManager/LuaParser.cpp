@@ -47,8 +47,11 @@ static std::string stringify(lua_State* L, int index)
         return lua_tostring(L, index);
     else
     {
+        // Get the type of the value
+        int type = lua_type(L, index);
+
         // If the type of value is a boolean, convert to its equivalent string representation
-        if (lua_type(L, index) == LUA_TBOOLEAN)
+        if (type == LUA_TBOOLEAN) {
             return std::string(lua_toboolean(L, index) ? "true" : "false");
         // Return the name of the type for any other type of value
         else
@@ -56,6 +59,7 @@ static std::string stringify(lua_State* L, int index)
     }
 }
 
+////////////////////////////////////////////////////////////
 ResourceDataList ResourceManager::parsePack(const std::string& path)
 {
     // Create a resource data list to hold the data of every resource in every resource pack
@@ -92,6 +96,7 @@ ResourceDataList ResourceManager::parsePack(const std::string& path)
     return resourceDataList;
 }
 
+////////////////////////////////////////////////////////////
 ResourceDataList ResourceManager::leafPack(const std::string& path)
 {
     // Create a resource data list to hold the data of each resource
@@ -134,6 +139,7 @@ ResourceDataList ResourceManager::leafPack(const std::string& path)
     return resourceDataList;
 }
 
+////////////////////////////////////////////////////////////
 ResourceData ResourceManager::parseLeaf()
 {
     // Create a resource data object to hold the leaf data
@@ -142,7 +148,7 @@ ResourceData ResourceManager::parseLeaf()
     resourceData.isResourcePack = false;
 
     // Iterate through each key on the Lua stack at the given index
-    while (lua_next(m_luaState, -2) != 0)
+    while (m_luaState != nullptr && lua_next(m_luaState, -2) != 0)
     {
         // Get the key-value pair as strings
         std::string key   = stringify(m_luaState, -2);
