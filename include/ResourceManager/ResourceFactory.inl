@@ -24,66 +24,15 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager/ResourceFactory.hpp>
+////////////////////////////////////////////////////////////
+/// \brief Implementation of the AddType function in the ResourceFactory system
+///
+////////////////////////////////////////////////////////////
 
-namespace rm
+template<class T>
+std::shared_ptr<BaseResource> ResourceCreatorImplementation<T>::create()
 {
-    ////////////////////////////////////////////////////////////
-    /// Initialise member variables
-    ////////////////////////////////////////////////////////////
-
-    std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
-  
-    ////////////////////////////////////////////////////////////
-    /// Function definitions
-    ////////////////////////////////////////////////////////////
-
-    static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type)
-    {
-        ResourcePtr<BaseResource> resource = creators.find(type)->second->create();
-        resource->setFilePath(path);
-        return resource;
-    }
-
-    static void addType()
-    {
-		std::shared_ptr<ResourceCreatorImplementation> resourceImplementation = new ResourceCreatorImplementation(T);
-		creators[T::getResouceClassType()] = std::static_pointer_cast<ResourceCreatorInterface>(resourceImplementation);
-        //throw("Not implemented");
-    }
-} //rm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// Create a new T
+	// Will get downcasted implicitly upon return
+	return new T;
+}

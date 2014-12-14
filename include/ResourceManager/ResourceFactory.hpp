@@ -1,3 +1,9 @@
+//shit to do
+//Do checks to make sure it doesn't crash (make sure creators exists, that the resource creation didn't fail)
+//Make AddType Template in the .inl file//And creators isn't attached to anything. You're supposed to be initialising the static creators in ResourceFactory.
+//And finally, you don't need to put static in definitions
+
+
 ////////////////////////////////////////////////////////////
 //
 // The MIT License (MIT)
@@ -30,6 +36,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
+#include <ResourceMananger/BaseResource.hpp>
 #include <ResourceManager/ResourceCreator.hpp>
 #include <map>
 
