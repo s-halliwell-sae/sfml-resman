@@ -25,13 +25,6 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceFactory.hpp>
-<<<<<<< HEAD
-=======
-#include <ResourceManager/BaseResource.hpp>
-#include <ResourceManager/ResourceCreator.hpp>
->>>>>>> origin/master
-
-#include <ResourceManager/ResourceManager.hpp>
 
 namespace rm
 {
@@ -45,33 +38,13 @@ namespace rm
     /// Function definitions
     ////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-    static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type)
+    static ResourcePtr<BaseResource> createResource(const std::string& path, const std::string& type)
     {
-        ResourcePtr<BaseResource> resource = creators.find(type)->second->create();
-=======
-    BaseResource::BaseResource()
-    {
-    }
-
-	BaseResource::~BaseResource()
-    {
-    }
-
-    static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type)
-    {
-		std::shared_ptr<BaseResource> resource = creators.find(type)->second->create();
->>>>>>> origin/master
+		ResourcePtr<BaseResource> resource = creators.find(type)->second->create();
         resource->setFilePath(path);
         return resource;
     }
-
-    static void addType()
-    {
-		std::shared_ptr<ResourceCreatorImplementation> resourceImplementation = new ResourceCreatorImplementation(T);
-		creators[T::getResouceClassType()] = std::static_pointer_cast<ResourceCreatorInterface>(resourceImplementation);
-        //throw("Not implemented");
-    }
+	
 } //rm
 
 
