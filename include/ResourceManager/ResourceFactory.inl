@@ -30,9 +30,9 @@
 ////////////////////////////////////////////////////////////
 
 template<class T>
-std::shared_ptr<BaseResource> ResourceCreatorImplementation<T>::create()
+static void ResourceFactory<T>::addType()
 {
-	// Create a new T
-	// Will get downcasted implicitly upon return
-	return new T;
+	ResourcePtr<ResourceCreatorImplementation> resourceImplementation = new ResourceCreatorImplementation(T);
+	creators[T::getResouceClassType()] = std::static_pointer_cast<ResourceCreatorInterface>(resourceImplementation);
+	return;
 }

@@ -38,6 +38,7 @@
 ////////////////////////////////////////////////////////////
 #include <ResourceMananger/BaseResource.hpp>
 #include <ResourceManager/ResourceCreator.hpp>
+#include <ResourceManager/ResourceManager.hpp>
 #include <map>
 
 ////////////////////////////////////////////////////////////
