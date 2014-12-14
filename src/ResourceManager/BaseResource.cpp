@@ -75,7 +75,7 @@ void BaseResource::setAlias(const std::string& newAlias)
 
 void BaseResource::setFilePath(const std::string& newFilePath)
 {
-    filePath = new filePath;
+    filePath = newFilePath;
 }
 
 void BaseResource::setIsLoaded(bool isLoaded)

@@ -58,10 +58,12 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
     //Check if exists in resource map
     if (resources.find(name) != resources.end())
     {
+		// Set resource
         res = resources[name];
     }
     else 
     {
+		// Create new resource
         res = ResourceFactory::createResource(name, T::getResourceClassType());
     }
 

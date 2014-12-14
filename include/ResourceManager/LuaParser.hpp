@@ -34,6 +34,8 @@
 #include <ResourceManager/ResourceData.hpp>
 #include <string>
 #include <list>
+#include <vector>
+#include <algorithm>
 
 extern "C" {
     #include <lua.h>
@@ -43,36 +45,42 @@ extern "C" {
 
 ////////////////////////////////////////////////////////////
 /// \brief LuaParser that takes in a path name, and returns a list<ResourceData>.
-/// The Parser will open the lua table specifying a resource pack, parse its 
+/// The Parser will open the lua table specifying a resource pack, parse its
 /// contents and leaf resources or continue opening resources packs.
 ////////////////////////////////////////////////////////////
 
-namespace rm 
+namespace rm
 {
 
 typedef std::list<ResourceData> ResourceDataList;
 
-class LuaParser 
+class LuaParser
 {
 public:
 
     ////////////////////////////////////////////////////////////
     /// \brief Parse resource pack from file and return a list of resource data that needs to be loaded
-    /// 
+    ///
     /// \param path	File path from which to load the resource pack
     ////////////////////////////////////////////////////////////
     static ResourceDataList parsePack(const std::string& path);
-	
+
 private:
 
     ////////////////////////////////////////////////////////////
-    /// \brief 
-    /// 
-    /// \param data	
+    /// \brief
+    ///
+    /// \param data
     ////////////////////////////////////////////////////////////
-    static ResourceDataList leafPack(const ResourceData& data);
-	//I'm not sure how this function functions as the parameter and return types are weird
-	
+    static ResourceDataList leafPack(const std::string& path);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief
+    ///
+    /// \param data
+    ////////////////////////////////////////////////////////////
+    static ResourceData parseLeaf();
+
 	////////////////////////////////////////////////////////////
     /// Member data
     ////////////////////////////////////////////////////////////
@@ -86,17 +94,17 @@ private:
 
 ///////////////////////////////////////////////////////////
 /// \class LuaParser
-/// \ingroup 
+/// \ingroup
 /// rm::LuaParser is the class which handles loading in of useful data
-/// from resource packs. These resource packs are lua tables. Each 
-/// lua table represents one resource pack and each pack is contained 
-/// in it's own file. 
+/// from resource packs. These resource packs are lua tables. Each
+/// lua table represents one resource pack and each pack is contained
+/// in it's own file.
 ///
-/// rm::LuaParser takes the topmost resource packs and evaluates it's 
-/// data, it then performs a breadth-first search through the tree structure 
-/// possibly specifed in the resource packs. As the parser finds resources 
-/// in the packs it creates a resource data which contains the relevant data, 
-/// this is then added to a list. Once the parser has discovered all the leafed 
+/// rm::LuaParser takes the topmost resource packs and evaluates it's
+/// data, it then performs a breadth-first search through the tree structure
+/// possibly specifed in the resource packs. As the parser finds resources
+/// in the packs it creates a resource data which contains the relevant data,
+/// this is then added to a list. Once the parser has discovered all the leafed
 /// nodes it returns the list of resource datas to rm::ResourceManager.
 ///
 /// Note that access to rm::LuaParser is intended to be restricted. Most
