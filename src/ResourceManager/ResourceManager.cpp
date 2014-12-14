@@ -107,45 +107,45 @@ void ResourceManager::reloadResource(const std::string& name)
 void ResourceManager::initPack(const std::string& path)
 {
     //How do you check if a string is a valid file path? Does this even need to be checked?
-	/*
-	if(path is not a valid filepath)
-	{
-		return error?
-	}
-	*/
-	
-	//Get a list of data from the resource pack lua table
-	ResourceDataList list = LuaParser::parsePack(path);
-	
-	//iterate through the list and create a new resource if one does not already exist.	
-	for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
-	{
-		//is this supposed to call initResource()? It seems like initResource() will not set an alias as it only takes a path, whereas this function can set the alias and type returned from the luaparser.
-		//initResource(list[iter].path);
-		
-		//If it does not call initResource()
-		bool exists = false;
-		for(ResourceLookup::iterator iter2 = resources.begin(); iter2 != resources.end(); iter2++)
-		{
-			if(iter2->second->getFilePath() == path)
-			{
-				exists = true;
-			}
-		}
-		
-		if(!exists)
-		{
-			ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
-			res->setAlias(iter->alias);
-			resources.insert({iter->alias, res});
-			
-			//return success?
-		}
-		else
-		{
-			//return error (already exists)?
-		}
-	}
+    /*
+    if(path is not a valid filepath)
+    {
+        return error?
+    }
+    */
+    
+    //Get a list of data from the resource pack lua table
+    ResourceDataList list = LuaParser::parsePack(path);
+    
+    //iterate through the list and create a new resource if one does not already exist.	
+    for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
+    {
+        //is this supposed to call initResource()? It seems like initResource() will not set an alias as it only takes a path, whereas this function can set the alias and type returned from the luaparser.
+        //initResource(list[iter].path);
+        
+        //If it does not call initResource()
+        bool exists = false;
+        for(ResourceLookup::iterator iter2 = resources.begin(); iter2 != resources.end(); iter2++)
+        {
+            if(iter2->second->getFilePath() == path)
+            {
+                exists = true;
+            }
+        }
+        
+        if(!exists)
+        {
+            ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
+            res->setAlias(iter->alias);
+            resources.insert({iter->alias, res});
+            
+            //return success?
+        }
+        else
+        {
+            //return error (already exists)?
+        }
+    }
 }
 
 
@@ -348,14 +348,12 @@ void ResourceManager::cleanupUnused()
    }
 }
 
-}
-
 bool ResourceManager::isLoading()
 {
     return getNumToLoad() > 0;
 }
 
-size_t ResourceManager::getNumToLoad()
+size_t ResourceManager::getNumToLoad()//ResourceManager::getNumToLoad()
 {
     return loadingQueue.size();
 }
@@ -384,13 +382,41 @@ void ResourceManager::setLoadCompleteCallback(LoadCompleteCallback callback)
 
 void ResourceManager::loadFromQueue()
 {
-    throw("Not implemented");
-    // Must appropriately set isLoaded in resource
+    while (loadingQueue.size() > 0)
+    {
+        // Check First res in the queue
+        auto frontRes = loadingQueue.front();
 
-    // bail if queue empty
-    // load
-    // pop
-    // if queue empty call loadCompleteCallback
+        // Check to see if the resource is already loaded.
+        if (frontRes->isLoaded)
+        {
+            // If its loaded delete from queue
+            // Allow for another resource to be loaded if there are stil l more in the queue.
+            loadingQueue.pop();
+        }
+        else
+        {
+            // Load the first resource and check if any errors
+            if (frontRes->load())
+            {
+                // Set resource to is loaded
+                frontRes->isLoaded = true;
+                // Remove from loading queue
+                loadingQueue.pop();
+            }
+            else
+            {
+                // Log Error (To Do)
+            }
+            // Send load complete call back once the last item is loaded.
+            if (loadingQueue.size() == 0)
+            {
+                loadCompleteCallback();
+            }
+            // break from loop so only one resource is loaded at a time.
+            break;
+        }
+    }
 }
 
 void ResourceManager::unloadFromQueue()
@@ -398,17 +424,59 @@ void ResourceManager::unloadFromQueue()
 
     /////////////////////////////////////////////
     // I thought Steve said that we could not remove anything from the queue..
+    // this is the function that hadles the queue for unloading resources.
     /////////////////////////////////////////////
+    while (unloadQueue.size() > 0)
+    {
+        // Check First res in the queue
+        auto frontRes = unloadQueue.front();
 
-
-    throw("Not implemented");
-    // Must appropriately set isLoaded in resource
+        // Check to see if the resource is already unloaded.
+        if (!frontRes->isLoaded)
+        {
+            // If its unloaded delete from queue
+            // Allow for another resource to be unloaded if there are stil l more in the queue.
+            unloadQueue.pop();
+        }
+        else
+        {
+            // Load the first resource and check if any errors
+            if (frontRes->unload())
+            {
+                // Set resource to is unloaded
+                frontRes->isLoaded = false;
+                // Remove from unloadeding queue
+                unloadQueue.pop();
+            }
+            else
+            {
+                // Log Error (To Do)
+            }
+            // break from loop so only one resource is unloaded at a time.
+            break;
+        }
+    }
 }
 
 void ResourceManager::reloadFromQueue()
 {
-    throw("Not implemented");
-    
+    if (reloadQueue.size() > 0)
+    {
+        // Check First res in the queue
+        auto frontRes = reloadQueue.front();
+
+
+        // Load the first resource and check if any errors
+        if (frontRes->reload())
+        {
+            // Remove from reloading Queue
+            reloadQueue.pop();
+        }
+        else
+        {
+            //Log Error (To Do)
+        }
+    }
 }
 
 } // rm
