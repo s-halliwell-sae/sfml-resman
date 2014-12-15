@@ -36,7 +36,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <ResourceMananger/BaseResource.hpp>
+#include <ResourceManager/BaseResource.hpp>
 #include <ResourceManager/ResourceCreator.hpp>
 #include <ResourceManager/ResourceManager.hpp>
 #include <map>
@@ -62,7 +62,7 @@ class ResourceFactory
     /// \parma string to path location of the file and string for file
     /// Type to determine how it is loaded
     ///
-    /// \return Shared Pointer of the newly Created Resouce
+    /// \return Shared Pointer of the newly Created Resource
     ///
     ////////////////////////////////////////////////////////////
     static std::shared_ptr<BaseResource> createResource(const std::string& path, const std::string& type);
@@ -79,7 +79,7 @@ class ResourceFactory
  private:
  
 	////////////////////////////////////////////////////////////
-    /// \brief A Strandard Map to hold all the resource type  
+    /// \brief A Standard Map to hold all the resource type  
     /// classes that define how they are created
     /// 
     /// Example: It could hold a image ResourceCreatorInterface
@@ -90,6 +90,5 @@ class ResourceFactory
 };
 
 }
-
 
 #endif //RESOURCE_FACTORY_HPP
