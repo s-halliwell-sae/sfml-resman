@@ -354,16 +354,16 @@ void ResourceManager::cleanupUnused()
     for(auto r : resources)
     {    
         // if the resource pointer is unique
-        if(r->second.unique())
+        if(r.second.unique())
         {          
             // Log what resources were unloaded
-            Logger::logMessage("Unloading Unused Resource: ", r->first);
+            Logger::logMessage("Unloading Unused Resource: ", r.first);
             
             // Change resource status to false
-            r->second->setIsLoaded(false);
+            r.second->setIsLoaded(false);
 
             // unload resource
-            r->second->unload();
+            r.second->unload();
         }
     }
 }
