@@ -350,26 +350,20 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
-    // Fetch a list of all resources
-    ResourceList cleanup = listAll();
-    
     // run for each resource in list
-    for(ResourcePtr r : cleanup)
+    for(auto r : resources)
     {    
         // if the resource pointer is unique
-        if(r.unique())
+        if(r->second.unique())
         {          
-            // Get alias of resource
-            std::string name = r->getAlias();
-
             // Log what resources were unloaded
-            Logger::logMessage("Unloading Unused Resource: ", name);
+            Logger::logMessage("Unloading Unused Resource: ", r->first);
             
             // Change resource status to false
-            r->setIsLoaded(false);
+            r->second->setIsLoaded(false);
 
             // unload resource
-            r->unload();
+            r->second->unload();
         }
     }
 }
@@ -396,12 +390,6 @@ ResourceList ResourceManager::listAll()
     }
 
     return temp;
-}
-
-size_t ResourceManager::getMemUsage()
-{
-    
-    throw("Not implemented");
 }
 
 size_t ResourceManager::getNumResources()
