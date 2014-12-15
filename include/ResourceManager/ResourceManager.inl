@@ -86,8 +86,21 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 template<class T>
 std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
 {
-    throw("Not implemented");
-    return nullptr;
+    ResourcePtr res = nullptr;
+
+    //Check if exists in resource map
+    if (resources.find(name) != resources.end())
+    {
+        // Set resource
+        res = resources[name];
+    }
+    else
+    {
+        // Return Error Resource
+        res = errorResources[T::getResourceClassType()];
+    }
+
+    return res;
 }
 
 template<class T>
