@@ -71,9 +71,28 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
     //if the resource is to be loaded immediately
     if (mode == LoadMode::Block)
     {
-        res->load();
-        // Set isLoaded if load returns true
-        // bail if false
+        // try and load resource
+        if (res->load())
+        {
+            //set is loaded to true
+            res->setIsLoaded(true);
+        }
+
+        else
+        {
+            Logger::logMessage("Failed to load Resource:", res->getAlias);
+            //try and load error resource
+            if (errorResources.find(T::getResourceClassType()) != errorResources.end())
+            {
+                res = errorResources[T::getResourceClassType()];
+            }
+
+            else
+            {
+                Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
+                return nullptr;
+            }
+        }
     }
     else  //add it to the load queue
     {

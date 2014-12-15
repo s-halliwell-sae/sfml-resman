@@ -79,7 +79,9 @@ public:
     /// \param mode If the resource hasn't been loaded yet, mode determines
     ///     whether it should queue it for loading or load it immediately
     ///
-    /// \returns A shared_ptr to the resource, upcasted to type T
+    /// \returns A shared_ptr to the resource, upcasted to type T, if resourse 
+    ///     fails to load it returns an error resource, if an error resource 
+    ///     does not exist returns null pointer
     ///
     ////////////////////////////////////////////////////////////
     template<class T>
@@ -313,7 +315,7 @@ private:
     ////////////////////////////////////////////////////////////
     /// \brief Loads a single item from the loadingQueue and 
     ///     pops it
-    ///
+    /// 
     ////////////////////////////////////////////////////////////
     static void loadFromQueue();
 
