@@ -69,7 +69,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
            // Change the status of the BaseResource 
            pointer->setIsLoaded(false);
            // Unload the BaseResource
-           pointer->unload;
+           pointer->unload();
        }
        else
        {
@@ -179,7 +179,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
                     // Change the status of the BaseResource 
                     pointer->setIsLoaded(true);
                     // Unload the BaseResource
-                    pointer->load;
+                    pointer->load();
                 }
                 else
                 {
@@ -218,7 +218,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
                     // Change the status of the BaseResource 
                     pointer->setIsLoaded(false);
                     // Unload the BaseResource
-                    pointer->unload;
+                    pointer->unload();
                 }
                 else
                 {
