@@ -127,21 +127,8 @@ void ResourceManager::initPack(const std::string& path)
     
     //iterate through the list and create a new resource if one does not already exist.	
     for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
-    {
-        //is this supposed to call initResource()? It seems like initResource() will not set an alias as it only takes a path, whereas this function can set the alias and type returned from the luaparser.
-        //initResource(list[iter].path);
-        
-        //If it does not call initResource()
-        bool exists = false;
-        for(ResourceLookup::iterator iter2 = resources.begin(); iter2 != resources.end(); iter2++)
-        {
-            if(iter2->second->getFilePath() == path)
-            {
-                exists = true;
-            }
-        }
-        
-        if(!exists)
+    {        
+        if(resources.find(path)==resources.end)
         {
             ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
             res->setAlias(iter->alias);
@@ -500,4 +487,4 @@ void ResourceManager::reloadFromQueue()
     }
 }
 
-} // rm
+} // namespace rm
