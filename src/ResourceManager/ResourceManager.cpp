@@ -367,18 +367,28 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
-   // run for each resource
-   for(ResourcePtr r : resources)
-   {
-      // if the resource pointer is unique
-      if(r.unique()) 
-      {
-          // Change resource status to false
-          r->setIsLoaded(false);
-          // unload resource
-          r->unload();
-      }
-   }
+    // Fetch a list of all resources
+    ResourceList cleanup = listAll();
+    
+    // run for each resource in list
+    for(ResourcePtr r : cleanup)
+    {    
+        // if the resource pointer is unique
+        if(r.unique())
+        {          
+            // Get alias of resource
+            std::string name = r->getAlias();
+
+            // Log what resources were unloaded
+            Logger::logMessage("Unloading Unused Resource: ", name);
+            
+            // Change resource status to false
+            r->setIsLoaded(false);
+
+            // unload resource
+            r->unload();
+        }
+    }
 }
 
 bool ResourceManager::isLoading()
