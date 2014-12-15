@@ -134,7 +134,6 @@ ResourceDataList ResourceManager::leafPack(const std::string& path)
 
     // Reset the Lua state pointer
     m_luaState = nullptr;
-
     // Return the resource data list
     return resourceDataList;
 }
