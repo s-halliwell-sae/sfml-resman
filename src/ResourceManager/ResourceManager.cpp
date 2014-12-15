@@ -83,10 +83,6 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
        }
        return;
     }
-    
-   
-    throw("Not implemented");
-   
     return;
    
 }
@@ -436,7 +432,7 @@ void ResourceManager::loadFromQueue()
             if (frontRes->load())
             {
                 // Set resource to is loaded
-                frontRes->isLoaded = true;
+                frontRes->setIsLoaded(true);
                 // Remove from loading queue
                 loadingQueue.pop();
             }
@@ -480,7 +476,7 @@ void ResourceManager::unloadFromQueue()
             if (frontRes->unload())
             {
                 // Set resource to is unloaded
-                frontRes->isLoaded = false;
+                frontRes->setIsLoaded(false);
                 // Remove from unloadeding queue
                 unloadQueue.pop();
             }
