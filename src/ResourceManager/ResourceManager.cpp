@@ -198,7 +198,6 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
        
     }
 
-    throw("Not implemented");
     return;
 }
 
@@ -240,7 +239,6 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 
     }
 
-    throw("Not implemented");
     return;
 
 }
@@ -344,8 +342,6 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
         }
     }
 
-    throw("Not implemented");
-
 }
 
 void ResourceManager::init(bool _useNullForErrorRes)
@@ -403,12 +399,21 @@ size_t ResourceManager::getNumToLoad()//ResourceManager::getNumToLoad()
 
 ResourceList ResourceManager::listAll()
 {
-    throw("Not implemented");
-    return ResourceList();
+    // create a temp list to add pointers
+    ResourceList temp;
+
+    // iterate through and add each pointer to the temp list
+    for (ResourceLookup::iterator it = resources.begin; it != resources.end; ++it)
+    {
+        temp.push_back(it->second);
+    }
+
+    return temp;
 }
 
 size_t ResourceManager::getMemUsage()
 {
+    
     throw("Not implemented");
 }
 
@@ -448,7 +453,8 @@ void ResourceManager::loadFromQueue()
             }
             else
             {
-                // Log Error (To Do)
+                // Log Error 
+                Logger::logMessage("Load Resource Failed: ", frontRes->getAlias);
             }
             // Send load complete call back once the last item is loaded.
             if (loadingQueue.size() == 0)
@@ -463,11 +469,7 @@ void ResourceManager::loadFromQueue()
 
 void ResourceManager::unloadFromQueue()
 {
-
-    /////////////////////////////////////////////
-    // I thought Steve said that we could not remove anything from the queue..
-    // this is the function that hadles the queue for unloading resources.
-    /////////////////////////////////////////////
+    // Only run when queue is > 0
     while (unloadQueue.size() > 0)
     {
         // Check First res in the queue
@@ -492,7 +494,8 @@ void ResourceManager::unloadFromQueue()
             }
             else
             {
-                // Log Error (To Do)
+                // Log Error 
+                Logger::logMessage("Unload Resource Failed: ", frontRes->getAlias);
             }
             // break from loop so only one resource is unloaded at a time.
             break;
@@ -516,7 +519,8 @@ void ResourceManager::reloadFromQueue()
         }
         else
         {
-            //Log Error (To Do)
+            // Log Error
+            Logger::logMessage("Reload Resource Failed: ", frontRes->getAlias);
         }
     }
 }
