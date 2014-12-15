@@ -79,7 +79,7 @@ public:
     /// \param mode If the resource hasn't been loaded yet, mode determines
     ///     whether it should queue it for loading or load it immediately
     ///
-    /// \returns A shared_ptr to the resource, upcasted to type T, if resourse 
+    /// \returns A shared_ptr to the resource, upcasted to type T, if resource 
     ///     fails to load it returns an error resource, if an error resource 
     ///     does not exist returns null pointer
     ///
@@ -129,7 +129,7 @@ public:
     ///     specified in the resource pack and all contained 
     ///     resource packs.
     ///
-    /// \param path The resource packs's path
+    /// \param path The resource pack's path
     ///
     /// This doesn't load any resources. It just set's up their
     ///     stubs.
@@ -142,7 +142,7 @@ public:
     /// \brief ResourceManager will load this Pack of resources 
     ///     assigning each resource a mode for the queue.
     ///
-    /// \param path The resource packs's path
+    /// \param path The resource pack's path
     ///
     /// \param mode Determines the load mode for each resource
     ///
@@ -154,7 +154,7 @@ public:
     /// \brief ResourceManager will unload this Pack of resources 
     ///     assigning each resource a mode for the queue.
     ///
-    /// \param path The resource packs's path
+    /// \param path The resource pack's path
     ///
     /// \param mode Determines the unload mode for each resource
     ///
@@ -165,7 +165,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief ResourceManager will reload this Pack of resources.
     ///
-    /// \param path The resource packs's path
+    /// \param path The resource pack's path
     ///
     ////////////////////////////////////////////////////////////
     static void reloadPack(const std::string& path);
@@ -222,7 +222,7 @@ public:
     /// \brief Optionally loads default error resources
     ///
     /// \param useNullForErrorRes if true, default error resources
-    ///     aren't loaded and all subsequent erroneus resource  
+    ///     aren't loaded and all subsequent erroneous resource  
     ///     gets and loads will return nullptr. If false, default
     ///     error resources are loaded and gets and loads return
     ///     as per normal

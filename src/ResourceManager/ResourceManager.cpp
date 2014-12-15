@@ -28,7 +28,7 @@
 #include <ResourceManager/BaseResource.hpp>
 #include <ResourceManager/LuaParser.hpp>
 #include <string>
-#include<vector>
+#include <vector>
 namespace rm
 {
 
@@ -43,8 +43,6 @@ ResourceQueue ResourceManager::reloadQueue = {};
 bool ResourceManager::useNullForErrorRes = true;
 
 LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
-
-
 
 enum class LoadMode
 {
@@ -81,7 +79,6 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
        return;
     }
     return;
-   
 }
 
 void ResourceManager::reloadResource(const std::string& name)
@@ -109,8 +106,6 @@ void ResourceManager::reloadResource(const std::string& name)
     // Must appropriately set isLoaded in resource
     // Should it even change the state of isLoaded, since it will be loaded until it hits the queue?
 }
-
-
 
 void ResourceManager::initPack(const std::string& path)
 {
@@ -158,7 +153,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
             ResourcePtr pointer = resources.find(var->alias)->second;
 
             // Checking if the resource is not loaded
-            if (pointer->isLoaded == false)
+            if (pointer->isLoaded() == false)
             {
                 // If the resource has to be loaded immediately
                 if (mode == LoadMode::Block)
@@ -176,9 +171,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
                 }
             }
         }
-       
     }
-
     return;
 }
 
@@ -197,7 +190,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
             ResourcePtr pointer = resources.find(var->alias)->second;
 
             // Checking if the resource is loaded
-            if (pointer->isLoaded == true)
+            if (pointer->isLoaded() == true)
             {
                 // If the resource has to be unloaded immediately
                 if (mode == LoadMode::Block)
@@ -214,11 +207,8 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
                 }
             }
         }
-
     }
-
     return;
-
 }
 
 void ResourceManager::reloadPack(const std::string& path)
@@ -267,7 +257,6 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     // Load the future pack
     for (ResourceDataList::iterator var = tolist.begin; var != tolist.end; ++var)
     {
-  
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
         {
@@ -275,7 +264,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
             ResourcePtr pointer = resources.find(var->alias)->second;
 
             // Checking if the resource is not loaded
-            if (pointer->isLoaded == false)
+            if (pointer->isLoaded() == false)
             {
                 // Change the status of the BaseResource 
                 pointer->setIsLoaded(true);
@@ -312,10 +301,8 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
                 // Send to unloadQueue list
                 loadingQueue.push(pointer);
             }
-               
         }
     }
-
 }
 
 void ResourceManager::init(bool _useNullForErrorRes)
@@ -375,7 +362,6 @@ ResourceList ResourceManager::listAll()
     {
         temp.push_back(it->second);
     }
-
     return temp;
 }
 
@@ -397,10 +383,10 @@ void ResourceManager::loadFromQueue()
         auto frontRes = loadingQueue.front();
 
         // Check to see if the resource is already loaded.
-        if (frontRes->isLoaded)
+        if (frontRes->isLoaded())
         {
             // If its loaded delete from queue
-            // Allow for another resource to be loaded if there are stil l more in the queue.
+            // Allow for another resource to be loaded if there are still l more in the queue.
             loadingQueue.pop();
         }
         else
@@ -438,10 +424,10 @@ void ResourceManager::unloadFromQueue()
         auto frontRes = unloadQueue.front();
 
         // Check to see if the resource is already unloaded.
-        if (!frontRes->isLoaded)
+        if (!frontRes->isLoaded())
         {
             // If its unloaded delete from queue
-            // Allow for another resource to be unloaded if there are stil l more in the queue.
+            // Allow for another resource to be unloaded if there are still l more in the queue.
             unloadQueue.pop();
         }
         else
@@ -451,7 +437,7 @@ void ResourceManager::unloadFromQueue()
             {
                 // Set resource to is unloaded
                 frontRes->setIsLoaded(false);
-                // Remove from unloadeding queue
+                // Remove from unloading queue
                 unloadQueue.pop();
             }
             else
@@ -471,7 +457,6 @@ void ResourceManager::reloadFromQueue()
     {
         // Check First res in the queue
         auto frontRes = reloadQueue.front();
-
 
         // Load the first resource and check if any errors
         if (frontRes->reload())
