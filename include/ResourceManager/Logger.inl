@@ -51,12 +51,12 @@ void Logger::logMessage(const Arg1& data, const OtherArgs&... other)
         file << data;
     }
 
-    // Bail if doesPrintOut is set to false
-    if(!doesPrintOut) return;
-
-    // Print data but don't end line as this isn't the 
+    // Print data if doesPrintOut is set but don't end line as this isn't the 
     //      final argument
-    std::cout << data;
+    if(doesPrintOut)
+    {
+        std::cout << data;
+    }
 
     // Unpack 'other', extract first argument and recurse.
     // Terminating condition is when there is only one 
