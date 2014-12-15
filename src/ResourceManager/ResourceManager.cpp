@@ -377,12 +377,12 @@ void ResourceManager::cleanupUnused()
     // run for each resource in list
     for(ResourcePtr r : cleanup)
     {    
-        // Get alias of resource
-        std::string name = r->GetAlias();
-        
         // if the resource pointer is unique
         if(r.unique())
         {          
+            // Get alias of resource
+            std::string name = r->getAlias();
+
             // Log what resources were unloaded
             Logger::logMessage("Unloading Unused Resource: ", name);
             
