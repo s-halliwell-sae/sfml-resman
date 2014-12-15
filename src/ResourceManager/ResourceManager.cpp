@@ -358,8 +358,7 @@ void ResourceManager::init(bool _useNullForErrorRes)
 
     if(!useNullForErrorRes)
     {
-        // Init default resources
-        // but we don't have any yet
+        // initPack("ResMan_DefaultError_Resources\ErrorResource_LuaFile.txt");
     }
 }
 
@@ -405,7 +404,6 @@ ResourceList ResourceManager::listAll()
 size_t ResourceManager::getMemUsage()
 {
     throw("Not implemented");
-
 }
 
 size_t ResourceManager::getNumResources()

@@ -1,0 +1,22 @@
+resources = {
+	{
+		path = "TBA"
+		alias = "error_texture"
+		type = "texture"
+	},
+	{
+		path = "TBA"
+		alias = "error_music"
+		type = "music"
+	},
+	{
+		path = "TBA"
+		alias = "error_audio"
+		type = "audio"
+	},
+	{
+		path = "TBA"
+		alias = "error_font"
+		type = "font"
+	},
+},
