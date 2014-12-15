@@ -57,14 +57,11 @@ enum class LoadMode
 
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
-    // Setting a new Resource pointer to append to &name if found
-    ResourcePtr pointer;
-
-    // Checking if resource exists in resources
+     // Checking if resource exists in resources
    if (resources.find(name) != resources.end())
    {
        // Assigns a new pointer to the key for the resource 
-       pointer = resources.find(name)->second;
+       ResourcePtr pointer = resources.find(name)->second;
 
        // If the resource has to be removed immediately
        if(mode == LoadMode::Block)
@@ -167,14 +164,11 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
     // Iterate through the list
     for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
     {
-        // Assign the alias to a throw-away string
-        std::string name = var->alias;
-
         // Checking if resource exists in resources
-        if (resources.find(name) != resources.end())
+        if (resources.find(var->alias) != resources.end())
         {
             // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(name)->second;
+            ResourcePtr pointer = resources.find(var->alias)->second;
 
             // Checking if the resource is not loaded
             if (pointer->isLoaded == false)
@@ -210,14 +204,11 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
     // Iterate through the list
     for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
     {
-        // Assign the alias to a throw-away string
-        std::string name = var->alias;
-
         // Checking if resource exists in resources
-        if (resources.find(name) != resources.end())
+        if (resources.find(var->alias) != resources.end())
         {
             // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(name)->second;
+            ResourcePtr pointer = resources.find(var->alias)->second;
 
             // Checking if the resource is loaded
             if (pointer->isLoaded == true)
@@ -291,14 +282,12 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     // Load the future pack
     for (ResourceDataList::iterator var = tolist.begin; var != tolist.end; ++var)
     {
-        // Assign the alias to a throw-away string
-        std::string name = var->alias;
-
+  
         // Checking if resource exists in resources
-        if (resources.find(name) != resources.end())
+        if (resources.find(var->alias) != resources.end())
         {
             // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(name)->second;
+            ResourcePtr pointer = resources.find(var->alias)->second;
 
             // Checking if the resource is not loaded
             if (pointer->isLoaded == false)
@@ -311,7 +300,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
             else
             {
                 // Add the name to the vector
-                common.push_back(name);
+                common.push_back(var->alias);
             }
         }
     }
@@ -319,14 +308,12 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     // Iterate through the old Pack and remove the Resources that are not common to the pack and the vector
     for (ResourceDataList::iterator var = from.begin; var != from.end; ++var)
     {
-        // Assign the alias to a throw-away string
-        std::string name = var->alias;
-
+        
         // Checking if resource is common to the string vector
-        if (resources.find(name) != resources.end())
+        if (resources.find(var->alias) != resources.end())
         {
 
-            if (std::find(common.begin(), common.end(), resources.find(name) != common.end))
+            if (std::find(common.begin(), common.end(), resources.find(var->alias) != common.end))
             {
                 // The two entries are common - do nothing
             }
@@ -335,7 +322,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
                 // The two entries do not match - unload the old entry
 
                 // Assigns a new pointer to the key for the resource 
-                ResourcePtr pointer = resources.find(name)->second;
+                ResourcePtr pointer = resources.find(var->alias)->second;
                  
                 // Send to unloadQueue list
                 loadingQueue.push(pointer);
