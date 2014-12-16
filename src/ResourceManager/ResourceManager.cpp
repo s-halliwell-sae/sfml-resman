@@ -61,7 +61,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
        if(mode == LoadMode::Block)
        {
            // Log what resources were unloaded
-           Logger::logMessage("Unloading Resource: ", resources.find(name));
+           Logger::logMessage("Unloading Resource: ", name);
 
            // Change the status of the BaseResource 
            pointer->setIsLoaded(false);
@@ -158,7 +158,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
                 if (mode == LoadMode::Block)
                 {
                     // Log what resources were unloaded
-                    Logger::logMessage("Loading Resource: ", resources.find(var->alias));
+                    Logger::logMessage("Loading Resource: ", var->alias);
 
                     // Change the status of the BaseResource 
                     pointer->setIsLoaded(true);
@@ -199,7 +199,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
                 if (mode == LoadMode::Block)
                 {
                     // Log what resources were unloaded
-                    Logger::logMessage("Loading Resource: ", resources.find(var->alias));
+                    Logger::logMessage("Loading Resource: ", var->alias);
 
                     // Change the status of the BaseResource 
                     pointer->setIsLoaded(false);
