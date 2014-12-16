@@ -69,7 +69,6 @@ public:
     static ResourceDataList parsePack(const std::string& path);
 
 private:
-
     ////////////////////////////////////////////////////////////
     /// \brief Parse individual resource pack from file and return resource data list
     ///

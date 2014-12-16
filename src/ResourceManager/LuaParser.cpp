@@ -33,7 +33,7 @@ namespace rm
 /// Initialise static members
 ////////////////////////////////////////////////////////////
 
-lua_State* m_luaState = nullptr;
+lua_State* LuaParser::m_luaState = nullptr;
 
 ////////////////////////////////////////////////////////////
 /// Function definitions
@@ -60,7 +60,7 @@ static std::string stringify(lua_State* L, int index)
 }
 
 ////////////////////////////////////////////////////////////
-ResourceDataList parsePack(const std::string& path)
+ResourceDataList LuaParser::parsePack(const std::string& path)
 {
     // Create a resource data list to hold the data of every resource in every resource pack
     ResourceDataList resourceDataList;
@@ -97,7 +97,7 @@ ResourceDataList parsePack(const std::string& path)
 }
 
 ////////////////////////////////////////////////////////////
-ResourceDataList leafPack(const std::string& path)
+ResourceDataList LuaParser::leafPack(const std::string& path)
 {
     // Create a resource data list to hold the data of each resource
     ResourceDataList resourceDataList;
@@ -139,7 +139,7 @@ ResourceDataList leafPack(const std::string& path)
 }
 
 ////////////////////////////////////////////////////////////
-ResourceData parseLeaf()
+ResourceData LuaParser::parseLeaf()
 {
     // Create a resource data object to hold the leaf data
     ResourceData resourceData;
