@@ -32,13 +32,13 @@ namespace rm
     /// Initialise member variables
     ////////////////////////////////////////////////////////////
 
-    std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
+    std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> ResourceFactory::creators;
   
     ////////////////////////////////////////////////////////////
     /// Function definitions
     ////////////////////////////////////////////////////////////
 
-    static ResourcePtr createResource(const std::string& path, const std::string& type)
+    ResourcePtr ResourceFactory::createResource(const std::string& path, const std::string& type)
     {
         ResourcePtr resource = creators.find(type)->second->create();
         resource->setFilePath(path);

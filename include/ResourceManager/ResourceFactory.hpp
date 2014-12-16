@@ -89,6 +89,7 @@ class ResourceFactory
      static std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
 };
 
+#include <ResourceManager/ResourceFactory.inl>
 }
 
 #endif //RESOURCE_FACTORY_HPP

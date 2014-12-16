@@ -80,7 +80,7 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 
         else
         {
-            Logger::logMessage("Failed to load Resource:", res->getAlias);
+            Logger::logMessage("Failed to load Resource:", res->getAlias());
             //try and load error resource
             if (errorResources.find(T::getResourceClassType()) != errorResources.end())
             {

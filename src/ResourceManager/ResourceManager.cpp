@@ -295,7 +295,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
         {
 
 
-            if (std::find(common.begin(), common.end(), resources.find(var->alias)) != common.end())
+            if (std::find(common.begin(), common.end(), var->alias) != common.end())
             {
                 // The two entries are common - do nothing
             }
