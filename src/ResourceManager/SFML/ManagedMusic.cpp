@@ -49,14 +49,14 @@ ManagedMusic::~ManagedMusic()
 bool ManagedMusic::load()
 {
     // Stream resource from file path
-    return m_music.openFromFile(filePath);
+    return m_music->openFromFile(getFilePath());
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedMusic::unload()
 {
     // Release m_music resource and null ptr
-     if(isResourceLoaded)
+    if (isLoaded)
     {
         delete m_music;
         m_music = nullptr;
@@ -72,13 +72,13 @@ bool ManagedMusic::reload()
 }
 
 ////////////////////////////////////////////////////////////
-static std::string ManagedMusic::getResourceClassType()
+std::string ManagedMusic::getResourceClassType()
 {
     return "music";
 }
 
 ////////////////////////////////////////////////////////////
-sf::Music* ManagedMusic::getMusic() const
+sf::Music* ManagedMusic::getMusic()
 {
     return m_music;
 }

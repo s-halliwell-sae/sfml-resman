@@ -32,8 +32,10 @@
 ////////////////////////////////////////////////////////////
 
 #include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
-#include <BaseResource.hpp>
+#include <ResourceManager\BaseResource.hpp>
+#include <ResourceManager\Logger.hpp>
 
 
 namespace rm
@@ -100,7 +102,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// Member data
         ////////////////////////////////////////////////////////////
-        const sf::SoundBuffer*    m_sound;    ///< Reference to the sound resource
+        sf::SoundBuffer* m_sound;    ///< Reference to the sound resource
     };
 
 } // namespace rm

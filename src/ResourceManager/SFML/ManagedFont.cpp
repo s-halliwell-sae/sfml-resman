@@ -48,14 +48,14 @@ ManagedFont::~ManagedFont()
 bool ManagedFont::load()
 {
     //Attempt to load from file and return success or failure
-    return m_font.loadFromFile(filepath);
+    return m_font->loadFromFile(getFilePath());
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedFont::unload()
 {
     // Release m_font resource and null ptr
-    if(isResourceLoaded)
+    if(isLoaded)
     {
         delete m_font;
         m_font = nullptr;
@@ -71,13 +71,13 @@ bool ManagedFont::reload()
 }
 
 ////////////////////////////////////////////////////////////
-static std::string ManagedFont::getResourceClassType()
+std::string ManagedFont::getResourceClassType()
 {
     return "font";
 }
 
 ////////////////////////////////////////////////////////////
-sf::Font* ManagedFont::getFont() const
+sf::Font* ManagedFont::getFont()
 {
     return m_font;
 }

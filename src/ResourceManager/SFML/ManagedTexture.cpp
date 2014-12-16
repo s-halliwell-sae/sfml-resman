@@ -49,14 +49,14 @@ ManagedTexture::~ManagedTexture()
 bool ManagedTexture::load()
 {
     //Attempt to load from file and return success or failure
-    return m_texture.loadFromFile(filePath);
+    return m_texture->loadFromFile(getFilePath());
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::unload()
 {
     // Release m_texture resource and null ptr
-   if(isResourceLoaded)
+   if(isLoaded)//isResourceLoaded)
    {
         delete m_texture;
         m_texture = nullptr;
@@ -72,13 +72,13 @@ bool ManagedTexture::reload()
 }
 
 ////////////////////////////////////////////////////////////
-static std::string ManagedTexture::getResourceClassType()
+std::string ManagedTexture::getResourceClassType()
 {
     return "texture";
 }
 
 ////////////////////////////////////////////////////////////
-sf::Texture* ManagedTexture::getTexture() const
+sf::Texture* ManagedTexture::getTexture()
 {
     return m_texture;
 }

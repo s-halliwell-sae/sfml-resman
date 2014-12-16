@@ -33,7 +33,8 @@
 
 #include <SFML/Audio/Music.hpp>
 
-#include <BaseResource.hpp>
+#include <ResourceManager\BaseResource.hpp>
+#include <ResourceManager\Logger.hpp>
 
 
 namespace rm
@@ -102,7 +103,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// Member data
         ////////////////////////////////////////////////////////////
-        const sf::Music*    m_music;    ///< Reference to the Music resource
+        sf::Music*    m_music;    ///< Reference to the Music resource
     };
 
 } // namespace rm

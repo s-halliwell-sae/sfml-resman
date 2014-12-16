@@ -49,14 +49,14 @@ ManagedSound::~ManagedSound()
 bool ManagedSound::load()
 {
     //Attempt to load from file and return success or failure
-    return m_sound.loadFromFile(filepath);
+    return m_sound->loadFromFile(getFilePath());
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedSound::unload()
 {
    // Release m_sound resource and null ptr
-   if(isResourceLoaded)
+    if (isLoaded)
    {
         delete m_sound;
         m_sound = nullptr;
@@ -72,13 +72,13 @@ bool ManagedSound::reload()
 }
 
 ////////////////////////////////////////////////////////////
-static std::string ManagedSound::getResourceClassType()
+std::string ManagedSound::getResourceClassType()
 {
     return "sound";
 }
 
 ////////////////////////////////////////////////////////////
-sf::SoundBuffer* ManagedFont::getSound() const
+sf::Sound* ManagedSound::getSound()
 {
     return m_sound;
 }

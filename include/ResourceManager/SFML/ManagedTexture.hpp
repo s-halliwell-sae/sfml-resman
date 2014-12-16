@@ -109,7 +109,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// Member data
         ////////////////////////////////////////////////////////////
-        const sf::Texture*    m_texture;    ///< Reference to the Texture resource
+        sf::Texture*    m_texture;    ///< Reference to the Texture resource
     };
 
 } // namespace rm

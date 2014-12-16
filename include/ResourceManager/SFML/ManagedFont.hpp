@@ -34,7 +34,8 @@
 #include <SFML/Graphics/Font.hpp>
 
 
-#include <BaseResource.hpp>
+#include <ResourceManager\BaseResource.hpp>
+#include <ResourceManager\Logger.hpp>
 
 
 namespace rm
@@ -101,7 +102,7 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// Member data
         ////////////////////////////////////////////////////////////
-        const sf::Font*    m_font;    ///< Reference to the Font resource
+        sf::Font*    m_font;    ///< Reference to the Font resource
     };
 
 } // namespace rm
