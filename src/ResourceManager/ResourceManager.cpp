@@ -58,21 +58,26 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
      // Checking if resource exists in resources
    if (resources.find(name) != resources.end())
    {
+       // Assigns a new pointer to the key for the resource 
+       ResourcePtr pointer = resources.find(name)->second;
        
        // If the resource has to be removed immediately
        if(mode == LoadMode::Block)
        {
+           // Log what resources were unloaded
+           Logger::logMessage("Unloading Resource: ", resources.find(name));
+
            // Change the status of the BaseResource 
-           resources.find(name)->second->setIsLoaded(false);
+           pointer->setIsLoaded(false);
+
            // Unload the BaseResource
-           resources.find(name)->second->unload();
+           pointer->unload();
        }
        else
        {
-           // Change the status of the BaseResource 
-           resources.find(name)->second->setIsLoaded(false);
+
            // Send to unloadQueue list
-           unloadQueue.push(resources.find(name)->second);
+           unloadQueue.push(pointer);
        }
        return;
     }
@@ -156,8 +161,12 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
                 // If the resource has to be loaded immediately
                 if (mode == LoadMode::Block)
                 {
+                    // Log what resources were unloaded
+                    Logger::logMessage("Loading Resource: ", resources.find(var->alias));
+
                     // Change the status of the BaseResource 
                     pointer->setIsLoaded(true);
+
                     // Unload the BaseResource
                     pointer->load();
                 }
@@ -193,8 +202,12 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
                 // If the resource has to be unloaded immediately
                 if (mode == LoadMode::Block)
                 {
+                    // Log what resources were unloaded
+                    Logger::logMessage("Loading Resource: ", resources.find(var->alias));
+
                     // Change the status of the BaseResource 
                     pointer->setIsLoaded(false);
+
                     // Unload the BaseResource
                     pointer->unload();
                 }
