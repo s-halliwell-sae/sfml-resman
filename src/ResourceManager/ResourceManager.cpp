@@ -44,11 +44,6 @@ bool ResourceManager::useNullForErrorRes = true;
 
 LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
-enum class LoadMode
-{
-    Queue,
-    Block,
-};
 ////////////////////////////////////////////////////////////
 /// Function definitions
 ////////////////////////////////////////////////////////////
@@ -126,7 +121,7 @@ void ResourceManager::initPack(const std::string& path)
     //iterate through the list and create a new resource if one does not already exist.	
     for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
     {        
-        if(resources.find(path)==resources.end)
+        if(resources.find(path) == resources.end())
         {
             ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
             res->setAlias(iter->alias);
