@@ -32,7 +32,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceData.hpp>
-#include <ResourceManager\Logger.hpp>
+#include <ResourceManager/Logger.hpp>
 #include <string>
 #include <list>
 #include <vector>
