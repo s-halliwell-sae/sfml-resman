@@ -31,10 +31,10 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <SFML/Graphic/Texture.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
-#include <BaseResource.hpp>
-#include <Logger.hpp>
+#include <ResourceManager\BaseResource.hpp>
+#include <ResourceManager\Logger.hpp>
 
 
 namespace rm
