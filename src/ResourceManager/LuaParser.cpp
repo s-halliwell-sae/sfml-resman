@@ -33,7 +33,7 @@ namespace rm
 /// Initialise static members
 ////////////////////////////////////////////////////////////
 
-lua_State* ResourceManager::m_luaState = nullptr;
+lua_State* m_luaState = nullptr;
 
 ////////////////////////////////////////////////////////////
 /// Function definitions
@@ -60,7 +60,7 @@ static std::string stringify(lua_State* L, int index)
 }
 
 ////////////////////////////////////////////////////////////
-ResourceDataList ResourceManager::parsePack(const std::string& path)
+ResourceDataList parsePack(const std::string& path)
 {
     // Create a resource data list to hold the data of every resource in every resource pack
     ResourceDataList resourceDataList;
@@ -81,7 +81,7 @@ ResourceDataList ResourceManager::parsePack(const std::string& path)
             {
                 // If the resource pack has already been parsed, ignore it and log a warning message
                 if (std::find(resourcePacks.begin(), resourcePacks.end(), j->path) != resourcePacks.end())
-                    logMessage("Cyclic dependency detected");
+                    Logger::logMessage("Cyclic dependency detected");
                 // Otherwise, add it as a pending resource pack to be parsed
                 else
                     resourcePacks.push_back(j->path);
@@ -97,7 +97,7 @@ ResourceDataList ResourceManager::parsePack(const std::string& path)
 }
 
 ////////////////////////////////////////////////////////////
-ResourceDataList ResourceManager::leafPack(const std::string& path)
+ResourceDataList leafPack(const std::string& path)
 {
     // Create a resource data list to hold the data of each resource
     ResourceDataList resourceDataList;
@@ -110,7 +110,7 @@ ResourceDataList ResourceManager::leafPack(const std::string& path)
     // Try to load and run the resource pack file
     if (luaL_dofile(m_luaState, path.data()) != 0)
         // Log errors on failure
-        logMessage(lua_tostring(m_luaState, -1));
+        Logger::logMessage(lua_tostring(m_luaState, -1));
     // On success
     else
     {
@@ -139,7 +139,7 @@ ResourceDataList ResourceManager::leafPack(const std::string& path)
 }
 
 ////////////////////////////////////////////////////////////
-ResourceData ResourceManager::parseLeaf()
+ResourceData parseLeaf()
 {
     // Create a resource data object to hold the leaf data
     ResourceData resourceData;
