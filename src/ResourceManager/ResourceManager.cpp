@@ -314,7 +314,7 @@ void ResourceManager::update()
 void ResourceManager::cleanupUnused()
 {
     // run for each resource in list
-    for(auto r : resources)
+    for(auto& r : resources)
     {    
         // if the resource pointer is unique
         if(r.second.unique())
