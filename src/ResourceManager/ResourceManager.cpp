@@ -58,23 +58,21 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
      // Checking if resource exists in resources
    if (resources.find(name) != resources.end())
    {
-       // Assigns a new pointer to the key for the resource 
-       ResourcePtr pointer = resources.find(name)->second;
-
+       
        // If the resource has to be removed immediately
        if(mode == LoadMode::Block)
        {
            // Change the status of the BaseResource 
-           pointer->setIsLoaded(false);
+           resources.find(name)->second->setIsLoaded(false);
            // Unload the BaseResource
-           pointer->unload();
+           resources.find(name)->second->unload();
        }
        else
        {
            // Change the status of the BaseResource 
-           pointer->setIsLoaded(false);
+           resources.find(name)->second->setIsLoaded(false);
            // Send to unloadQueue list
-           unloadQueue.push(pointer);
+           unloadQueue.push(resources.find(name)->second);
        }
        return;
     }
@@ -149,25 +147,23 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
         {
-            // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(var->alias)->second;
-
+            
             // Checking if the resource is not loaded
-            if (pointer->isLoaded() == false)
+            if (resources.find(var->alias)->second->isLoaded() == false)
             {
                 // If the resource has to be loaded immediately
                 if (mode == LoadMode::Block)
                 {
                     // Change the status of the BaseResource 
-                    pointer->setIsLoaded(true);
+                    resources.find(var->alias)->second->setIsLoaded(true);
                     // Unload the BaseResource
-                    pointer->load();
+                    resources.find(var->alias)->second->load();
                 }
                 else
                 {
  
                     // Send to unloadQueue list
-                    loadingQueue.push(pointer);
+                    loadingQueue.push(resources.find(var->alias)->second);
                 }
             }
         }
@@ -186,24 +182,22 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
         {
-            // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(var->alias)->second;
-
+           
             // Checking if the resource is loaded
-            if (pointer->isLoaded() == true)
+            if (resources.find(var->alias)->second->isLoaded() == true)
             {
                 // If the resource has to be unloaded immediately
                 if (mode == LoadMode::Block)
                 {
                     // Change the status of the BaseResource 
-                    pointer->setIsLoaded(false);
+                    resources.find(var->alias)->second->setIsLoaded(false);
                     // Unload the BaseResource
-                    pointer->unload();
+                    resources.find(var->alias)->second->unload();
                 }
                 else
                 {
                    // Send to unloadQueue list
-                    unloadQueue.push(pointer);
+                    unloadQueue.push(resources.find(var->alias)->second);
                 }
             }
         }
@@ -260,16 +254,14 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
         {
-            // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(var->alias)->second;
-
+            
             // Checking if the resource is not loaded
-            if (pointer->isLoaded() == false)
+            if (resources.find(var->alias)->second->isLoaded() == false)
             {
                 // Change the status of the BaseResource 
-                pointer->setIsLoaded(true);
+                resources.find(var->alias)->second->setIsLoaded(true);
                 // Send to unloadQueue list
-                loadingQueue.push(pointer);
+                loadingQueue.push(resources.find(var->alias)->second);
             }
             else
             {
@@ -295,11 +287,8 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
             {
                 // The two entries do not match - unload the old entry
 
-                // Assigns a new pointer to the key for the resource 
-                ResourcePtr pointer = resources.find(var->alias)->second;
-                 
                 // Send to unloadQueue list
-                loadingQueue.push(pointer);
+                loadingQueue.push(resources.find(var->alias)->second);
             }
         }
     }
