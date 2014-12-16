@@ -143,7 +143,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
     ResourceDataList list = LuaParser::parsePack(path);
 
     // Iterate through the list
-    for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
+    for (ResourceDataList::iterator var = list.begin(); var != list.end(); ++var)
     {
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
@@ -184,7 +184,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
     ResourceDataList list = LuaParser::parsePack(path);
 
     // Iterate through the list
-    for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
+    for (ResourceDataList::iterator var = list.begin(); var != list.end(); ++var)
     {
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
@@ -225,7 +225,7 @@ void ResourceManager::reloadPack(const std::string& path)
     ResourceDataList list = LuaParser::parsePack(path);
 
     // Iterate through the list
-    for (ResourceDataList::iterator var = list.begin; var != list.end; ++var)
+    for (ResourceDataList::iterator var = list.begin(); var != list.end(); ++var)
     {
         // Assign the alias to a throw away string
         std::string name = var->alias;
@@ -262,7 +262,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     std::vector<std::string> common;
 
     // Load the future pack
-    for (ResourceDataList::iterator var = tolist.begin; var != tolist.end; ++var)
+    for (ResourceDataList::iterator var = tolist.begin(); var != tolist.end(); ++var)
     {
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
@@ -287,7 +287,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     }
 
     // Iterate through the old Pack and remove the Resources that are not common to the pack and the vector
-    for (ResourceDataList::iterator var = from.begin; var != from.end; ++var)
+    for (ResourceDataList::iterator var = from.begin(); var != from.end(); ++var)
     {
         
         // Checking if resource is common to the string vector
@@ -295,7 +295,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
         {
 
 
-            if (std::find(common.begin(), common.end(), resources.find(var->alias) != common.end))
+            if (std::find(common.begin(), common.end(), resources.find(var->alias)) != common.end())
             {
                 // The two entries are common - do nothing
             }
@@ -366,7 +366,7 @@ ResourceList ResourceManager::listAll()
     ResourceList temp;
 
     // iterate through and add each pointer to the temp list
-    for (ResourceLookup::iterator it = resources.begin; it != resources.end; ++it)
+    for (ResourceLookup::iterator it = resources.begin(); it != resources.end(); ++it)
     {
         temp.push_back(it->second);
     }
@@ -410,7 +410,7 @@ void ResourceManager::loadFromQueue()
             else
             {
                 // Log Error 
-                Logger::logMessage("Load Resource Failed: ", frontRes->getAlias);
+                Logger::logMessage("Load Resource Failed: ", frontRes->getAlias());
             }
             // Send load complete call back once the last item is loaded.
             if (loadingQueue.size() == 0)
@@ -451,7 +451,7 @@ void ResourceManager::unloadFromQueue()
             else
             {
                 // Log Error 
-                Logger::logMessage("Unload Resource Failed: ", frontRes->getAlias);
+                Logger::logMessage("Unload Resource Failed: ", frontRes->getAlias());
             }
             // break from loop so only one resource is unloaded at a time.
             break;
@@ -475,7 +475,7 @@ void ResourceManager::reloadFromQueue()
         else
         {
             // Log Error
-            Logger::logMessage("Reload Resource Failed: ", frontRes->getAlias);
+            Logger::logMessage("Reload Resource Failed: ", frontRes->getAlias());
         }
     }
 }
