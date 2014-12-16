@@ -25,7 +25,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/ResourceFactory.hpp>
-
+#include <ResourceManager/Logger.hpp>
 namespace rm
 {
     ////////////////////////////////////////////////////////////
@@ -40,6 +40,14 @@ namespace rm
 
     ResourcePtr ResourceFactory::createResource(const std::string& path, const std::string& type)
     {
+        auto rs = creators.find(type);
+        if (rs == creators.end())
+        {
+            Logger::logMessage("Tried to create resource of type ", type, "that doesn't exist");
+            return nullptr;
+        }
+
+
         ResourcePtr resource = creators.find(type)->second->create();
         resource->setFilePath(path);
         return resource;
