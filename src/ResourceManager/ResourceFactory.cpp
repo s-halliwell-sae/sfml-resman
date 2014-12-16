@@ -38,9 +38,9 @@ namespace rm
     /// Function definitions
     ////////////////////////////////////////////////////////////
 
-    static ResourcePtr<BaseResource> createResource(const std::string& path, const std::string& type)
+    static ResourcePtr createResource(const std::string& path, const std::string& type)
     {
-		ResourcePtr<BaseResource> resource = creators.find(type)->second->create();
+        ResourcePtr resource = creators.find(type)->second->create();
         resource->setFilePath(path);
         return resource;
     }
