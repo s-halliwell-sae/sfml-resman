@@ -51,7 +51,7 @@ static std::string stringify(lua_State* L, int index)
         int type = lua_type(L, index);
 
         // If the type of value is a boolean, convert to its equivalent string representation
-        if (type == LUA_TBOOLEAN) {
+        if (type == LUA_TBOOLEAN)
             return std::string(lua_toboolean(L, index) ? "true" : "false");
         // Return the name of the type for any other type of value
         else
