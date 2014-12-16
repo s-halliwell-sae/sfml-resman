@@ -44,11 +44,7 @@ bool ResourceManager::useNullForErrorRes = true;
 
 LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
-enum class LoadMode
-{
-    Queue,
-    Block,
-};
+
 ////////////////////////////////////////////////////////////
 /// Function definitions
 ////////////////////////////////////////////////////////////
