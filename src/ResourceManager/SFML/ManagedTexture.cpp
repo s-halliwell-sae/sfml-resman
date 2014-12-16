@@ -56,7 +56,7 @@ bool ManagedTexture::load()
 bool ManagedTexture::unload()
 {
     // Release m_texture resource and null ptr
-   if(isLoaded)//isResourceLoaded)
+   if(isLoaded())//isResourceLoaded)
    {
         delete m_texture;
         m_texture = nullptr;

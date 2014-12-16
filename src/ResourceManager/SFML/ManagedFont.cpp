@@ -55,7 +55,7 @@ bool ManagedFont::load()
 bool ManagedFont::unload()
 {
     // Release m_font resource and null ptr
-    if(isLoaded)
+    if(isLoaded())
     {
         delete m_font;
         m_font = nullptr;

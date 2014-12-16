@@ -102,7 +102,8 @@ namespace rm
         ////////////////////////////////////////////////////////////
         /// Member data
         ////////////////////////////////////////////////////////////
-        sf::SoundBuffer* m_sound;    ///< Reference to the sound resource
+        sf::SoundBuffer* m_soundBuffer;    ///< Reference to the sound resource
+        sf::Sound* m_sound;
     };
 
 } // namespace rm

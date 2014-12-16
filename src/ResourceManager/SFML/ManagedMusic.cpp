@@ -56,7 +56,7 @@ bool ManagedMusic::load()
 bool ManagedMusic::unload()
 {
     // Release m_music resource and null ptr
-    if (isLoaded)
+    if (isLoaded())
     {
         delete m_music;
         m_music = nullptr;

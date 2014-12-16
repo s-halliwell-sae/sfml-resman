@@ -49,16 +49,20 @@ ManagedSound::~ManagedSound()
 bool ManagedSound::load()
 {
     //Attempt to load from file and return success or failure
-    return m_sound->loadFromFile(getFilePath());
+    bool temp = m_soundBuffer->loadFromFile(getFilePath());
+    m_sound->setBuffer(*m_soundBuffer);
+    return temp;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedSound::unload()
 {
    // Release m_sound resource and null ptr
-    if (isLoaded)
+    if (isLoaded())
    {
+        delete m_soundBuffer;
         delete m_sound;
+        m_soundBuffer = nullptr;
         m_sound = nullptr;
    }
    return true;
