@@ -44,7 +44,6 @@
 namespace rm 
 {
 
-typedef std::shared_ptr<BaseResource> ResourcePtr;
 typedef std::function<void ()> LoadCompleteCallback;
 typedef std::map<std::string, ResourcePtr> ResourceLookup;
 typedef std::queue<ResourcePtr> ResourceQueue;
