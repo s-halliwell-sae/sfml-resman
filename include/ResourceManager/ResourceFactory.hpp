@@ -86,7 +86,7 @@ class ResourceFactory
     /// that will define how to create an image
     ///
     ////////////////////////////////////////////////////////////
-    std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
+     static std::map<std::string, std::shared_ptr<ResourceCreatorInterface>> creators;
 };
 
 }
