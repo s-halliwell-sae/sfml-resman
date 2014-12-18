@@ -65,6 +65,22 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
     {
 		// Create new resource
         res = ResourceFactory::createResource(name, T::getResourceClassType());
+        
+        if(res = nullptr)
+        {
+            Logger::logMessage("Failed to load Resource:", res->getAlias());
+            
+            // Check if error resource is available
+            if (errorResources.find(T::getResourceClassType()) != errorResources.end())
+            {
+                res = errorResources[T::getResourceClassType()];
+            }
+            else
+            {
+                Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
+                return nullptr;
+            }
+        }
     }
 
     //Check load mode
@@ -138,6 +154,22 @@ void ResourceManager::createErrorResource(const std::string& path)
     {
         // If not, create one
         res = ResourceFactory::createResource(path, T::getResourceClassType());
+        
+        if(res = nullptr)
+        {
+            Logger::logMessage("Failed to load Resource:", res->getAlias());
+            
+            // Check if error resource is available
+            if (errorResources.find(T::getResourceClassType()) != errorResources.end())
+            {
+                res = errorResources[T::getResourceClassType()];
+            }
+            else
+            {
+                Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
+                return nullptr;
+            }
+        }
 
         // and add it to the error resource lookup
         errorResources[path] = res;
@@ -185,7 +217,7 @@ std::shared_ptr<T> ResourceManager::getErrorResource()
     else
     {
         // If error resource doesn't exist, return null pointer
-        Logger::logMessage("Failed to get error resource: ", T::getResourceClassType());
+        Logger::logMessage("Failed to get Error Resource: ", T::getResourceClassType());
         return nullptr;
     }
     

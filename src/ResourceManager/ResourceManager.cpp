@@ -122,9 +122,25 @@ void ResourceManager::initPack(const std::string& path)
     for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
     {        
         if(resources.find(path)==resources.end())
-
         {
             ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
+            
+            if(res = nullptr)
+            {
+                Logger::logMessage("Failed to load Resource:", res->getAlias());
+                
+                // Check if error resource is available
+                if (errorResources.find(T::getResourceClassType()) != errorResources.end())
+                {
+                    res = errorResources[T::getResourceClassType()];
+                }
+                else
+                {
+                    Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
+                    return nullptr;
+                }
+            }
+            
             res->setAlias(iter->alias);
             resources.insert({iter->alias, res});
             
