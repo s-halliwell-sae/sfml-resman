@@ -175,6 +175,22 @@ void ResourceManager::createErrorResource(const std::string& path)
 template<class T>
 std::shared_ptr<T> ResourceManager::getErrorResource()
 {
-    throw("Not implemented");
-    return nullptr;
+    ResourcePtr res;
+
+    // Check if error resource exists
+    if (errorResources.find(T::getResourceClassType()) != errorResources.end())
+    {
+        res = errorResources[T::getResourceClassType()];
+    }
+    else
+    {
+        // If error resource doesn't exist, return null pointer
+        Logger::logMessage("Failed to get error resource: ", T::getResourceClassType());
+        return nullptr;
+    }
+    
+    res->load();
+    res->setIsLoaded(true);
+    
+    return std::static_pointer_cast<T>(res);
 }
