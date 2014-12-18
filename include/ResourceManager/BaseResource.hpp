@@ -142,7 +142,7 @@ namespace rm
         ///////////////////////////////////////////////////////////
         void setIsLoaded(bool isLoaded);
         
-    private:
+    protected:
         std::string alias, type, filePath;
         bool isResourceLoaded;
 	};
