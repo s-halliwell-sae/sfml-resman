@@ -66,7 +66,7 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 		// Create new resource
         res = ResourceFactory::createResource(name, T::getResourceClassType());
         
-        if(res = nullptr)
+        if(res == nullptr)
         {
             Logger::logMessage("Failed to load Resource:", res->getAlias());
             
@@ -155,7 +155,7 @@ void ResourceManager::createErrorResource(const std::string& path)
         // If not, create one
         res = ResourceFactory::createResource(path, T::getResourceClassType());
         
-        if(res = nullptr)
+        if(res == nullptr)
         {
             Logger::logMessage("Failed to load Resource:", res->getAlias());
             

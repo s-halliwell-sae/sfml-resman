@@ -125,7 +125,7 @@ void ResourceManager::initPack(const std::string& path)
         {
             ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
             
-            if(res = nullptr)
+            if(res == nullptr)
             {
                 Logger::logMessage("Failed to load Resource:", res->getAlias());
                 
