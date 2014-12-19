@@ -58,29 +58,21 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
     //Check if exists in resource map
     if (resources.find(name) != resources.end())
     {
-		// Set resource
+		// If it already exists, just return that
         res = resources[name];
     }
     else 
     {
-		// Create new resource
+		// Otherwise create new resource
         res = ResourceFactory::createResource(name, T::getResourceClassType());
         
-        if(res == nullptr)
+        if(!res)
         {
-            Logger::logMessage("Failed to load Resource:", res->getAlias());
-            
-            // Check if error resource is available
-            if (errorResources.find(T::getResourceClassType()) != errorResources.end())
-            {
-                res = errorResources[T::getResourceClassType()];
-            }
-            else
-            {
-                Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
-                return nullptr;
-            }
+            Logger::logMessage("Failed to create resource stub for ", name);
+            return getErrorResource<T>();
         }
+
+        res->setAlias(name);
     }
 
     //Check load mode
@@ -93,21 +85,10 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
             //set is loaded to true
             res->setIsLoaded(true);
         }
-
         else
         {
-            Logger::logMessage("Failed to load Resource:", res->getAlias());
-            //try and load error resource
-            if (errorResources.find(T::getResourceClassType()) != errorResources.end())
-            {
-                res = errorResources[T::getResourceClassType()];
-            }
-
-            else
-            {
-                Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
-                return nullptr;
-            }
+            Logger::logMessage("Failed to load resource: ", name);
+            return getErrorResource<T>();
         }
     }
     else  //add it to the load queue
@@ -197,6 +178,11 @@ void ResourceManager::createErrorResource(const std::string& path)
 template<class T>
 std::shared_ptr<T> ResourceManager::getErrorResource()
 {
+    if(useNullForErrorRes)
+    {
+        return nullptr;
+    }
+
     // Check if error resource exists
     if (errorResources.find(T::getResourceClassType()) == errorResources.end())
     {
