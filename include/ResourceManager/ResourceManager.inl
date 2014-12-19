@@ -90,6 +90,9 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
             Logger::logMessage("Failed to load resource: ", name);
             return getErrorResource<T>();
         }
+
+        // Add it to the resource lookup
+        resources[name] = res;
     }
     else  //add it to the load queue
     {

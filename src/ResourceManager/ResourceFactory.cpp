@@ -60,6 +60,8 @@ namespace rm
         }
 
         resource->setFilePath(path);
+        resource->type = type;
+        
         return resource;
     }
 	

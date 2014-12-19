@@ -33,7 +33,7 @@
 
 #include <iostream>
 #include <string>
-#include<memory>
+#include <memory>
 
 namespace rm 
 {
@@ -47,12 +47,13 @@ namespace rm
     ///
     ///////////////////////////////////////////////////////////
     class BaseResource;
+    class ResourceFactory;
+
     typedef std::shared_ptr<BaseResource> ResourcePtr;
+    
     class BaseResource
 	{
-
-        
-
+        friend ResourceFactory;
     public:
         BaseResource();
         virtual ~BaseResource();

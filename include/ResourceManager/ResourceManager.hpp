@@ -120,7 +120,7 @@ public:
     /// \param name The resource's alias
     ///
     ////////////////////////////////////////////////////////////
-    static void reloadResource(const std::string& name);
+    static void reloadResource(const std::string& name, LoadMode mode);
 
 
     ////////////////////////////////////////////////////////////
@@ -167,7 +167,7 @@ public:
     /// \param path The resource pack's path
     ///
     ////////////////////////////////////////////////////////////
-    static void reloadPack(const std::string& path);
+    static void reloadPack(const std::string& path, LoadMode mode);
 
 
     ////////////////////////////////////////////////////////////

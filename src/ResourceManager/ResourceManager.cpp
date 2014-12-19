@@ -79,7 +79,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
     return;
 }
 
-void ResourceManager::reloadResource(const std::string& name)
+void ResourceManager::reloadResource(const std::string& name, LoadMode mode)
 {
     ResourcePtr res = nullptr;
 
@@ -92,17 +92,14 @@ void ResourceManager::reloadResource(const std::string& name)
     else 
     {
         Logger::logMessage("Reload resource warning: Resource not already loaded");
-        
-        // Create new resource anyway
-        //loadingQueue.push(res);
-        // Not quire sure how to handle this/if we're allowing them to load anyway
+        // TODO: create new resource
     }
     
     // Send to reloadQueue
     reloadQueue.push(res);
-   
+    // TODO: do modes properly
+
     // Must appropriately set isLoaded in resource
-    // Should it even change the state of isLoaded, since it will be loaded until it hits the queue?
 }
 
 void ResourceManager::initPack(const std::string& path)
@@ -142,37 +139,53 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
     // Iterate through the list
     for (ResourceDataList::iterator var = list.begin(); var != list.end(); ++var)
     {
+        ResourcePtr res = nullptr;
+
         // Checking if resource exists in resources
         if (resources.find(var->alias) != resources.end())
         {
+            // If resource already exists
             // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(var->alias)->second;
+            res = resources[var->alias];
+        }
+        else
+        {
+            // If it doesn't already exist
+            res = ResourceFactory::createResource(var->path, var->type);
 
-            // Checking if the resource is not loaded
-            if (pointer->isLoaded() == false)
+            // Make sure resource is valid
+            if(!res)
             {
-                // If the resource has to be loaded immediately
-                if (mode == LoadMode::Block)
-                {
-                    // Log what resources were unloaded
-                    Logger::logMessage("Loading Resource: ", var->alias);
+                // Don't bother trying to load it, just skip it
+                Logger::logMessage("Error creating a resource stub for ", var->alias, " of type ", var->type);
+                continue;
+            }
 
-                    // Change the status of the BaseResource 
-                    pointer->setIsLoaded(true);
+            res->setAlias(var->alias);
+        }
 
-                    // Unload the BaseResource
-                    pointer->load();
-                }
-                else
-                {
- 
-                    // Send to unloadQueue list
-                    loadingQueue.push(pointer);
-                }
+        // Checking if the resource is not loaded
+        if (!res->isLoaded())
+        {
+            // If the resource has to be loaded immediately
+            if (mode == LoadMode::Block)
+            {
+                // Log what resources were unloaded
+                Logger::logMessage("Loading Resource: ", var->alias);
+
+                // Change the status of the BaseResource 
+                res->setIsLoaded(true);
+
+                // Unload the BaseResource
+                res->load();
+            }
+            else
+            {
+                // Send to unloadQueue list
+                loadingQueue.push(res);
             }
         }
     }
-    return;
 }
 
 void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
@@ -187,27 +200,27 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
         if (resources.find(var->alias) != resources.end())
         {
             // Assigns a new pointer to the key for the resource 
-            ResourcePtr pointer = resources.find(var->alias)->second;
+            ResourcePtr res = resources[var->alias];
 
             // Checking if the resource is loaded
-            if (pointer->isLoaded() == true)
+            if (res->isLoaded())
             {
                 // If the resource has to be unloaded immediately
                 if (mode == LoadMode::Block)
                 {
                     // Log what resources were unloaded
-                    Logger::logMessage("Loading Resource: ", var->alias);
+                    Logger::logMessage("Unloading Resource: ", var->alias);
 
                     // Change the status of the BaseResource 
-                    pointer->setIsLoaded(false);
+                    res->setIsLoaded(false);
 
                     // Unload the BaseResource
-                    pointer->unload();
+                    res->unload();
                 }
                 else
                 {
                    // Send to unloadQueue list
-                    unloadQueue.push(pointer);
+                    unloadQueue.push(res);
                 }
             }
         }
@@ -215,9 +228,8 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
     return;
 }
 
-void ResourceManager::reloadPack(const std::string& path)
+void ResourceManager::reloadPack(const std::string& path, LoadMode mode)
 {
-
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
@@ -226,23 +238,52 @@ void ResourceManager::reloadPack(const std::string& path)
     {
         // Assign the alias to a throw away string
         std::string name = var->alias;
+        ResourcePtr res = nullptr;
 
         // Checking if resource exists in resource map
         if (resources.find(name) != resources.end())
         {
             // Assigns a new pointer to the key for the resource 
-            ResourcePtr res = resources.find(name)->second;
-
-            // Send to reloadQueue
-            reloadQueue.push(res);
+            res = resources[name];
         }
         else
         {
-            Logger::logMessage("Reload resource warning: Resource not already loaded");
-            
-            // Create new resource anyway
-            //loadingQueue.push(res);
-            // Not quire sure how to handle this/if we're allowing them to load anyway
+            // Create new resource
+            res = ResourceFactory::createResource(var->path, var->type);
+
+            // Make sure resource is valid
+            if(!res)
+            {
+                // Don't bother trying to load it, just skip it
+                Logger::logMessage("Error creating a resource stub for ", var->alias, " of type ", var->type);
+                continue;
+            }
+
+            res->setAlias(var->alias);
+        }
+
+        // If the resource has to be loaded immediately
+        if (mode == LoadMode::Block)
+        {
+            // Log what resources were unloaded
+            Logger::logMessage("Reloading Resource: ", var->alias);
+
+            // Reload the BaseResource
+            if(!res->reload())
+            {
+                Logger::logMessage("Reloading Resource ", var->alias, " failed");
+                res->setIsLoaded(false);
+            }
+            else
+            {
+                // Change the status of the BaseResource 
+                res->setIsLoaded(true);
+            }
+        }
+        else
+        {
+            // Send to reloadQueue list
+            reloadQueue.push(res);
         }
     }
 }
