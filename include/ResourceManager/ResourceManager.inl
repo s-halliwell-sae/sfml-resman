@@ -150,34 +150,24 @@ void ResourceManager::createErrorResource(const std::string& path)
     ResourcePtr res;
 
     // Check if error resource exists
-    if(errorResources.find(path) == errorResources.end())
+    if(errorResources.find(T::getResourceClassType()) == errorResources.end())
     {
         // If not, create one
         res = ResourceFactory::createResource(path, T::getResourceClassType());
         
         if(!res)
         {
-            Logger::logMessage("Failed to create error resource:", res->getAlias());
-            
-            // Check if error resource is available
-            if (errorResources.find(T::getResourceClassType()) != errorResources.end())
-            {
-                res = errorResources[T::getResourceClassType()];
-            }
-            else
-            {
-                Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
-                return;
-            }
+            Logger::logMessage("Failed to create error resource for type ", T::getResourceClassType());
+            throw("Error resource stub creation failed.");
         }
 
         // and add it to the error resource lookup
-        errorResources[path] = res;
+        errorResources[T::getResourceClassType()] = res;
     }
     else
     {
         // If so, get it
-        res = errorResources[path];
+        res = errorResources[T::getResourceClassType()];
 
         // unload it
         res->unload();

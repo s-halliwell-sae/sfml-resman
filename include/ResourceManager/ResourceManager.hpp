@@ -293,13 +293,25 @@ public:
     static void setLoadCompleteCallback(LoadCompleteCallback callback);
 
 private:
+    // Maps either alias or path to a resource
     static ResourceLookup resources;
+
+    // Maps a resource type to a resource
     static ResourceLookup errorResources;
+
+    // Stores resource stubs to be loaded
     static ResourceQueue loadingQueue;
+
+    // Stores resource stubs to be unloaded
     static ResourceQueue unloadQueue;
+
+    // Stores resource stubs to be reloaded
     static ResourceQueue reloadQueue;
+
+    // If set, all instances where an error resource would be returned, nullptr is returned instead
     static bool useNullForErrorRes;
 
+    // Called when the last resource in the loading queue is loaded
     static LoadCompleteCallback loadCompleteCallback;
 
     ////////////////////////////////////////////////////////////

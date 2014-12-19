@@ -41,14 +41,24 @@ namespace rm
     ResourcePtr ResourceFactory::createResource(const std::string& path, const std::string& type)
     {
         auto rs = creators.find(type);
+
+        // Has ResourceFactory been set up to handle type
         if (rs == creators.end())
         {
-            Logger::logMessage("Tried to create resource of type ", type, "that doesn't exist");
+            Logger::logMessage("Tried to create resource of type ", type, " that doesn't exist");
             return nullptr;
         }
 
+        // Create a new resource
+        ResourcePtr resource = rs->second->create();
 
-        ResourcePtr resource = creators.find(type)->second->create();
+        // If resource is nullptr, allocation probably failed
+        if(!resource)
+        {
+            Logger::logMessage("Resource creation failed");
+            return nullptr;
+        }
+
         resource->setFilePath(path);
         return resource;
     }
