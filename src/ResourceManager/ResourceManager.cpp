@@ -107,49 +107,30 @@ void ResourceManager::reloadResource(const std::string& name)
 
 void ResourceManager::initPack(const std::string& path)
 {
-    //How do you check if a string is a valid file path? Does this even need to be checked?
-    /*
-    if(path is not a valid filepath)
-    {
-        return error?
-    }
-    */
-    
     //Get a list of data from the resource pack lua table
     ResourceDataList list = LuaParser::parsePack(path);
     
     //iterate through the list and create a new resource if one does not already exist.	
     for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
-    {        
-        if(resources.find(path)==resources.end())
+    {
+        // If doesn't already exist
+        if(resources.find(iter->alias) == resources.end())
         {
+            // Create a new stub
             ResourcePtr res = ResourceFactory::createResource(iter->path, iter->type);
             
-            if(res == nullptr)
+            // If creation failed
+            if(!res)
             {
-                Logger::logMessage("Failed to load Resource:", res->getAlias());
-                
-                // Check if error resource is available
-                if (errorResources.find(T::getResourceClassType()) != errorResources.end())
-                {
-                    res = errorResources[T::getResourceClassType()];
-                }
-                else
-                {
-                    Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
-                    return nullptr;
-                }
+                // Log error
+                Logger::logMessage("Failed to load Resource:", iter->alias);
+                continue;
             }
             
             res->setAlias(iter->alias);
             resources.insert({iter->alias, res});
-            
-            //return success?
         }
-        else
-        {
-            //return error (already exists)?
-        }
+        // If it does exist, do nothing
     }
 }
 

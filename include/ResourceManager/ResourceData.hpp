@@ -35,16 +35,21 @@
 namespace rm 
 {
     ////////////////////////////////////////////////////////////
-    /// /Brief a struct of basic variables that is passed to the 
+    /// \Brief a struct of basic variables that is passed to the 
     /// facotry to create a Base resource
     ////////////////////////////////////////////////////////////
     struct ResourceData
     {
-        //Defines Whether the struct is a Data pack
+        // Defines whether the struct is a Data pack
         bool isResourcePack; 
         
+        // Path to the resource
         std::string path;
+
+        // Alias of resource, or path if unspecified
         std::string alias;
+
+        // Type of resource
         std::string type;
     };
 

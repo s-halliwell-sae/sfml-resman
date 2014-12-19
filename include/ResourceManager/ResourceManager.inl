@@ -155,9 +155,9 @@ void ResourceManager::createErrorResource(const std::string& path)
         // If not, create one
         res = ResourceFactory::createResource(path, T::getResourceClassType());
         
-        if(res == nullptr)
+        if(!res)
         {
-            Logger::logMessage("Failed to load Resource:", res->getAlias());
+            Logger::logMessage("Failed to create error resource:", res->getAlias());
             
             // Check if error resource is available
             if (errorResources.find(T::getResourceClassType()) != errorResources.end())
@@ -167,7 +167,7 @@ void ResourceManager::createErrorResource(const std::string& path)
             else
             {
                 Logger::logMessage("Failed to load Error Resource:", T::getResourceClassType());
-                return nullptr;
+                return;
             }
         }
 

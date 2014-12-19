@@ -44,7 +44,9 @@ static std::string stringify(lua_State* L, int index)
 {
     // If the value is a string or a number, which is always convertible to a string
     if (lua_isstring(L, index))
+    {
         return lua_tostring(L, index);
+    }
     else
     {
         // Get the type of the value
@@ -52,10 +54,14 @@ static std::string stringify(lua_State* L, int index)
 
         // If the type of value is a boolean, convert to its equivalent string representation
         if (type == LUA_TBOOLEAN)
+        {
             return std::string(lua_toboolean(L, index) ? "true" : "false");
+        }
         // Return the name of the type for any other type of value
         else
+        {
             return std::string(lua_typename(L, type));
+        }
     }
 }
 
@@ -155,7 +161,9 @@ ResourceData LuaParser::parseLeaf()
 
         // If the value of the key represents a path
         if (key == "path")
+        {
             resourceData.path = value;
+        }
         // If the value of the key represents a type
         else if (key == "type")
         {
@@ -173,6 +181,19 @@ ResourceData LuaParser::parseLeaf()
 
         // Pop one element from the Lua stack
         lua_pop(m_luaState, 1);
+    }
+
+    // If no path is present, throw
+    if(resourceData.path.size() == 0)
+    {
+        Logger::logMessage("Resource missing path attribute ", resourceData.alias, " ", resourceData.type);
+        throw("ResourcePack parse failed");
+    }
+
+    // If no alias is present, set it as it's path
+    if(resourceData.alias.size() == 0)
+    {
+        resourceData.alias = resourceData.path;
     }
 
     // Return the resource data
