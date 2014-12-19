@@ -197,22 +197,24 @@ void ResourceManager::createErrorResource(const std::string& path)
 template<class T>
 std::shared_ptr<T> ResourceManager::getErrorResource()
 {
-    ResourcePtr res;
-
     // Check if error resource exists
-    if (errorResources.find(T::getResourceClassType()) != errorResources.end())
+    if (errorResources.find(T::getResourceClassType()) == errorResources.end())
     {
-        res = errorResources[T::getResourceClassType()];
-    }
-    else
-    {
-        // If error resource doesn't exist, return null pointer
+        // If not, return nullptr
         Logger::logMessage("Failed to get Error Resource: ", T::getResourceClassType());
         return nullptr;
     }
+
+    // If so, continue as usual
+    ResourcePtr res = errorResources[T::getResourceClassType()];
+
+    if(!res->isLoaded())
+    {
+        // Should theoretically never happen, but just to be sure
+        res->load();
+        res->setIsLoaded(true);
+    }
     
-    res->load();
-    res->setIsLoaded(true);
-    
+    // Upcast to proper type
     return std::static_pointer_cast<T>(res);
 }

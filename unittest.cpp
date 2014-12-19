@@ -31,6 +31,7 @@ void unittest(){
 	rm::Logger::logMessage("Hello");
 	rm::Logger::logMessage("Hello ", "this ", iAmAString, c, " Thing ", 1234);
 
+	rm::ResourceManager::addResourceType<Test>();
 	rm::ResourceManager::createErrorResource<Test>("log.txt");
 }
 
