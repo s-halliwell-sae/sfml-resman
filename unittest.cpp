@@ -15,7 +15,7 @@ public:
 	}
 
 	static std::string getResourceClassType(){
-		return "text";
+		return "test";
 	}
 };
 
@@ -36,6 +36,13 @@ void unittest(){
 	rm::Logger::logMessage("loadResource obviously.wrong\ttype: ", r?r->getResourceType():"null");
 
 	rm::ResourceManager::loadPack("tests/testresourcepack.lua", rm::LoadMode::Queue);
+
+	while(rm::ResourceManager::isLoading()){
+		rm::Logger::logMessage(rm::ResourceManager::getNumToLoad(), " resources to load");
+		rm::ResourceManager::update();
+	}
+
+	rm::Logger::logMessage("Loading complete");
 }
 
 int main(){

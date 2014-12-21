@@ -137,8 +137,16 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
         {
             // Push a nil value onto the Lua stack
             lua_pushnil(m_luaState);
-            // Get the resource data and add it to the resource data list
-            resourceDataList.push_back(parseLeaf());
+
+            // Get the resource data 
+            auto leaf = parseLeaf();
+
+            // If parsing succeeded
+            if(leaf.isValid)
+            {
+                // Add it to the resource data list
+                resourceDataList.push_back(leaf);
+            }
             // Pop one element from the Lua stack
             lua_pop(m_luaState, 1);
         }
@@ -157,15 +165,20 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
 ////////////////////////////////////////////////////////////
 ResourceData LuaParser::parseLeaf()
 {
+    // Create a resource data object to hold the leaf data
+    ResourceData resourceData;
+
     // Ensure valid lua context
     if(!m_luaState)
     {
         Logger::logMessage("LuaParser tried to parse leaf with invalid lua context");
-        return ResourceData();
+        resourceData.isValid = false;
+        return resourceData;
     }
 
-    // Create a resource data object to hold the leaf data
-    ResourceData resourceData;
+    // Valid until proven guilty
+    resourceData.isValid = true;
+
     // Assume the leaf is not a resource pack
     resourceData.isResourcePack = false;
 
@@ -186,7 +199,9 @@ ResourceData LuaParser::parseLeaf()
         {
             // If the leaf is a resource pack
             if (value == "resourcepack")
+            {
                 resourceData.isResourcePack = true;
+            }
 
             resourceData.type = value;
         }
@@ -200,11 +215,20 @@ ResourceData LuaParser::parseLeaf()
         lua_pop(m_luaState, 1);
     }
 
-    // If no path is present, throw
+    // If no path is present, return invalid
     if(resourceData.path.size() == 0)
     {
-        Logger::logMessage("Resource missing path attribute ", resourceData.alias, " ", resourceData.type);
-        throw("ResourcePack parse failed");
+        Logger::logMessage("Resource missing path attribute: ", resourceData.alias, " ", resourceData.type);
+        resourceData.isValid = false;
+        return resourceData;
+    }
+
+    // If no path is present, return invalid
+    if(resourceData.type.size() == 0)
+    {
+        Logger::logMessage("Resource missing type attribute: ", resourceData.alias, " ", resourceData.path);
+        resourceData.isValid = false;
+        return resourceData;
     }
 
     // If no alias is present, set it as it's path

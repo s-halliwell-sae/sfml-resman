@@ -40,6 +40,9 @@ namespace rm
     ////////////////////////////////////////////////////////////
     struct ResourceData
     {
+        // Is false if parsing failed
+        bool isValid; 
+
         // Defines whether the struct is a Data pack
         bool isResourcePack; 
         

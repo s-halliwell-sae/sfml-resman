@@ -445,7 +445,7 @@ void ResourceManager::loadFromQueue()
                 Logger::logMessage("Load Resource Failed: ", frontRes->getAlias());
             }
             // Send load complete call back once the last item is loaded.
-            if (loadingQueue.size() == 0)
+            if (loadingQueue.size() == 0 && loadCompleteCallback)
             {
                 loadCompleteCallback();
             }
