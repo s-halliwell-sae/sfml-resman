@@ -87,14 +87,20 @@ ResourceDataList LuaParser::parsePack(const std::string& path)
             {
                 // If the resource pack has already been parsed, ignore it and log a warning message
                 if (std::find(resourcePacks.begin(), resourcePacks.end(), j->path) != resourcePacks.end())
-                    Logger::logMessage("Cyclic dependency detected");
+                {
+                    Logger::logMessage("Cyclic dependency detected in ", j->path);
+                }
                 // Otherwise, add it as a pending resource pack to be parsed
                 else
+                {
                     resourcePacks.push_back(j->path);
+                }
             }
             // Otherwise, add it to the resource data list
             else
+            {
                 resourceDataList.push_back(*j);
+            }
         }
     }
 
@@ -115,8 +121,11 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
 
     // Try to load and run the resource pack file
     if (luaL_dofile(m_luaState, path.data()) != 0)
+    {
         // Log errors on failure
+        Logger::logMessage("Resource pack parsing failed for ", path);
         Logger::logMessage(lua_tostring(m_luaState, -1));
+    }
     // On success
     else
     {
@@ -134,9 +143,10 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
             lua_pop(m_luaState, 1);
         }
 
-        // Destroy all objects and free all dynamic memory used by the Lua state
-        lua_close(m_luaState);
     }
+    
+    // Destroy all objects and free all dynamic memory used by the Lua state
+    lua_close(m_luaState);
 
     // Reset the Lua state pointer
     m_luaState = nullptr;
@@ -147,13 +157,20 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
 ////////////////////////////////////////////////////////////
 ResourceData LuaParser::parseLeaf()
 {
+    // Ensure valid lua context
+    if(!m_luaState)
+    {
+        Logger::logMessage("LuaParser tried to parse leaf with invalid lua context");
+        return ResourceData();
+    }
+
     // Create a resource data object to hold the leaf data
     ResourceData resourceData;
     // Assume the leaf is not a resource pack
     resourceData.isResourcePack = false;
 
     // Iterate through each key on the Lua stack at the given index
-    while (m_luaState != nullptr && lua_next(m_luaState, -2) != 0)
+    while (lua_next(m_luaState, -2) != 0)
     {
         // Get the key-value pair as strings
         std::string key   = stringify(m_luaState, -2);

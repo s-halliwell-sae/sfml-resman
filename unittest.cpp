@@ -34,6 +34,8 @@ void unittest(){
 	auto r = rm::ResourceManager::loadResource<Test>("obviously.wrong", rm::LoadMode::Block);
 	rm::Logger::logMessage("loadResource obviously.wrong\tptr: ", !r?"nullptr":"valid", " \tfilePath: ", r?r->getFilePath():"");
 	rm::Logger::logMessage("loadResource obviously.wrong\ttype: ", r?r->getResourceType():"null");
+
+	rm::ResourceManager::loadPack("tests/testresourcepack.lua", rm::LoadMode::Queue);
 }
 
 int main(){

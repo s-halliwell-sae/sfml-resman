@@ -29,6 +29,7 @@
 #include <ResourceManager/LuaParser.hpp>
 #include <string>
 #include <vector>
+
 namespace rm
 {
 
@@ -74,9 +75,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
            // Send to unloadQueue list
            unloadQueue.push(pointer);
        }
-       return;
     }
-    return;
 }
 
 void ResourceManager::reloadResource(const std::string& name, LoadMode mode)
@@ -225,7 +224,6 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
             }
         }
     }
-    return;
 }
 
 void ResourceManager::reloadPack(const std::string& path, LoadMode mode)
@@ -333,11 +331,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
         {
 
 
-            if (std::find(common.begin(), common.end(), var->alias) != common.end())
-            {
-                // The two entries are common - do nothing
-            }
-            else
+            if (std::find(common.begin(), common.end(), var->alias) == common.end())
             {
                 // The two entries do not match - unload the old entry
 
@@ -357,7 +351,7 @@ void ResourceManager::init(bool _useNullForErrorRes)
 
     if(!useNullForErrorRes)
     {
-        // initPack("ResMan_DefaultError_Resources\ErrorResource_LuaFile.txt");
+        // initPack("ResMan_DefaultError_Resources/ErrorResource_LuaFile.txt");
     }
 }
 
