@@ -4,6 +4,13 @@
 
 class Test : public rm::BaseResource {
 public:
+	Test(){
+		rm::Logger::logMessage("-- Test::Test()");
+	}
+	~Test(){
+		rm::Logger::logMessage("-- Test::~Test() ", alias, " ", filePath);
+	}
+
 	bool load() override {
 		rm::Logger::logMessage("---- Test::load() ", alias, " ", filePath);
 		return filePath != "obviously.wrong";
@@ -27,8 +34,6 @@ void unittest(){
 	char c = 'a';
 
 	rm::Logger::setFileLocation("log.txt");
-	rm::Logger::logMessage("Hello");
-	rm::Logger::logMessage("Hello ", "this ", iAmAString, c, " Thing ", 1234);
 
 	rm::ResourceManager::init(false);
 	rm::ResourceManager::addResourceType<Test>();
@@ -38,7 +43,7 @@ void unittest(){
 		rm::Logger::logMessage("λ\tload complete\tλ");
 	});
 
-	auto r = rm::ResourceManager::loadResource<Test>("obviously.wrong", rm::LoadMode::Queue);
+	auto r = rm::ResourceManager::loadResource<Test>("obviously.wrong", rm::LoadMode::Block);
 	rm::Logger::logMessage("loadResource obviously.wrong\tptr: ", !r?"nullptr":"valid", " \tfilePath: ", r?r->getFilePath():"");
 	rm::Logger::logMessage("loadResource obviously.wrong\ttype: ", r?r->getResourceType():"null");
 

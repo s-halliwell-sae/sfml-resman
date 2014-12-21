@@ -339,7 +339,7 @@ private:
     /// \brief Loads a single item
     ///
     ////////////////////////////////////////////////////////////
-    static bool loadFromResourcePtr(ResourcePtr resource);
+    static bool loadFromResourcePtr(ResourcePtr resource, LoadMode loadMode);
 
     // TODO: same thing but for unload and reload
 

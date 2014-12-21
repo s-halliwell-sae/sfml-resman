@@ -161,32 +161,37 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
             }
 
             res->setAlias(var->alias);
+
+            // Make sure we have a reference to it
+            resources[var->alias] = res;
         }
 
-        // Checking if the resource is not loaded
-        if (!res->isLoaded())
-        {
-            // If the resource has to be loaded immediately
-            if (mode == LoadMode::Block)
-            {
-                // Log what resources were unloaded
-                Logger::logMessage("Loading Resource: ", var->alias);
+        loadFromResourcePtr(res, mode);
 
-                // Change the status of the BaseResource 
-                res->setIsLoaded(true);
+        // // Checking if the resource is not loaded
+        // if (!res->isLoaded())
+        // {
+        //     // If the resource has to be loaded immediately
+        //     if (mode == LoadMode::Block)
+        //     {
+        //         // Log what resources were unloaded
+        //         Logger::logMessage("Loading Resource: ", var->alias);
 
-                // Load the BaseResource
-                if(!res->load())
-                {
-                    Logger::logMessage("Failed to load resource: ", var->alias);
-                }
-            }
-            else
-            {
-                // Send to unloadQueue list
-                loadingQueue.push(res);
-            }
-        }
+        //         // Change the status of the BaseResource 
+        //         res->setIsLoaded(true);
+
+        //         // Load the BaseResource
+        //         if(!res->load())
+        //         {
+        //             Logger::logMessage("Failed to load resource: ", var->alias);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         // Send to unloadQueue list
+        //         loadingQueue.push(res);
+        //     }
+        // }
     }
 }
 
@@ -328,12 +333,9 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     // Iterate through the old Pack and remove the Resources that are not common to the pack and the vector
     for (ResourceDataList::iterator var = from.begin(); var != from.end(); ++var)
     {
-        
         // Checking if resource is common to the string vector
         if (resources.find(var->alias) != resources.end())
         {
-
-
             if (std::find(common.begin(), common.end(), var->alias) == common.end())
             {
                 // The two entries do not match - unload the old entry
@@ -434,17 +436,8 @@ void ResourceManager::loadFromQueue()
         }
         else
         {
-            // Load the first resource and check if any errors
-            if (frontRes->load())
-            {
-                // Set resource to is loaded
-                frontRes->setIsLoaded(true);
-            }
-            else
-            {
-                // Log Error 
-                Logger::logMessage("Load Resource Failed: ", frontRes->getAlias());
-            }
+            // Load the first resource and ignore errors
+            loadFromResourcePtr(frontRes, LoadMode::Block);
             
             // Remove from loading queue
             loadingQueue.pop();
@@ -516,9 +509,35 @@ void ResourceManager::reloadFromQueue()
     }
 }
 
-bool ResourceManager::loadFromResourcePtr(ResourcePtr resource)
+bool ResourceManager::loadFromResourcePtr(ResourcePtr resource, LoadMode loadMode)
 {
-    return false;
+    // Early out, just in case it's already loaded
+    if(resource->isLoaded())
+    {
+        return true;
+    }
+
+    if(loadMode == LoadMode::Block)
+    {
+        // Try to load
+        if (resource->load())
+        {
+            // Update resource's loaded state
+            resource->setIsLoaded(true);
+        }
+        else
+        {
+            // Log Error 
+            Logger::logMessage("Resource load failed: ", resource->getAlias());
+            return false;
+        }
+    }
+    else
+    {
+        loadingQueue.push(resource);
+    }
+
+    return true;
 }
 
 } // namespace rm

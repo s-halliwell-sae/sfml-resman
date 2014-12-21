@@ -58,45 +58,33 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
     //Check if exists in resource map
     if (resources.find(name) != resources.end())
     {
-		// If it already exists, just return that
+        // If it already exists, just return that
         res = resources[name];
     }
     else 
     {
-		// Otherwise create new resource
+        // Otherwise create new resource
         res = ResourceFactory::createResource(name, T::getResourceClassType());
         
+        // Ensure resource stub is valid
         if(!res)
         {
+            // log and return appropriate error resource if not
             Logger::logMessage("Failed to create resource stub for ", name);
             return getErrorResource<T>();
         }
 
         res->setAlias(name);
-    }
 
-    //Check load mode
-    //if the resource is to be loaded immediately
-    if (mode == LoadMode::Block)
-    {
-        // try and load resource
-        if (res->load())
-        {
-            //set is loaded to true
-            res->setIsLoaded(true);
-        }
-        else
-        {
-            Logger::logMessage("Failed to load resource: ", name);
-            return getErrorResource<T>();
-        }
-
-        // Add it to the resource lookup
+        // Make sure we keep a reference to it
         resources[name] = res;
     }
-    else  //add it to the load queue
+
+    // Attempt to load resource
+    if(!loadFromResourcePtr(res, mode))
     {
-        loadingQueue.push(res);
+        // return appropriate error resource if failed
+        return getErrorResource<T>(); 
     }
 
     return std::static_pointer_cast<T>(res);
