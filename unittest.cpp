@@ -14,10 +14,6 @@ public:
 		return true;
 	}
 
-	size_t getMemUsage() const override {
-		return sizeof(Test);
-	}
-
 	static std::string getResourceClassType(){
 		return "text";
 	}

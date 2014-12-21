@@ -118,12 +118,6 @@ namespace rm
         bool isLoaded() const;
 
         ///////////////////////////////////////////////////////////
-        /// \brief Returns the memory usage
-        ///
-        ///////////////////////////////////////////////////////////
-        virtual size_t getMemUsage() const = 0;
-
-        ///////////////////////////////////////////////////////////
         /// \brief Sets the alias member
         ///
         /// \param newalias The new Alias
