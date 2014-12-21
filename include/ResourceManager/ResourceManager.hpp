@@ -334,6 +334,15 @@ private:
     ///
     ////////////////////////////////////////////////////////////
     static void reloadFromQueue();
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Loads a single item
+    ///
+    ////////////////////////////////////////////////////////////
+    static bool loadFromResourcePtr(ResourcePtr resource);
+
+    // TODO: same thing but for unload and reload
+
 };
 
 #include <ResourceManager/ResourceManager.inl>

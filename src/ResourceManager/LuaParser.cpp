@@ -115,7 +115,7 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
     // Create a resource data list to hold the data of each resource
     ResourceDataList resourceDataList;
 
-    // Flag for if errors occured during parsing
+    // Flag for if errors occured during parsing of leaves
     bool didErrorsOccur = false;
 
     // Create a new Lua state

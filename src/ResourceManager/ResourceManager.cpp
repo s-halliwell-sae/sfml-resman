@@ -156,7 +156,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
             if(!res)
             {
                 // Don't bother trying to load it, just skip it
-                Logger::logMessage("Error creating a resource stub for ", var->alias, " of type ", var->type);
+                Logger::logMessage("Error creating a resource stub for ", var->alias, " of type \"", var->type, '"');
                 continue;
             }
 
@@ -175,8 +175,11 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
                 // Change the status of the BaseResource 
                 res->setIsLoaded(true);
 
-                // Unload the BaseResource
-                res->load();
+                // Load the BaseResource
+                if(!res->load())
+                {
+                    Logger::logMessage("Failed to load resource: ", var->alias);
+                }
             }
             else
             {
@@ -436,14 +439,16 @@ void ResourceManager::loadFromQueue()
             {
                 // Set resource to is loaded
                 frontRes->setIsLoaded(true);
-                // Remove from loading queue
-                loadingQueue.pop();
             }
             else
             {
                 // Log Error 
                 Logger::logMessage("Load Resource Failed: ", frontRes->getAlias());
             }
+            
+            // Remove from loading queue
+            loadingQueue.pop();
+
             // Send load complete call back once the last item is loaded.
             if (loadingQueue.size() == 0 && loadCompleteCallback)
             {
@@ -477,14 +482,15 @@ void ResourceManager::unloadFromQueue()
             {
                 // Set resource to is unloaded
                 frontRes->setIsLoaded(false);
-                // Remove from unloading queue
-                unloadQueue.pop();
             }
             else
             {
                 // Log Error 
                 Logger::logMessage("Unload Resource Failed: ", frontRes->getAlias());
             }
+            // Remove from unloading queue
+            unloadQueue.pop();
+
             // break from loop so only one resource is unloaded at a time.
             break;
         }
@@ -499,17 +505,20 @@ void ResourceManager::reloadFromQueue()
         auto frontRes = reloadQueue.front();
 
         // Load the first resource and check if any errors
-        if (frontRes->reload())
-        {
-            // Remove from reloading Queue
-            reloadQueue.pop();
-        }
-        else
+        if (!frontRes->reload())
         {
             // Log Error
             Logger::logMessage("Reload Resource Failed: ", frontRes->getAlias());
         }
+
+        // Remove from reloading Queue
+        reloadQueue.pop();
     }
+}
+
+bool ResourceManager::loadFromResourcePtr(ResourcePtr resource)
+{
+    return false;
 }
 
 } // namespace rm

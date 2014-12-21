@@ -45,7 +45,7 @@ namespace rm
         // Has ResourceFactory been set up to handle type
         if (rs == creators.end())
         {
-            Logger::logMessage("Tried to create resource of type ", type, " that doesn't exist");
+            Logger::logMessage("Tried to create resource of type \"", type, "\" that doesn't exist");
             return nullptr;
         }
 

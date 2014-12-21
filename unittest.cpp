@@ -5,12 +5,15 @@
 class Test : public rm::BaseResource {
 public:
 	bool load() override {
+		rm::Logger::logMessage("---- Test::load() ", alias, " ", filePath);
 		return filePath != "obviously.wrong";
 	}
 	bool unload() override {
+		rm::Logger::logMessage("---- Test::unload() ", alias, " ", filePath);
 		return true;
 	}
 	bool reload() override {
+		rm::Logger::logMessage("---- Test::reload() ", alias, " ", filePath);
 		return true;
 	}
 
@@ -31,7 +34,11 @@ void unittest(){
 	rm::ResourceManager::addResourceType<Test>();
 	rm::ResourceManager::createErrorResource<Test>("log.txt");
 
-	auto r = rm::ResourceManager::loadResource<Test>("obviously.wrong", rm::LoadMode::Block);
+	rm::ResourceManager::setLoadCompleteCallback([]{
+		rm::Logger::logMessage("λ\tload complete\tλ");
+	});
+
+	auto r = rm::ResourceManager::loadResource<Test>("obviously.wrong", rm::LoadMode::Queue);
 	rm::Logger::logMessage("loadResource obviously.wrong\tptr: ", !r?"nullptr":"valid", " \tfilePath: ", r?r->getFilePath():"");
 	rm::Logger::logMessage("loadResource obviously.wrong\ttype: ", r?r->getResourceType():"null");
 
@@ -42,7 +49,9 @@ void unittest(){
 		rm::ResourceManager::update();
 	}
 
-	rm::Logger::logMessage("Loading complete");
+	rm::Logger::logMessage("Loading complete\n\n");
+
+	rm::ResourceManager::loadPack("tests/testresourcepack.lua", rm::LoadMode::Block);
 }
 
 int main(){
