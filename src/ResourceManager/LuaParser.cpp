@@ -70,6 +70,7 @@ ResourceDataList LuaParser::parsePack(const std::string& path)
 {
     // Create a resource data list to hold the data of every resource in every resource pack
     ResourceDataList resourceDataList;
+
     // Create a string vector to hold the path of every resource pack to be parsed
     std::vector<std::string> resourcePacks = {path};
 
@@ -114,6 +115,9 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
     // Create a resource data list to hold the data of each resource
     ResourceDataList resourceDataList;
 
+    // Flag for if errors occured during parsing
+    bool didErrorsOccur = false;
+
     // Create a new Lua state
     m_luaState = luaL_newstate();
     // Open all standard Lua libraries into the given state
@@ -141,6 +145,9 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
             // Get the resource data 
             auto leaf = parseLeaf();
 
+            // Set didErrorsOccur appropriately 
+            didErrorsOccur |= !leaf.isValid;
+
             // If parsing succeeded
             if(leaf.isValid)
             {
@@ -150,7 +157,11 @@ ResourceDataList LuaParser::leafPack(const std::string& path)
             // Pop one element from the Lua stack
             lua_pop(m_luaState, 1);
         }
+    }
 
+    if(didErrorsOccur)
+    {
+        Logger::logMessage("Errors occured while parsing leaves in ", path);
     }
     
     // Destroy all objects and free all dynamic memory used by the Lua state
