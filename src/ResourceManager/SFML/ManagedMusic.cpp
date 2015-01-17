@@ -27,8 +27,8 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-//#include <ManagedMusic.hpp>
-#include <ResourceManager\SFML\ManagedMusic.hpp>
+
+#include <ResourceManager/SFML/ManagedMusic.hpp>
 
 namespace rm
 {
@@ -48,6 +48,12 @@ ManagedMusic::~ManagedMusic()
 ////////////////////////////////////////////////////////////
 bool ManagedMusic::load()
 {
+    // Make sure a sf::Music has actually been created
+    if(!m_music) 
+    {
+        m_music = new sf::Music();
+    }
+
     // Stream resource from file path
     return m_music->openFromFile(getFilePath());
 }

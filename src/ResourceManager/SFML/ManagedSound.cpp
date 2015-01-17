@@ -27,7 +27,8 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <ResourceManager\SFML/ManagedSound.hpp>
+
+#include <ResourceManager/SFML/ManagedSound.hpp>
 
 namespace rm
 {
@@ -48,24 +49,36 @@ ManagedSound::~ManagedSound()
 ////////////////////////////////////////////////////////////
 bool ManagedSound::load()
 {
+    // Make sure a sf::SoundBuffer has actually been created
+    if(!m_soundBuffer) 
+    {
+        m_soundBuffer = new sf::SoundBuffer();
+    }
+
+    // Make sure a sf::Sound has actually been created
+    if(!m_sound) 
+    {
+        m_sound = new sf::Sound();
+    }
+
     //Attempt to load from file and return success or failure
-    bool temp = m_soundBuffer->loadFromFile(getFilePath());
+    bool success = m_soundBuffer->loadFromFile(getFilePath());
     m_sound->setBuffer(*m_soundBuffer);
-    return temp;
+    return success;
 }
 
 ////////////////////////////////////////////////////////////
 bool ManagedSound::unload()
 {
-   // Release m_sound resource and null ptr
+    // Release m_sound resource and null ptr
     if (isLoaded())
-   {
+    {
         delete m_soundBuffer;
         delete m_sound;
         m_soundBuffer = nullptr;
         m_sound = nullptr;
-   }
-   return true;
+    }
+    return true;
 }
 
 ////////////////////////////////////////////////////////////
@@ -85,6 +98,12 @@ std::string ManagedSound::getResourceClassType()
 sf::Sound* ManagedSound::getSound()
 {
     return m_sound;
+}
+
+////////////////////////////////////////////////////////////
+sf::SoundBuffer* ManagedSound::getSoundBuffer()
+{
+    return m_soundBuffer;
 }
 
 } // namespace rm

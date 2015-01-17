@@ -34,8 +34,8 @@
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 
-#include <ResourceManager\BaseResource.hpp>
-#include <ResourceManager\Logger.hpp>
+#include <ResourceManager/BaseResource.hpp>
+#include <ResourceManager/Logger.hpp>
 
 
 namespace rm
@@ -96,6 +96,11 @@ namespace rm
         /// \brief Returns a pointer to the actual Sound resource
         ////////////////////////////////////////////////////////////
         sf::Sound* getSound();
+        
+        ////////////////////////////////////////////////////////////
+        /// \brief Returns a pointer to the SoundBuffer 
+        ////////////////////////////////////////////////////////////
+        sf::SoundBuffer* getSoundBuffer();
         
     private:
     

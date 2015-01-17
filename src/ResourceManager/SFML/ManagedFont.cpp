@@ -27,7 +27,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-//#include <ManagedFont.hpp>
+
 #include <ResourceManager/SFML/ManagedFont.hpp>
 
 namespace rm
@@ -47,6 +47,12 @@ ManagedFont::~ManagedFont()
 ////////////////////////////////////////////////////////////
 bool ManagedFont::load()
 {
+    // Make sure a sf::Font has actually been created
+    if(!m_font) 
+    {
+        m_font = new sf::Font();
+    }
+
     //Attempt to load from file and return success or failure
     return m_font->loadFromFile(getFilePath());
 }

@@ -27,8 +27,8 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-//#include <ManagedTexture.hpp>
-#include <ResourceManager\SFML\ManagedTexture.hpp>
+
+#include <ResourceManager/SFML/ManagedTexture.hpp>
 
 namespace rm
 {
@@ -48,6 +48,12 @@ ManagedTexture::~ManagedTexture()
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::load()
 {
+    // Make sure a sf::Texture has actually been created
+    if(!m_texture) 
+    {
+        m_texture = new sf::Texture();
+    }
+
     //Attempt to load from file and return success or failure
     return m_texture->loadFromFile(getFilePath());
 }
@@ -56,7 +62,7 @@ bool ManagedTexture::load()
 bool ManagedTexture::unload()
 {
     // Release m_texture resource and null ptr
-   if(isLoaded())//isResourceLoaded)
+   if(isLoaded())
    {
         delete m_texture;
         m_texture = nullptr;

@@ -33,9 +33,8 @@
 
 #include <SFML/Graphics/Font.hpp>
 
-
-#include <ResourceManager\BaseResource.hpp>
-#include <ResourceManager\Logger.hpp>
+#include <ResourceManager/BaseResource.hpp>
+#include <ResourceManager/Logger.hpp>
 
 
 namespace rm
