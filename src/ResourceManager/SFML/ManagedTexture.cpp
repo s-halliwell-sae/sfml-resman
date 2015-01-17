@@ -34,7 +34,7 @@ namespace rm
 {
 ////////////////////////////////////////////////////////////
 ManagedTexture::ManagedTexture() :
-m_texture   (nullptr)
+m_texture   (new sf::Texture())
 {
 
 }

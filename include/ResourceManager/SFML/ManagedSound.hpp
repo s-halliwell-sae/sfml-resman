@@ -47,7 +47,7 @@ namespace rm
     /// implementation for loading, unloading and reloading.
     ////////////////////////////////////////////////////////////
     
-    class ManagedSound : BaseResource
+    class ManagedSound : public BaseResource
     {
     public:
         

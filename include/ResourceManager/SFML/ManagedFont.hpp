@@ -46,7 +46,7 @@ namespace rm
     /// implementation for loading, unloading and reloading.
     ////////////////////////////////////////////////////////////
     
-    class ManagedFont : BaseResource
+    class ManagedFont : public BaseResource
     {
     public:
         

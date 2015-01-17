@@ -34,7 +34,7 @@ namespace rm
 {
 ////////////////////////////////////////////////////////////
 ManagedFont::ManagedFont() :
-m_font (nullptr)
+m_font (new sf::Font())
 {
 }
 

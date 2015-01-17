@@ -34,7 +34,7 @@ namespace rm
 {
 ////////////////////////////////////////////////////////////
 ManagedMusic::ManagedMusic() :
-m_music (nullptr)
+m_music (new sf::Music())
 {
 
 }

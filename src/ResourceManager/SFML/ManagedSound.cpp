@@ -35,7 +35,7 @@ namespace rm
 
 ////////////////////////////////////////////////////////////
 ManagedSound::ManagedSound() :
-m_sound (nullptr)
+m_sound (new sf::Sound())
 {
 
 }

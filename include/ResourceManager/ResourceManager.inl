@@ -107,7 +107,7 @@ std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
         res = errorResources[T::getResourceClassType()];
     }
 
-    return res;
+    return std::static_pointer_cast<T>(res);
 }
 
 template<class T>
