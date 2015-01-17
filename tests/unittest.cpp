@@ -30,9 +30,6 @@ public:
 };
 
 void unittest(){
-	std::string iAmAString = "is ";
-	char c = 'a';
-
 	rm::Logger::setFileLocation("log.txt");
 
 	rm::ResourceManager::init(false);
@@ -47,7 +44,7 @@ void unittest(){
 	rm::Logger::logMessage("loadResource obviously.wrong\tptr: ", !r?"nullptr":"valid", " \tfilePath: ", r?r->getFilePath():"");
 	rm::Logger::logMessage("loadResource obviously.wrong\ttype: ", r?r->getResourceType():"null");
 
-	rm::ResourceManager::loadPack("tests/testresourcepack.lua", rm::LoadMode::Queue);
+	rm::ResourceManager::loadPack("resourcepacks/testresourcepack.lua", rm::LoadMode::Queue);
 
 	while(rm::ResourceManager::isLoading()){
 		rm::Logger::logMessage(rm::ResourceManager::getNumToLoad(), " resources to load");
@@ -56,7 +53,7 @@ void unittest(){
 
 	rm::Logger::logMessage("Loading complete\n\n");
 
-	rm::ResourceManager::loadPack("tests/testresourcepack.lua", rm::LoadMode::Block);
+	rm::ResourceManager::loadPack("resourcepacks/testresourcepack.lua", rm::LoadMode::Block);
 }
 
 int main(){

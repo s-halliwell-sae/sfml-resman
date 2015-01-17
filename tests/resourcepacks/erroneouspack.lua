@@ -15,12 +15,12 @@ return {
 	{
 		-- recursion
 		type = "resourcepack",
-		path = "tests/erroneouspack.lua"
+		path = "tests/resourcepacks/erroneouspack.lua"
 	},
 	{
 		-- invalid type
 		type = "type that doesn't exist",
-		path = "tests/erroneouspack.lua"
+		path = "tests/resourcepacks/erroneouspack.lua"
 	},
 	{
 		-- resourcepack of invalid format

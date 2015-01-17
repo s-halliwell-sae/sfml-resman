@@ -5,7 +5,7 @@ return {
 		type = "test"
 	},
 	{
-		path = "tests/anotherresourcepack.lua",
+		path = "resourcepacks/anotherresourcepack.lua",
 		type = "resourcepack"
 	}
 }
