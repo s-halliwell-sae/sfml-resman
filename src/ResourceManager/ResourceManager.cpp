@@ -171,31 +171,6 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
         }
 
         loadFromResourcePtr(res, mode);
-
-        // // Checking if the resource is not loaded
-        // if (!res->isLoaded())
-        // {
-        //     // If the resource has to be loaded immediately
-        //     if (mode == LoadMode::Block)
-        //     {
-        //         // Log what resources were unloaded
-        //         Logger::logMessage("Loading Resource: ", var->alias);
-
-        //         // Change the status of the BaseResource 
-        //         res->setIsLoaded(true);
-
-        //         // Load the BaseResource
-        //         if(!res->load())
-        //         {
-        //             Logger::logMessage("Failed to load resource: ", var->alias);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         // Send to unloadQueue list
-        //         loadingQueue.push(res);
-        //     }
-        // }
     }
 }
 

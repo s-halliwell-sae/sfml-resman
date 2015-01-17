@@ -36,7 +36,7 @@ namespace rm
 ManagedTexture::ManagedTexture() :
 m_texture   (new sf::Texture())
 {
-
+    rm::Logger::logMessage("Texture created");
 }
 
 ////////////////////////////////////////////////////////////
@@ -53,6 +53,8 @@ bool ManagedTexture::load()
     {
         m_texture = new sf::Texture();
     }
+
+    rm::Logger::logMessage("Texture loaded ", getFilePath());
 
     //Attempt to load from file and return success or failure
     return m_texture->loadFromFile(getFilePath());
