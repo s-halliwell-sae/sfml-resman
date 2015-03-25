@@ -32,7 +32,7 @@ namespace rm
 ////////////////////////////////////////////////////////////
 /// Initialise static members
 ////////////////////////////////////////////////////////////
-std::fstream Logger::file; 
+std::ofstream Logger::file; 
 bool Logger::doesPrintOut = true; 
 
 ////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ void Logger::setFileLocation(const std::string& path)
     /////////////////////////////////////////
 
     // Attempt to open new log file
-    std::fstream tmpFile(path, std::fstream::out);
+    std::ofstream tmpFile(path);
 
     // Bail if file open failed
     if(!tmpFile)
@@ -65,7 +65,7 @@ void Logger::setFileLocation(const std::string& path)
     }
 
     // Set new log file
-    file.open(path, std::fstream::out);
+    file.open(path);
 }
 
 }

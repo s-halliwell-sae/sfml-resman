@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <thread>
 #include <chrono>
+#include <string>
 
 void run()
 {
@@ -17,6 +18,9 @@ void run()
 
     // Allows the rm::ResourceManager to create new rm::ManagedTextures
     rm::ResourceManager::addResourceType<rm::ManagedTexture>();
+
+	//sf::Texture *t = new sf::Texture();
+	//t->loadFromFile("resources/textureTest.png");
 
     // Queue a resource pack for loading
     rm::ResourceManager::loadPack("resourcepacks/sfmltestpack.lua", rm::LoadMode::Queue);
@@ -72,17 +76,17 @@ void run()
     }
 }
 
-int main()
-{
-    try
-    {
-        run();
-    }
-    catch(const char* e)
-    {
-        rm::Logger::logMessage(e);
-    }
-    rm::ResourceManager::cleanupUnused();
-
-    return 0;
-}
+//int main()
+//{
+//    try
+//    {
+//        run();
+//    }
+//    catch(const char* e)
+//    {
+//        rm::Logger::logMessage(e);
+//    }
+//    rm::ResourceManager::cleanupUnused();
+//
+//    return 0;
+//}

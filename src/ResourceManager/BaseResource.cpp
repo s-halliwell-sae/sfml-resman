@@ -24,7 +24,7 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager/BaseResource.hpp>
+#include <ResourceManager\BaseResource.hpp>
 
 namespace rm
 {
@@ -33,7 +33,7 @@ namespace rm
 /// Function definitions
 ////////////////////////////////////////////////////////////
 
-BaseResource::BaseResource()
+BaseResource::BaseResource() : isResourceLoaded(false)
 {
 }
 
