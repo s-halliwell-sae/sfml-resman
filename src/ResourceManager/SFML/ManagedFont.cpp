@@ -36,6 +36,7 @@ namespace rm
 ManagedFont::ManagedFont() :
 m_font (new sf::Font())
 {
+	rm::Logger::logMessage("Font created");
 }
 
 ////////////////////////////////////////////////////////////
@@ -52,6 +53,8 @@ bool ManagedFont::load()
     {
         m_font = new sf::Font();
     }
+
+	rm::Logger::logMessage("Font loaded ", getFilePath());
 
     //Attempt to load from file and return success or failure
     return m_font->loadFromFile(getFilePath());

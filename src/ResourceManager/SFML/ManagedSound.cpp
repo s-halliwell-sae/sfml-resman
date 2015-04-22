@@ -35,9 +35,10 @@ namespace rm
 
 ////////////////////////////////////////////////////////////
 ManagedSound::ManagedSound() :
-m_sound (new sf::Sound())
+m_soundBuffer(nullptr)
+//	STEVE, crashed until i changed this.
 {
-
+	rm::Logger::logMessage("Sound created");
 }
 
 ////////////////////////////////////////////////////////////
@@ -55,15 +56,10 @@ bool ManagedSound::load()
         m_soundBuffer = new sf::SoundBuffer();
     }
 
-    // Make sure a sf::Sound has actually been created
-    if(!m_sound) 
-    {
-        m_sound = new sf::Sound();
-    }
+	rm::Logger::logMessage("Sound loaded ", getFilePath());
 
     //Attempt to load from file and return success or failure
     bool success = m_soundBuffer->loadFromFile(getFilePath());
-    m_sound->setBuffer(*m_soundBuffer);
     return success;
 }
 
@@ -72,11 +68,9 @@ bool ManagedSound::unload()
 {
     // Release m_sound resource and null ptr
     if (isLoaded())
-    {
+	{
         delete m_soundBuffer;
-        delete m_sound;
         m_soundBuffer = nullptr;
-        m_sound = nullptr;
     }
     return true;
 }
@@ -92,12 +86,6 @@ bool ManagedSound::reload()
 std::string ManagedSound::getResourceClassType()
 {
     return "sound";
-}
-
-////////////////////////////////////////////////////////////
-sf::Sound* ManagedSound::getSound()
-{
-    return m_sound;
 }
 
 ////////////////////////////////////////////////////////////
