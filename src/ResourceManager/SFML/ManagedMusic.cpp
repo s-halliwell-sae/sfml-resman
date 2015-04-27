@@ -28,65 +28,65 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager/SFML/ManagedMusic.hpp>
-
-namespace rm
-{
-////////////////////////////////////////////////////////////
-ManagedMusic::ManagedMusic() :
-m_music (new sf::Music())
-{
-
-}
-
-////////////////////////////////////////////////////////////
-ManagedMusic::~ManagedMusic()
-{
-    unload();
-}
-
-////////////////////////////////////////////////////////////
-bool ManagedMusic::load()
-{
-    // Make sure a sf::Music has actually been created
-    if(!m_music) 
-    {
-        m_music = new sf::Music();
-    }
-
-    // Stream resource from file path
-    return m_music->openFromFile(getFilePath());
-}
-
-////////////////////////////////////////////////////////////
-bool ManagedMusic::unload()
-{
-    // Release m_music resource and null ptr
-    if (isLoaded())
-    {
-        delete m_music;
-        m_music = nullptr;
-    }
-   return true;
-}
-
-////////////////////////////////////////////////////////////
-bool ManagedMusic::reload()
-{
-    // Reload from file path
-    return load();
-}
-
-////////////////////////////////////////////////////////////
-std::string ManagedMusic::getResourceClassType()
-{
-    return "music";
-}
-
-////////////////////////////////////////////////////////////
-sf::Music* ManagedMusic::getMusic()
-{
-    return m_music;
-}
-
-} // namespace rm
+//#include <ResourceManager/SFML/ManagedMusic.hpp>
+//
+//namespace rm
+//{
+//////////////////////////////////////////////////////////////
+//ManagedMusic::ManagedMusic() :
+//m_music (new sf::Music())
+//{
+//
+//}
+//
+//////////////////////////////////////////////////////////////
+//ManagedMusic::~ManagedMusic()
+//{
+//    unload();
+//}
+//
+//////////////////////////////////////////////////////////////
+//bool ManagedMusic::load()
+//{
+//    // Make sure a sf::Music has actually been created
+//    if(!m_music) 
+//    {
+//        m_music = new sf::Music();
+//    }
+//
+//    // Stream resource from file path
+//    return m_music->openFromFile(getFilePath());
+//}
+//
+//////////////////////////////////////////////////////////////
+//bool ManagedMusic::unload()
+//{
+//    // Release m_music resource and null ptr
+//    if (isLoaded())
+//    {
+//        delete m_music;
+//        m_music = nullptr;
+//    }
+//   return true;
+//}
+//
+//////////////////////////////////////////////////////////////
+//bool ManagedMusic::reload()
+//{
+//    // Reload from file path
+//    return load();
+//}
+//
+//////////////////////////////////////////////////////////////
+//std::string ManagedMusic::getResourceClassType()
+//{
+//    return "music";
+//}
+//
+//////////////////////////////////////////////////////////////
+//sf::Music* ManagedMusic::getMusic()
+//{
+//    return m_music;
+//}
+//
+//} // namespace rm

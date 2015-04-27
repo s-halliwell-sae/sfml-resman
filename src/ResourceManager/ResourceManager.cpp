@@ -29,6 +29,7 @@
 #include <ResourceManager/LuaParser.hpp>
 #include <string>
 #include <vector>
+#include "Shiny.h"
 
 namespace rm
 {
@@ -52,6 +53,7 @@ LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
+	PROFILE_FUNC();
     auto resIt = resources.find(name);
 
     // Checking if resource exists in resources
@@ -82,6 +84,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 
 void ResourceManager::reloadResource(const std::string& name, LoadMode mode)
 {
+	PROFILE_FUNC();
     auto resIt = resources.find(name);
     ResourcePtr res = nullptr;
 
@@ -106,6 +109,7 @@ void ResourceManager::reloadResource(const std::string& name, LoadMode mode)
 
 void ResourceManager::initPack(const std::string& path)
 {
+	PROFILE_FUNC();
     //Get a list of data from the resource pack lua table
     ResourceDataList list = LuaParser::parsePack(path);
     
@@ -135,6 +139,7 @@ void ResourceManager::initPack(const std::string& path)
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
+	PROFILE_FUNC();
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
@@ -176,6 +181,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 
 void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 {
+	PROFILE_FUNC();
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
@@ -217,6 +223,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 
 void ResourceManager::reloadPack(const std::string& path, LoadMode mode)
 {
+	PROFILE_FUNC();
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
@@ -338,7 +345,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
 
 void ResourceManager::init(bool _useNullForErrorRes)
 {
-    useNullForErrorRes = _useNullForErrorRes;
+	useNullForErrorRes = _useNullForErrorRes;
 
     if(!useNullForErrorRes)
     {
@@ -355,7 +362,8 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
-    // run for each resource in list
+	PROFILE_FUNC();
+	// run for each resource in list
     for(auto& r : resources)
     {    
         // if the resource pointer is unique

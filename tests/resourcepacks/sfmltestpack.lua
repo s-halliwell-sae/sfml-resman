@@ -5,8 +5,13 @@ return {
 		path = "resources/textureTest.png"
 	},
 	{
-		type = "texture",
-		alias = "textureTest2",
-		path = "resources/textureTest2.png"
+		type = "sound",
+		alias = "soundTest",
+		path = "resources/soundTest.wav"
 	},
+	{
+		type = "font",
+		alias = "fontTest",
+		path = "resources/fontTest.ttf"
+	}
 }

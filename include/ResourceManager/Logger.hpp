@@ -76,7 +76,7 @@ public:
     static void setFileLocation(const std::string& path);
 
 private:
-    static std::fstream file;
+    static std::ofstream file;
     static bool doesPrintOut;
 };
 
