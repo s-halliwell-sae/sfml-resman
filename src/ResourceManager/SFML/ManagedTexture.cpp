@@ -29,6 +29,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/SFML/ManagedTexture.hpp>
+#include "Shiny.h"
 
 namespace rm
 {
@@ -63,6 +64,7 @@ bool ManagedTexture::load()
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::unload()
 {
+	PROFILE_FUNC();
     // Release m_texture resource and null ptr
    if(isLoaded())
    {
@@ -75,6 +77,7 @@ bool ManagedTexture::unload()
 ////////////////////////////////////////////////////////////
 bool ManagedTexture::reload()
 {
+	PROFILE_FUNC();
     // Reload from file path
     return load();
 }
