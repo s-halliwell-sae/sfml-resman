@@ -146,7 +146,9 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
     // Iterate through the list
     for (ResourceDataList::iterator var = list.begin(); var != list.end(); ++var)
     {
-        auto resIt = resources.find(var->alias);
+		PROFILE_BEGIN(findResource);
+		auto resIt = resources.find(var->alias);
+		PROFILE_END(findResource);
         ResourcePtr res = nullptr;
 
         // Checking if resource exists in resources
@@ -159,7 +161,9 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
         else
         {
             // If it doesn't already exist
+			PROFILE_BEGIN(createRes);
             res = ResourceFactory::createResource(var->path, var->type);
+			PROFILE_END(createRes);
 
             // Make sure resource is valid
             if(!res)

@@ -1,0 +1,52 @@
+Font created
+createErrorResource override failed on wrongErrorFontResource.ttf
+Because error resources are fallbacks, this is treated as a critical failure
+Texture created
+Texture loaded wrongErrorTextureResource.png
+createErrorResource override failed on wrongErrorTextureResource.png
+Because error resources are fallbacks, this is treated as a critical failure
+Sound created
+Sound loaded wrongErrorSoundResource.wav
+createErrorResource override failed on wrongErrorSoundResource.wav
+Because error resources are fallbacks, this is treated as a critical failure
+Font loaded error_resources/free3of9.ttf
+createErrorResource succeeded, error_resources/free3of9.ttf
+Texture loaded error_resources/ResMan_DefaultError_Texture_1.png
+createErrorResource succeeded, error_resources/ResMan_DefaultError_Texture_1.png
+Sound loaded error_resources/ResMan_DefaultError_Audio_1.wav
+createErrorResource succeeded, error_resources/ResMan_DefaultError_Audio_1.wav
+Texture created
+Texture loaded resources/textureTest.png
+Sound created
+Sound loaded resources/soundTest.wav
+Font created
+Font loaded resources/fontTest.ttf
+Reloading Resource: textureTest
+Texture loaded resources/textureTest.png
+Reloading Resource: soundTest
+Sound loaded resources/soundTest.wav
+Reloading Resource: fontTest
+Font loaded resources/fontTest.ttf
+Unloading Resource: textureTest
+Unloading Resource: soundTest
+Unloading Resource: fontTest
+Resource pack parsing failed for itsgonenow.lua
+cannot open itsgonenow.lua: No such file or directory
+Texture loaded resources/textureTest.png
+Sound loaded resources/soundTest.wav
+Font loaded resources/fontTest.ttf
+Texture loaded resources/textureTest.png
+Sound loaded resources/soundTest.wav
+Font loaded resources/fontTest.ttf
+Texture created
+Texture loaded resources/textureTest2.png
+Sound created
+Sound loaded resources/soundTest2.wav
+Font created
+Font loaded resources/fontTest2.ttf
+Unloading Resource: textureTest2
+Unloading Resource: soundTest2
+Unloading Resource: fontTest2
+----------------------------------------
+-             BUILD SUCCESS            -
+----------------------------------------

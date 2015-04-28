@@ -6,6 +6,16 @@
 #include <ResourceManager/Logger.hpp>
 #include <ResourceManager/ResourceManager.hpp>
 #include <ResourceManager/BaseResource.hpp>
+#include <algorithm>
+
+void OnTestEnd()
+{
+	PROFILER_UPDATE(); // update all profiles
+	PROFILER_OUTPUT(); // print to cout
+	
+	system("pause");
+
+}
 
 void OnTestFailure(std::string currentTest, std::string& e)
 {
@@ -17,6 +27,7 @@ void OnTestFailure(std::string currentTest, std::string& e)
 	rm::Logger::logMessage(e);
 
 	rm::Logger::logMessage("----------------------------------------");
+	OnTestEnd();
 }
 
 void OnTestFailure(std::string currentTest, const char* e)
@@ -223,6 +234,8 @@ void _PackLoadRelease(std::string& currentTest)
 		rm::Logger::logMessage("----------------------------------------");
 		rm::Logger::logMessage("-             BUILD SUCCESS            -");
 		rm::Logger::logMessage("----------------------------------------");
+
+		OnTestEnd();
 	}
 	catch (std::string e)
 	{
@@ -264,11 +277,8 @@ void run()
 
 int main()
 {
-	run();
 	std::ofstream file("profile.txt");
-
-	PROFILER_UPDATE(); // update all profiles
-	PROFILER_OUTPUT(); // print to cout
+	run();
 
 	return 0;
 }

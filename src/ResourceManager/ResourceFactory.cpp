@@ -26,6 +26,8 @@
 
 #include <ResourceManager/ResourceFactory.hpp>
 #include <ResourceManager/Logger.hpp>
+#include "Shiny.h"
+
 namespace rm
 {
     ////////////////////////////////////////////////////////////
@@ -40,7 +42,9 @@ namespace rm
 
     ResourcePtr ResourceFactory::createResource(const std::string& path, const std::string& type)
     {
-        auto rs = creators.find(type);
+		PROFILE_BEGIN(lookup);
+		auto rs = creators.find(type);
+		PROFILE_END(lookup);
 
         // Has ResourceFactory been set up to handle type
         if (rs == creators.end())
@@ -50,7 +54,9 @@ namespace rm
         }
 
         // Create a new resource
+		PROFILE_BEGIN(createCall);
         ResourcePtr resource = rs->second->create();
+		PROFILE_END(createCall);
 
         // If resource is nullptr, allocation probably failed
         if(!resource)
