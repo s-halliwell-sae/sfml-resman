@@ -29,11 +29,24 @@ Integration & Building (Visual Studio)
 
 How to use it
 ----
-
+1. Initialize resource manager
+<pre>rm::ResourceManager::init(false);</pre>
+2. Setup logger output file path.
+<pre>rm::Logger::setFileLocation("tests.txt");</pre>
+3. Either using the included managed types that use SFML, or implementing your own resource that extend BaseResource, add the desired resource types to the resource manager. 
+<pre>rm::ResourceManager::addResourceType<rm::ManagedTexture>();
+rm::ResourceManager::addResourceType<rm::ManagedSound>();
+rm::ResourceManager::addResourceType<rm::ManagedFont>();</pre>
+4. Create error resources for desired managed resources. 
+<pre>rm::ResourceManager::createErrorResource<rm::ManagedFont>("wrongFont.ttf");</pre>
+5. Load resource pack containing LUA script consisting of resource information. In either Block or Queue format. 
+<pre>rm::ResourceManager::loadPack("resourcepacks/sfmltestpack.lua", rm::LoadMode::Block);</pre>
+6. Get resource with following code using resource alias.
+<pre>rm::ResourceManager::getResource<rm::ManagedSound>("Jump");</pre>
 
 What it can do
 ----
--> Resman can manage any type of resource that can implement a load and unload function.
--> Resources can be queued and block loaded. 
--> Resources are loaded through packs in LAU script format. 
--> Packs can be switched, unloading resources that are no longer needed and loading resources that are now required.
+Resman can manage any type of resource that can implement a load and unload function.<br>
+Resources can be queued and block loaded. <br>
+Resources are loaded through packs in LAU script format. <br>
+Packs can be switched, unloading resources that are no longer needed and loading resources that are now required.
