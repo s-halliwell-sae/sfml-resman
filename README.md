@@ -33,3 +33,7 @@ How to use it
 
 What it can do
 ----
+-> Resman can manage any type of resource that can implement a load and unload function.
+-> Resources can be queued and block loaded. 
+-> Resources are loaded through packs in LAU script format. 
+-> Packs can be switched, unloading resources that are no longer needed and loading resources that are now required.
