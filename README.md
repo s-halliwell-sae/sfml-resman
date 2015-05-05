@@ -26,3 +26,10 @@ Integration & Building (Visual Studio)
 4. Add the source (/src) and header (/include) files from the cloned repository to your project.
 5. If not already, link the SFML and LUA .dll and .lib files in your project settings.
 6. Make sure all dependency .dll files have been copied into the output directory.
+
+How to use it
+----
+
+
+What it can do
+----
