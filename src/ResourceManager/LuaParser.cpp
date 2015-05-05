@@ -25,6 +25,7 @@
 ////////////////////////////////////////////////////////////
 
 #include <ResourceManager/LuaParser.hpp>
+//#include "Shiny.h"
 
 namespace rm
 {
@@ -68,7 +69,8 @@ static std::string stringify(lua_State* L, int index)
 ////////////////////////////////////////////////////////////
 ResourceDataList LuaParser::parsePack(const std::string& path)
 {
-    // Create a resource data list to hold the data of every resource in every resource pack
+	//PROFILE_FUNC();
+	// Create a resource data list to hold the data of every resource in every resource pack
     ResourceDataList resourceDataList;
 
     // Create a string vector to hold the path of every resource pack to be parsed
@@ -112,7 +114,8 @@ ResourceDataList LuaParser::parsePack(const std::string& path)
 ////////////////////////////////////////////////////////////
 ResourceDataList LuaParser::leafPack(const std::string& path)
 {
-    // Create a resource data list to hold the data of each resource
+	//PROFILE_FUNC();
+	// Create a resource data list to hold the data of each resource
     ResourceDataList resourceDataList;
 
     // Flag for if errors occured during parsing of leaves

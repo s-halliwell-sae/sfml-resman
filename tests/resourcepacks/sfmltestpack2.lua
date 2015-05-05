@@ -13,5 +13,10 @@ return {
 		type = "font",
 		alias = "fontTest2",
 		path = "resources/fontTest2.ttf"
+	},
+	{
+		type = "font",
+		alias = "fontTest3",
+		path = "resources/fontTest3.ttf"
 	}
 }

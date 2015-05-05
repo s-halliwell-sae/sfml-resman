@@ -93,6 +93,7 @@ std::shared_ptr<T> ResourceManager::loadResource(const std::string& name, LoadMo
 template<class T>
 std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
 {
+	//PROFILE_FUNC();
     ResourcePtr res = nullptr;
 
     //Check if exists in resource map
@@ -130,7 +131,7 @@ void ResourceManager::createErrorResource(const std::string& path)
         if(!res)
         {
             Logger::logMessage("Failed to create error resource for type ", T::getResourceClassType());
-            throw("Error resource stub creation failed.");
+            throw std::string("Error resource stub creation failed.");
         }
 
         // and add it to the error resource lookup
@@ -154,8 +155,12 @@ void ResourceManager::createErrorResource(const std::string& path)
     {
         Logger::logMessage("createErrorResource override failed on ", path);
         Logger::logMessage("Because error resources are fallbacks, this is treated as a critical failure");
-        throw("Error resource loading failed");
+        throw std::string("Error resource loading failed");
     }
+	else
+	{
+		Logger::logMessage("createErrorResource succeeded, ", path);
+	}
 
     // If we're here then all went well
     // It is most certainly loaded

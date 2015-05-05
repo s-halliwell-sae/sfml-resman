@@ -1,4 +1,4 @@
-#include "Shiny.h"
+//#include "Shiny.h"
 #include <fstream>
 #include <ResourceManager/SFML/ManagedTexture.hpp>
 #include <ResourceManager/SFML/ManagedSound.hpp>
@@ -6,6 +6,16 @@
 #include <ResourceManager/Logger.hpp>
 #include <ResourceManager/ResourceManager.hpp>
 #include <ResourceManager/BaseResource.hpp>
+#include <algorithm>
+
+void OnTestEnd()
+{
+	//PROFILER_UPDATE(); // update all profiles
+	//PROFILER_OUTPUT(); // print to cout
+	
+	system("pause");
+
+}
 
 void OnTestFailure(std::string currentTest, std::string& e)
 {
@@ -17,6 +27,7 @@ void OnTestFailure(std::string currentTest, std::string& e)
 	rm::Logger::logMessage(e);
 
 	rm::Logger::logMessage("----------------------------------------");
+	OnTestEnd();
 }
 
 void OnTestFailure(std::string currentTest, const char* e)
@@ -88,7 +99,28 @@ void _Pack(std::string& currentTest)
 		//Unit Test C: Unload Pack
 		currentTest = "Unload Pack";
 		rm::ResourceManager::unloadPack("resourcepacks/sfmltestpack.lua", rm::LoadMode::Block);
-		//UNIT TEST D: Load non-existing pack
+		//UNIT TEST D: Switch pack
+		//currentTest = "Switch Pack with good data";
+		//rm::ResourceManager::loadPack("resourcepacks/sfmltestpack.lua", rm::LoadMode::Block);
+		//rm::ResourceManager::switchPack("resourcepacks/sfmltestpack.lua", "resourcepacks/sfmltestpack2.lua");
+
+		//if (rm::ResourceManager::getResource<rm::ManagedFont>("fontTest3")->getFont() == rm::ResourceManager::getErrorResource<rm::ManagedFont>()->getFont())
+		//	throw(std::string("Switch pack did not keep existing font."));
+
+		//auto res = rm::ResourceManager::getResource<rm::ManagedFont>("fontTest")->getFont();
+		//if (res != rm::ResourceManager::getErrorResource<rm::ManagedFont>()->getFont())
+		//	throw(std::string("Switch pack did not unload resource."));
+
+		//if (rm::ResourceManager::getResource<rm::ManagedFont>("fontTest2")->getFont() == rm::ResourceManager::getErrorResource<rm::ManagedFont>()->getFont())
+		//	throw(std::string("Switch pack did not load new resource."));
+
+		//UNIT TEST E: Switch pack with false data
+		//currentTest = "Switch Pack with false data";
+		//rm::ResourceManager::switchPack("resourcepacks/sfmltestpack2.lua", "obviouslyWrong.lua");
+
+
+
+		//UNIT TEST F: Load non-existing pack
 		currentTest = "Load Missing Pack";
 		rm::ResourceManager::loadPack("itsgonenow.lua", rm::LoadMode::Block);
 	}
@@ -112,7 +144,7 @@ void _Resources(std::string& currentTest)
 		auto managedTexture = rm::ResourceManager::getResource<rm::ManagedTexture>("textureTest");
 		if (managedTexture->getAlias() != "textureTest" || managedTexture->getTexture() == nullptr)
 		{
-			throw("Texture resource did not load!");
+			throw(std::string("Texture resource did not load!"));
 		}
 
 			//Sound
@@ -120,7 +152,7 @@ void _Resources(std::string& currentTest)
 		auto managedSound = rm::ResourceManager::getResource<rm::ManagedSound>("soundTest");
 		if (managedSound->getAlias() != "soundTest" || managedSound->getSoundBuffer() == nullptr)
 		{
-			throw("Sound Resource did not load!");
+			throw(std::string("Sound Resource did not load!"));
 		}
 
 			//Font
@@ -128,7 +160,7 @@ void _Resources(std::string& currentTest)
 		auto managedFont = rm::ResourceManager::getResource<rm::ManagedFont>("fontTest");
 		if (managedFont->getAlias() != "fontTest" || managedFont->getFont() == nullptr)
 		{
-			throw("Font Resource did not load!");
+			throw(std::string("Font Resource did not load!"));
 		}
 
 		//UNIT TEST B: Load non-existing resource
@@ -137,7 +169,7 @@ void _Resources(std::string& currentTest)
 		auto missingFont = rm::ResourceManager::getResource<rm::ManagedFont>("somethingsmissing.ttf");
 		if (missingFont->getFont() != rm::ResourceManager::getErrorResource<rm::ManagedFont>()->getFont())
 		{
-			throw("Non-existing font does not match error resource");
+			throw(std::string("Non-existing font does not match error resource"));
 		}
 
 			//Texture
@@ -145,7 +177,7 @@ void _Resources(std::string& currentTest)
 		auto missingTexture = rm::ResourceManager::getResource<rm::ManagedTexture>("somethingsmissing.png");
 		if (missingTexture->getTexture() != rm::ResourceManager::getErrorResource<rm::ManagedTexture>()->getTexture())
 		{
-			throw("Non-existing texture does not match error resource");
+			throw(std::string("Non-existing texture does not match error resource"));
 		}
 
 			//Sound
@@ -153,7 +185,7 @@ void _Resources(std::string& currentTest)
 		auto missingSound = rm::ResourceManager::getResource<rm::ManagedSound>("somethingsmissing.wav");
 		if (missingSound->getSoundBuffer() != rm::ResourceManager::getErrorResource<rm::ManagedSound>()->getSoundBuffer())
 		{
-			throw("Non-existing sound does not match error resource");
+			throw(std::string("Non-existing sound does not match error resource"));
 		}
 
 		//UNIT TEST C: Reload Resources
@@ -171,11 +203,24 @@ void _Resources(std::string& currentTest)
 		//Unit Test E: Cleanup Resources
 		currentTest = "Cleanup Resources";
 		rm::ResourceManager::cleanupUnused();
+
+	//PROFILE_FUNC();
+	//Unit Test F: List of Loaded Resources
+	rm::ResourceList resList = rm::ResourceManager::listAll();
+
+	//PROFILE_BEGIN(loadedResources);
+	if (resList.size() == 0)
+	{
+		throw(std::string("No resources loaded, list is empty"));
 	}
+	//PROFILE_END(loadedResources);
+	}
+
 	catch (std::string e)
 	{
-		OnTestFailure(currentTest,e);
+		OnTestFailure(currentTest, e);
 	}
+
 }
 
 void _PackLoadRelease(std::string& currentTest)
@@ -223,6 +268,8 @@ void _PackLoadRelease(std::string& currentTest)
 		rm::Logger::logMessage("----------------------------------------");
 		rm::Logger::logMessage("-             BUILD SUCCESS            -");
 		rm::Logger::logMessage("----------------------------------------");
+
+		OnTestEnd();
 	}
 	catch (std::string e)
 	{
@@ -264,11 +311,8 @@ void run()
 
 int main()
 {
-	run();
 	std::ofstream file("profile.txt");
-
-	PROFILER_UPDATE(); // update all profiles
-	PROFILER_OUTPUT(); // print to cout
+	run();
 
 	return 0;
 }

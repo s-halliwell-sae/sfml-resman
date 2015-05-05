@@ -31,7 +31,6 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 
 #include <ResourceManager/BaseResource.hpp>
@@ -93,11 +92,6 @@ namespace rm
         static std::string getResourceClassType();
         
         ////////////////////////////////////////////////////////////
-        /// \brief Returns a pointer to the actual Sound resource
-        ////////////////////////////////////////////////////////////
-        sf::Sound* getSound();
-        
-        ////////////////////////////////////////////////////////////
         /// \brief Returns a pointer to the SoundBuffer 
         ////////////////////////////////////////////////////////////
         sf::SoundBuffer* getSoundBuffer();
@@ -108,7 +102,6 @@ namespace rm
         /// Member data
         ////////////////////////////////////////////////////////////
         sf::SoundBuffer* m_soundBuffer;    ///< Reference to the sound resource
-        sf::Sound* m_sound;
     };
 
 } // namespace rm

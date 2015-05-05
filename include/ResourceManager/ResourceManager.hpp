@@ -40,6 +40,7 @@
 #include <map>
 #include <list>
 #include <queue>
+#include <cassert>
 
 namespace rm 
 {

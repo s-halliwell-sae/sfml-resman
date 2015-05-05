@@ -29,7 +29,7 @@
 #include <ResourceManager/LuaParser.hpp>
 #include <string>
 #include <vector>
-#include "Shiny.h"
+//#include "Shiny.h"
 
 namespace rm
 {
@@ -53,7 +53,7 @@ LoadCompleteCallback ResourceManager::loadCompleteCallback = nullptr;
 
 void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
     auto resIt = resources.find(name);
 
     // Checking if resource exists in resources
@@ -84,7 +84,7 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
 
 void ResourceManager::reloadResource(const std::string& name, LoadMode mode)
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
     auto resIt = resources.find(name);
     ResourcePtr res = nullptr;
 
@@ -109,14 +109,15 @@ void ResourceManager::reloadResource(const std::string& name, LoadMode mode)
 
 void ResourceManager::initPack(const std::string& path)
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
     //Get a list of data from the resource pack lua table
     ResourceDataList list = LuaParser::parsePack(path);
     
     //iterate through the list and create a new resource if one does not already exist.	
     for(ResourceDataList::iterator iter = list.begin(); iter != list.end(); iter++)
     {
-        // If doesn't already exist
+        
+		// If doesn't already exist
         if(resources.find(iter->alias) == resources.end())
         {
             // Create a new stub
@@ -139,14 +140,16 @@ void ResourceManager::initPack(const std::string& path)
 
 void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
     // Iterate through the list
     for (ResourceDataList::iterator var = list.begin(); var != list.end(); ++var)
     {
-        auto resIt = resources.find(var->alias);
+		//PROFILE_BEGIN(findResource);
+		auto resIt = resources.find(var->alias);
+		//PROFILE_END(findResource);
         ResourcePtr res = nullptr;
 
         // Checking if resource exists in resources
@@ -159,7 +162,9 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
         else
         {
             // If it doesn't already exist
+			//PROFILE_BEGIN(createRes);
             res = ResourceFactory::createResource(var->path, var->type);
+			//PROFILE_END(createRes);
 
             // Make sure resource is valid
             if(!res)
@@ -181,7 +186,7 @@ void ResourceManager::loadPack(const std::string& path, LoadMode mode)
 
 void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
@@ -223,7 +228,7 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
 
 void ResourceManager::reloadPack(const std::string& path, LoadMode mode)
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
     // Create a list from the parsePack
     ResourceDataList list = LuaParser::parsePack(path);
 
@@ -297,7 +302,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
     // Load the future pack
     for (ResourceDataList::iterator var = tolist.begin(); var != tolist.end(); ++var)
     {
-        auto resIt = resources.find(var->alias);
+		auto resIt = resources.find(var->alias);
 
         // Checking if resource exists in resources
         if (resIt != resources.end())
@@ -362,7 +367,7 @@ void ResourceManager::update()
 
 void ResourceManager::cleanupUnused()
 {
-	PROFILE_FUNC();
+	//PROFILE_FUNC();
 	// run for each resource in list
     for(auto& r : resources)
     {    
