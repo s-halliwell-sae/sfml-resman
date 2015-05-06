@@ -40,7 +40,9 @@ rm::ResourceManager::addResourceType<rm::ManagedSound>();
 rm::ResourceManager::addResourceType<rm::ManagedFont>();</pre>
 (b) Implement your own resource that extends BaseResource.<br>
     Extending the three virtual functions:
-<pre></pre>
+<pre>virtual bool load();
+virtual bool unload();
+virtual bool reload();</pre>
 4. Create error resources for desired managed resources. 
 <pre>rm::ResourceManager::createErrorResource<rm::ManagedFont>("wrongFont.ttf");</pre>
 5. Load resource pack containing LUA script consisting of resource information. In either Block or Queue format. 
