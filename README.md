@@ -39,7 +39,7 @@ How to use it
 rm::ResourceManager::addResourceType<rm::ManagedSound>();
 rm::ResourceManager::addResourceType<rm::ManagedFont>();</pre>
 (b) Implement your own resource that extends BaseResource.<br>
-    Extending the three virtual functions:
+    Extending these three virtual functions:
 <pre>virtual bool load();
 virtual bool unload();
 virtual bool reload();</pre>
