@@ -49,6 +49,8 @@ virtual bool reload();</pre>
 <pre>rm::ResourceManager::loadPack("resourcepacks/sfmltestpack.lua", rm::LoadMode::Block);</pre>
 6. Get resource with following code using resource alias.
 <pre>rm::ResourceManager::getResource<rm::ManagedSound>("Jump");</pre>
+7. When finished with pack resources. You can unload the pack like so:
+<pre>rm::ResourceManager::unloadPack("resourcepacks/sfmltestpack.lua");</pre>
 
 What it can do
 ----
