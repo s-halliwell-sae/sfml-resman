@@ -35,20 +35,20 @@ How to use it
 <pre>rm::Logger::setFileLocation("tests.txt");</pre>
 3. You can either (a)use the included managed types that use SFML, or (b)implementing your own resource that extend BaseResource, add the desired resource types to the resource manager. <br>
 (a) Included managed texture example.
-<pre>rm::ResourceManager::addResourceType<rm::ManagedTexture>();
-rm::ResourceManager::addResourceType<rm::ManagedSound>();
-rm::ResourceManager::addResourceType<rm::ManagedFont>();</pre>
+<pre>rm::ResourceManager::addResourceType&lt;rm::ManagedTexture&gt;();
+rm::ResourceManager::addResourceType&lt;rm::ManagedSound&gt;();
+rm::ResourceManager::addResourceType&lt;rm::ManagedFont&gt;();</pre>
 (b) Implement your own resource that extends BaseResource.<br>
     Extending these three virtual functions:
 <pre>virtual bool load();
 virtual bool unload();
 virtual bool reload();</pre>
 4. Create error resources for desired managed resources. 
-<pre>rm::ResourceManager::createErrorResource<rm::ManagedFont>("wrongFont.ttf");</pre>
+<pre>rm::ResourceManager::createErrorResource&lt;rm::ManagedFont&gt;("wrongFont.ttf");</pre>
 5. Load resource pack containing LUA script consisting of resource information. In either Block or Queue format. 
 <pre>rm::ResourceManager::loadPack("resourcepacks/sfmltestpack.lua", rm::LoadMode::Block);</pre>
 6. Get resource with following code using resource alias.
-<pre>rm::ResourceManager::getResource<rm::ManagedSound>("Jump");</pre>
+<pre>rm::ResourceManager::getResource&lt;rm::ManagedSound&gt;("Jump");</pre>
 7. When finished with pack resources. You can unload the pack like so:
 <pre>rm::ResourceManager::unloadPack("resourcepacks/sfmltestpack.lua");</pre>
 
@@ -56,5 +56,5 @@ What it can do
 ----
 Resman can manage any type of resource that can implement a load and unload function.<br>
 Resources can be queued and block loaded. <br>
-Resources are loaded through packs in LAU script format. <br>
+Resources are loaded through packs in LUA script format. <br>
 Packs can be switched, unloading resources that are no longer needed and loading resources that are now required.
