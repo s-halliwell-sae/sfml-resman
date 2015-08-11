@@ -28,72 +28,70 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager/SFML/ManagedFont.hpp>
+#include <ManagedSound.hpp>
 
 namespace rm
 {
+
 ////////////////////////////////////////////////////////////
-ManagedFont::ManagedFont() :
-m_font (new sf::Font())
+ManagedSound::ManagedSound() :
+m_soundBuffer(nullptr)
+//	STEVE, crashed until i changed this.
 {
-	rm::Logger::logMessage("Font created");
+	rm::Logger::logMessage("Sound created");
 }
 
 ////////////////////////////////////////////////////////////
-ManagedFont::~ManagedFont()
+ManagedSound::~ManagedSound()
 {
     unload();
 }
 
 ////////////////////////////////////////////////////////////
-bool ManagedFont::load()
+bool ManagedSound::load()
 {
-    // Make sure a sf::Font has actually been created
-    if(!m_font) 
+    // Make sure a sf::SoundBuffer has actually been created
+    if(!m_soundBuffer) 
     {
-        m_font = new sf::Font();
+        m_soundBuffer = new sf::SoundBuffer();
     }
 
-	//Attempt to load from file and return success or failure
-    bool retVal =  m_font->loadFromFile(getFilePath());
+	rm::Logger::logMessage("Sound loaded ", getFilePath());
 
-	if (retVal)
-	{
-		rm::Logger::logMessage("Font loaded ", getFilePath());
-	}
-
-	return retVal;
+    //Attempt to load from file and return success or failure
+    bool success = m_soundBuffer->loadFromFile(getFilePath());
+    return success;
 }
 
 ////////////////////////////////////////////////////////////
-bool ManagedFont::unload()
+bool ManagedSound::unload()
 {
-    // Release m_font resource and null ptr
-    if(isLoaded())
-    {
-        delete m_font;
-        m_font = nullptr;
-     }
-     return true;
+    // Release m_sound resource and null ptr
+    if (isLoaded())
+	{
+        delete m_soundBuffer;
+        m_soundBuffer = nullptr;
+    }
+    return true;
 }
 
 ////////////////////////////////////////////////////////////
-bool ManagedFont::reload()
+bool ManagedSound::reload()
 {
     // Reload from file path
     return load();
 }
 
 ////////////////////////////////////////////////////////////
-std::string ManagedFont::getResourceClassType()
+std::string ManagedSound::getResourceClassType()
 {
-    return "font";
+    return "sound";
 }
 
 ////////////////////////////////////////////////////////////
-sf::Font* ManagedFont::getFont()
+sf::SoundBuffer* ManagedSound::getSoundBuffer()
 {
-    return m_font;
+    return m_soundBuffer;
 }
 
 } // namespace rm

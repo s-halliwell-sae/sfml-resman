@@ -28,7 +28,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <ResourceManager/SFML/ManagedTexture.hpp>
+#include <ManagedTexture.hpp>
 
 namespace rm
 {
