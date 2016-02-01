@@ -66,6 +66,12 @@ class ResourceFactory
     ///
     ////////////////////////////////////////////////////////////
     static ResourcePtr createResource(const std::string& path, const std::string& type);
+
+	template<typename T>
+	static ResourcePtr createResource(const std::string& path)
+	{
+		return createResource(path, T::getResourceClassType());
+	}
 	
 	////////////////////////////////////////////////////////////
     /// \brief Creates a new ResouceCreatorInterface based on the passed

@@ -66,13 +66,10 @@ void ResourceManager::unloadResource(const std::string& name, LoadMode mode)
        if(mode == LoadMode::Block)
        {
            // Log what resources were unloaded
-           Logger::logMessage("Unloading Resource: ", name);
-
-           // Change the status of the BaseResource 
-           pointer->setIsLoaded(false);
+		   Logger::logMessage("Unloading Resource: ", name);
 
            // Unload the BaseResource
-           pointer->unload();
+           pointer->Unload();
        }
        else
        {
@@ -210,11 +207,8 @@ void ResourceManager::unloadPack(const std::string& path, LoadMode mode)
                     // Log what resources were unloaded
                     Logger::logMessage("Unloading Resource: ", var->alias);
 
-                    // Change the status of the BaseResource 
-                    res->setIsLoaded(false);
-
                     // Unload the BaseResource
-                    res->unload();
+                    res->Unload();
                 }
                 else
                 {
@@ -269,15 +263,9 @@ void ResourceManager::reloadPack(const std::string& path, LoadMode mode)
             Logger::logMessage("Reloading Resource: ", var->alias);
 
             // Reload the BaseResource
-            if(!res->reload())
+            if(!res->Reload())
             {
                 Logger::logMessage("Reloading Resource ", var->alias, " failed");
-                res->setIsLoaded(false);
-            }
-            else
-            {
-                // Change the status of the BaseResource 
-                res->setIsLoaded(true);
             }
         }
         else
@@ -313,8 +301,6 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
             // Checking if the resource is not loaded
             if (pointer->isLoaded() == false)
             {
-                // Change the status of the BaseResource 
-                pointer->setIsLoaded(true);
                 // Send to unloadQueue list
                 loadingQueue.push(pointer);
             }
@@ -376,12 +362,9 @@ void ResourceManager::cleanupUnused()
         {          
             // Log what resources were unloaded
             Logger::logMessage("Unloading Unused Resource: ", r.first);
-            
-            // Change resource status to false
-            r.second->setIsLoaded(false);
 
             // unload resource
-            r.second->unload();
+            r.second->Unload();
         }
     }
 }
@@ -470,12 +453,7 @@ void ResourceManager::unloadFromQueue()
         else
         {
             // Load the first resource and check if any errors
-            if (frontRes->unload())
-            {
-                // Set resource to is unloaded
-                frontRes->setIsLoaded(false);
-            }
-            else
+            if (!frontRes->Unload())
             {
                 // Log Error 
                 Logger::logMessage("Unload Resource Failed: ", frontRes->getAlias());
@@ -497,7 +475,7 @@ void ResourceManager::reloadFromQueue()
         auto frontRes = reloadQueue.front();
 
         // Load the first resource and check if any errors
-        if (!frontRes->reload())
+        if (!frontRes->Reload())
         {
             // Log Error
             Logger::logMessage("Reload Resource Failed: ", frontRes->getAlias());
@@ -519,12 +497,7 @@ bool ResourceManager::loadFromResourcePtr(ResourcePtr resource, LoadMode loadMod
     if(loadMode == LoadMode::Block)
     {
         // Try to load
-        if (resource->load())
-        {
-            // Update resource's loaded state
-            resource->setIsLoaded(true);
-        }
-        else
+        if (!resource->Load())
         {
             // Log Error 
             Logger::logMessage("Resource load failed: ", resource->getAlias());

@@ -45,6 +45,9 @@ namespace rm
     /// functions that require a specific body of code for each
     /// resource type.
     ///
+	///	BaseResources require a static std::string getResourceClassType 
+	///	function so they can be bound to the resource creator method 
+	///	in the factory
     ///////////////////////////////////////////////////////////
     class BaseResource;
     class ResourceFactory;
@@ -53,63 +56,58 @@ namespace rm
     
     class BaseResource
 	{
-        friend ResourceFactory;
+        //friend ResourceFactory;
     public:
         BaseResource();
         virtual ~BaseResource();
 
-        ///////////////////////////////////////////////////////////
-        /// \brief Loads the resource from the file path
-        ///
-        /// \returns Whether or not the resource loaded successfully
-        ///
-        /// pure virtual function that has a specific load
-        /// function body for each resource type.
-        ///
-        ///////////////////////////////////////////////////////////
-        virtual bool load() = 0;
+		///////////////////////////////////////////////////////////
+		/// \brief If not internally already loaded will call virtual
+		///
+		///////////////////////////////////////////////////////////
+		bool Load()
+		{
+			if (!isResourceLoaded)
+			{
+				isResourceLoaded = load();
+			}
+			return isResourceLoaded;
+		}
 
-        ///////////////////////////////////////////////////////////
-        /// \brief unloads the resource
-        ///
-        /// \returns Whether or not the resource unloaded 
-        ///     successfully
-        ///
-        /// a pure virtual function that has a specific unload
-        /// function body for each resource type.
-        ///
-        ///////////////////////////////////////////////////////////
-        virtual bool unload() = 0;
+		///////////////////////////////////////////////////////////
+		/// \brief If internally loaded will call virtual unload
+		///
+		///////////////////////////////////////////////////////////
+		bool Unload()
+		{
+			if (isResourceLoaded)
+			{
+				isResourceLoaded = unload() ? false : true;
+			}
+			return isResourceLoaded;
+		}
 
-        ///////////////////////////////////////////////////////////
-        /// \brief Reloads the resource from the file path
-        ///
-        /// \returns Whether or not the resource reloaded 
-        ///     successfully
-        ///
-        /// a pure virtual function that has a specific reload 
-        /// function body for each resource type.
-        ///
-        ///////////////////////////////////////////////////////////
-        virtual bool reload() = 0;
+		///////////////////////////////////////////////////////////
+		/// \brief Unload and load a resource
+		///
+		///////////////////////////////////////////////////////////
+		bool Reload()
+		{
+			Unload();
+			return Load();
+		}
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the alias of type string
         ///
         ///////////////////////////////////////////////////////////
-        std::string getAlias() const;
-
-        ///////////////////////////////////////////////////////////
-        /// \brief Returns the resource type string
-        ///
-        ///////////////////////////////////////////////////////////
-        std::string getResourceType() const;
+		const std::string& getAlias() const { return alias; }
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns the file path string
         ///
         ///////////////////////////////////////////////////////////
-        std::string getFilePath() const;
+		const std::string& getFilePath() const { return filePath; }
 
         ///////////////////////////////////////////////////////////
         /// \brief Returns true if resource is loaded
@@ -135,10 +133,35 @@ namespace rm
         /// \brief Sets the isLoaded member
         ///
         ///////////////////////////////////////////////////////////
-        void setIsLoaded(bool isLoaded);
+        void _setIsLoaded(bool isLoaded);
         
     protected:
-        std::string alias, type, filePath;
+
+		///////////////////////////////////////////////////////////
+		/// \brief Loads the resource from the file path
+		///
+		/// \returns Whether or not the resource loaded successfully
+		///
+		/// pure virtual function that has a specific load
+		/// function body for each resource type.
+		///
+		///////////////////////////////////////////////////////////
+		virtual bool load() = 0;
+
+		///////////////////////////////////////////////////////////
+		/// \brief unloads the resource
+		///
+		/// \returns Whether or not the resource unloaded 
+		///     successfully
+		///
+		/// a pure virtual function that has a specific unload
+		/// function body for each resource type.
+		///
+		///////////////////////////////////////////////////////////
+		virtual bool unload() = 0;
+
+
+        std::string alias, filePath;
         bool isResourceLoaded;
 	};
 }

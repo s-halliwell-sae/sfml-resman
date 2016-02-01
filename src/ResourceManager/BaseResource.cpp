@@ -44,20 +44,6 @@ BaseResource::~BaseResource()
 ////////////////////////////////////////////////////////////
 /// Getters
 ////////////////////////////////////////////////////////////
-std::string BaseResource::getAlias() const
-{
-    return alias;
-}
-
-std::string BaseResource::getResourceType() const
-{
-    return type;
-}
-
-std::string BaseResource::getFilePath() const
-{
-    return filePath;
-}
 
 bool BaseResource::isLoaded() const
 {
@@ -78,7 +64,7 @@ void BaseResource::setFilePath(const std::string& newFilePath)
     filePath = newFilePath;
 }
 
-void BaseResource::setIsLoaded(bool isLoaded)
+void BaseResource::_setIsLoaded(bool isLoaded)
 {
     isResourceLoaded = isLoaded;
 }
