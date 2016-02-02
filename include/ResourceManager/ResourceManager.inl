@@ -96,11 +96,13 @@ std::shared_ptr<T> ResourceManager::getResource(const std::string& name)
 	//PROFILE_FUNC();
     ResourcePtr res = nullptr;
 
+	auto loc = resources.find(name);
+
     //Check if exists in resource map
-    if (resources.find(name) != resources.end())
+    if (loc != resources.end())
     {
         // Set resource
-        res = resources[name];
+        res = loc->second;
     }
     else
     {
