@@ -1,7 +1,7 @@
 # Created by https://www.gitignore.io
 
 lua*/
-resourcepack1.lua
+resourcepack*.lua
 
 #!! ERROR: vi is undefined. Use list command to see defined gitignore types !!#
 

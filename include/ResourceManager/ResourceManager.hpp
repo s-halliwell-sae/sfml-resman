@@ -183,7 +183,7 @@ public:
     ///     resource just to load it again.
     ///
     ////////////////////////////////////////////////////////////
-    static void switchPack(const std::string& fromPath, const std::string& toPath);
+//    static void switchPack(const std::string& fromPath, const std::string& toPath);
 
     ////////////////////////////////////////////////////////////
     /// \brief Sets up the factory so that it can create instances

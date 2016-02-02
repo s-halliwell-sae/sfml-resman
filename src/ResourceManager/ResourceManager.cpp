@@ -275,7 +275,7 @@ void ResourceManager::reloadPack(const std::string& path, LoadMode mode)
         }
     }
 }
-
+/*
 void ResourceManager::switchPack(const std::string& fromPath, const std::string& toPath)
 {
     // Create a list from the parsePack for the current pack
@@ -333,7 +333,7 @@ void ResourceManager::switchPack(const std::string& fromPath, const std::string&
         }
     }
 }
-
+*/
 void ResourceManager::init(bool _useNullForErrorRes)
 {
 	useNullForErrorRes = _useNullForErrorRes;
